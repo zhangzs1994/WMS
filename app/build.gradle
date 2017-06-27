@@ -1,0 +1,49 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+        applicationId "com.ycsx.www.wms"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.zhy:base-adapter:2.0.0'
+    compile 'com.android.support:recyclerview-v7:25.1.1'
+    //recyclerView依赖包
+    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
+    //Retrofit2所需要的包
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+    //ConverterFactory的Gson依赖包
+    compile 'com.squareup.retrofit2:converter-scalars:2.0.0-beta4'
+    //ConverterFactory的String依赖包
+    compile 'com.jakewharton:butterknife:7.0.1'
+    //注解findViewByID的依赖包
+    compile 'io.reactivex:rxjava:1.1.6'
+    //Rxjava的依赖包
+    compile 'com.google.code.gson:gson:2.8.0'
+    //Gson解析的依赖包
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    //屏幕适配依赖包
+    compile 'com.zhy:autolayout:1.4.5'
+    //BadgeView的依赖包
+    compile files('libs/android-viewbadger.jar')
+    //自动滚动viewpager的依赖包
+    compile 'com.github.demoNo:AutoScrollViewPager:v1.0.2'
+    compile files('libs/hellocharts-library-1.5.8.jar')
+}

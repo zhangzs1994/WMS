@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:background="@drawable/top_bg"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:onClick="back"
+            android:layout_height="match_parent"
+            android:background="@drawable/back_btn_bg"/>
+
+        <TextView
+            android:layout_width="0px"
+            android:layout_weight="4"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="个人信息设置"
+            android:textColor="@color/colorWhite"
+            android:textSize="25sp" />
+
+        <ImageView
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/update_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="30px"
+        android:background="#35000000"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="600px"
+            android:layout_height="80px"
+            android:layout_marginTop="60px"
+            android:background="@drawable/update_frame"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20px"
+                android:gravity="center"
+                android:text="姓名："
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/userName"
+                android:layout_width="400px"
+                android:layout_height="match_parent"
+                android:textColor="@color/colorWhite"
+                android:background="@null" />
+
+            <ImageView
+                android:layout_width="35px"
+                android:layout_height="35px"
+                android:layout_marginLeft="10px"
+                android:background="@drawable/up_user" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="600px"
+            android:layout_height="80px"
+            android:layout_marginTop="30px"
+            android:background="@drawable/update_frame"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20px"
+                android:gravity="center"
+                android:text="年龄："
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/userAge"
+                android:layout_width="400px"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:textColor="@color/colorWhite"
+                android:inputType="number" />
+
+            <ImageView
+                android:layout_width="35px"
+                android:layout_height="35px"
+                android:layout_marginLeft="10px"
+                android:background="@drawable/up_user" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="600px"
+            android:layout_height="80px"
+            android:layout_marginTop="30px"
+            android:background="@drawable/update_frame"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20px"
+                android:gravity="center"
+                android:text="手机："
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/userPhone"
+                android:layout_width="400px"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:textColor="@color/colorWhite"
+                android:inputType="number" />
+
+            <ImageView
+                android:layout_width="35px"
+                android:layout_height="35px"
+                android:layout_marginLeft="10px"
+                android:background="@drawable/phone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="600px"
+            android:layout_height="80px"
+            android:layout_marginTop="30px"
+            android:background="@drawable/update_frame"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20px"
+                android:gravity="center"
+                android:text="邮箱："
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/userEmail"
+                android:layout_width="400px"
+                android:textColor="@color/colorWhite"
+                android:layout_height="match_parent"
+                android:background="@null" />
+
+            <ImageView
+                android:layout_width="35px"
+                android:layout_height="35px"
+                android:layout_marginLeft="10px"
+                android:background="@drawable/email" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="600px"
+            android:layout_height="80px"
+            android:layout_marginTop="30px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20px"
+                android:gravity="center"
+                android:text="性别："
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/userSex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@+id/sexBoy"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/sexBoy"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="男"
+                    android:textColor="@color/colorWhite" />
+
+                <RadioButton
+                    android:id="@+id/sexGirl"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="女"
+                    android:textColor="@color/colorWhite" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="600px"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50px"
+            android:background="@drawable/button_frame"
+            android:text="提交"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

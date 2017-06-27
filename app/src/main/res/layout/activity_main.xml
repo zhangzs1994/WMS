@@ -1,0 +1,44 @@
+<com.ycsx.www.wms.view.StickyNavLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <RelativeLayout
+        android:id="@id/topview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#4400ff00" >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="512px"
+            android:gravity="center"
+            android:text="广告图"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/centerView"
+        android:layout_width="match_parent"
+        android:layout_height="100px">
+        <GridView
+            android:id="@+id/gridView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </GridView>
+    </LinearLayout>
+
+    <com.ycsx.www.wms.view.SimpleViewPagerIndicator
+        android:id="@+id/indicator"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#ffffffff" >
+    </com.ycsx.www.wms.view.SimpleViewPagerIndicator>
+
+    <android.support.v4.view.ViewPager
+        android:id="@id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v4.view.ViewPager>
+
+</com.ycsx.www.wms.view.StickyNavLayout >

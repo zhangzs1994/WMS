@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150px"
+    android:background="#80000000"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_weight="1"
+        android:layout_height="match_parent">
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/shop_name"
+        android:layout_width="0px"
+        android:layout_weight="4"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/card_bg"
+        android:hint="请输入商品名"
+        android:textColorHint="@color/colorWhite"/>
+
+    <LinearLayout
+        android:id="@+id/layout_query"
+        android:layout_width="0px"
+        android:layout_weight="1.5"
+        android:layout_margin="20px"
+        android:layout_height="match_parent"
+        android:background="@drawable/card_bg"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="查询"
+            android:textSize="20sp"
+            android:textColor="@color/colorWhite"/>
+        </LinearLayout>
+</LinearLayout>

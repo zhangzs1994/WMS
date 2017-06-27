@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/outStock_query"
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:background="@drawable/top_bg"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/back_btn_bg"
+            android:onClick="back" />
+
+        <TextView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:text="出库记录查询"
+            android:textColor="@color/colorWhite"
+            android:textSize="25sp" />
+
+        <LinearLayout
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:gravity="center"
+            android:background="#50000000">
+
+            <ImageView
+                android:layout_width="80px"
+                android:layout_height="80px"
+                android:background="@drawable/query"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px"
+        android:layout_marginTop="30px"
+        android:background="#35000000"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:background="@drawable/card_bg"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.ycsx.www.wms.recycler.PullRecyclerView
+                android:id="@+id/pullRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:scrollbars="none">
+            </com.ycsx.www.wms.recycler.PullRecyclerView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

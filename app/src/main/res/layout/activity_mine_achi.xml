@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:background="@drawable/top_bg"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/back_btn_bg"
+            android:onClick="back" />
+
+        <TextView
+            android:id="@+id/achi_title"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:text="个人业绩"
+            android:textColor="@color/colorWhite"
+            android:textSize="25sp" />
+
+        <LinearLayout
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"></LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="30px"
+        android:background="#35000000"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/saleInfo"
+            android:layout_width="650px"
+            android:layout_height="100px"
+            android:layout_marginTop="30px"
+            android:background="@drawable/card_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_margin="15px"
+                android:layout_weight="0.6"
+                android:background="@drawable/shop_query" />
+
+            <TextView
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20px"
+                android:layout_weight="4"
+                android:gravity="center_vertical"
+                android:text="销售明细"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:layout_width="0px"
+                android:layout_height="50px"
+                android:layout_margin="20px"
+                android:layout_weight="0.3"
+                android:background="@drawable/mine_arrow" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:layout_marginTop="20px"
+                android:background="#20000000">
+
+                <TextView
+                    android:id="@+id/today"
+                    android:layout_width="0px"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="今日"
+                    android:textColor="#531a81"
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorWhite" />
+
+                <TextView
+                    android:id="@+id/yesterday"
+                    android:layout_width="0px"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="昨日"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <include layout="@layout/order_info"/>
+
+            <TextView
+                android:id="@+id/show_more"
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:gravity="center_horizontal"
+                android:text="查看更多数据信息..."
+                android:textColor="@color/login_btn"
+                android:textSize="25sp"></TextView>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

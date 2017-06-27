@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:background="@drawable/top_bg"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/back_btn_bg"
+            android:onClick="back" />
+
+        <TextView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:text="权限管理"
+            android:textColor="@color/colorWhite"
+            android:textSize="25sp" />
+
+        <LinearLayout
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:gravity="center">
+        </LinearLayout>
+    </LinearLayout>
+
+    <ExpandableListView
+        android:id="@+id/expandableListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50px"
+        android:layout_marginRight="50px"
+        android:layout_marginTop="50px"
+        android:cacheColorHint="#00000000"
+        android:divider="#ebebeb"
+        android:dividerHeight="1px"
+        android:footerDividersEnabled="false"
+        android:groupIndicator="@null" >
+    </ExpandableListView>
+
+</LinearLayout>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="201px"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/quit_user"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="60px"
+            android:layout_height="60px"
+            android:background="@drawable/major_home_red"/>
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_marginLeft="30px"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="退出当前账号"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/colorGray"/>
+
+    <LinearLayout
+        android:id="@+id/quit_all"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="60px"
+            android:layout_height="60px"
+            android:background="@drawable/major_mine_red"/>
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_marginLeft="30px"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="关闭程序"/>
+    </LinearLayout>
+
+</LinearLayout>

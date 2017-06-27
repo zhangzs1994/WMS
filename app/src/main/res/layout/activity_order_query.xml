@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:background="@drawable/top_bg"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/back_btn_bg"
+            android:onClick="back" />
+
+        <TextView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:text="订单查询"
+            android:textColor="@color/colorWhite"
+            android:textSize="25sp" />
+
+        <LinearLayout
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"></LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="30px"
+        android:background="#35000000"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="550px"
+            android:layout_height="80px"
+            android:layout_marginTop="20px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="订  单  号:"
+                android:textColor="@color/colorWhite" />
+
+            <LinearLayout
+                android:layout_width="400px"
+                android:layout_height="60px"
+                android:layout_marginLeft="20px"
+                android:gravity="center_vertical"
+                android:background="@drawable/card_bg">
+                <EditText
+                    android:id="@+id/order_id"
+                    android:layout_width="360px"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20px"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:textSize="15sp"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="550px"
+            android:layout_height="80px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开始日期:"
+                android:textColor="@color/colorWhite" />
+
+            <LinearLayout
+                android:id="@+id/start_dataSelect"
+                android:layout_width="400px"
+                android:layout_height="60px"
+                android:layout_marginLeft="20px"
+                android:background="@drawable/card_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/start_dataTime"
+                    android:layout_width="300px"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20px"
+                    android:gravity="center_vertical"
+                    android:hint="请选择开始日期"
+                    android:textSize="15sp"
+                    android:textColor="@color/colorWhite"
+                    android:textColorHint="@color/colorGray" />
+
+                <ImageView
+                    android:layout_width="40px"
+                    android:layout_height="40px"
+                    android:layout_marginLeft="10px"
+                    android:background="@drawable/cil" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="550px"
+            android:layout_height="80px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="结束日期:"
+                android:textColor="@color/colorWhite" />
+
+            <LinearLayout
+                android:id="@+id/end_dataSelect"
+                android:layout_width="400px"
+                android:layout_height="60px"
+                android:layout_marginLeft="20px"
+                android:background="@drawable/card_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/end_dataTime"
+                    android:layout_width="300px"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20px"
+                    android:gravity="center_vertical"
+                    android:hint="请选择结束日期"
+                    android:textSize="15sp"
+                    android:textColor="@color/colorWhite"
+                    android:textColorHint="@color/colorGray" />
+
+                <ImageView
+                    android:layout_width="40px"
+                    android:layout_height="40px"
+                    android:layout_marginLeft="10px"
+                    android:background="@drawable/cil" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="550px"
+            android:layout_height="80px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="状        态:"
+                android:textColor="@color/colorWhite" />
+
+            <LinearLayout
+                android:layout_width="400px"
+                android:layout_height="60px"
+                android:layout_marginLeft="20px"
+                android:background="@drawable/card_bg">
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/colorWhite"></Spinner>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="550px"
+            android:layout_height="80px"
+            android:gravity="center_vertical"
+            android:layout_marginTop="50px"
+            android:textSize="12sp"
+            android:textColor="@color/colorRed"
+            android:text="提示：如果订单号、日期都为空，则默认查询所有订单信息！" />
+
+        <Button
+            android:id="@+id/query"
+            android:layout_width="600px"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50px"
+            android:background="@drawable/button_frame"
+            android:text="查询"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
+    </LinearLayout>
+</LinearLayout>

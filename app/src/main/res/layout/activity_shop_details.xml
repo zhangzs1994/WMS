@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:background="@drawable/top_bg"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/back_btn_bg"
+            android:onClick="back" />
+
+        <TextView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:text="商品详情"
+            android:textColor="@color/colorWhite"
+            android:textSize="25sp" />
+
+        <ImageView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:layout_marginTop="30px"
+            android:background="#35000000"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="600px"
+                android:layout_height="80px"
+                android:layout_marginTop="30px"
+                android:background="@drawable/card_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20px"
+                    android:gravity="center"
+                    android:text="商品名称："
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/shop_name"
+                    android:layout_width="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="600px"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:background="@drawable/card_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20px"
+                    android:gravity="center"
+                    android:text="商品描述："
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/shop_describ"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="600px"
+                android:layout_height="80px"
+                android:layout_marginTop="20px"
+                android:background="@drawable/card_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20px"
+                    android:gravity="center"
+                    android:text="经办人："
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/shop_transactor"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="600px"
+                android:layout_height="80px"
+                android:layout_marginTop="20px"
+                android:background="@drawable/card_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20px"
+                    android:gravity="center"
+                    android:text="商品类目："
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/shop_category"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="600px"
+                android:layout_height="80px"
+                android:layout_marginTop="20px"
+                android:background="@drawable/card_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20px"
+                    android:gravity="center"
+                    android:text="入库时间："
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/shop_instockTime"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="600px"
+                android:layout_height="80px"
+                android:layout_marginTop="20px"
+                android:background="@drawable/card_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20px"
+                    android:gravity="center"
+                    android:text="出库时间："
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/shop_outstockTime"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="600px"
+                android:layout_height="80px"
+                android:layout_marginTop="20px"
+                android:background="@drawable/card_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20px"
+                    android:gravity="center"
+                    android:text="库存："
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/shop_stock"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="600px"
+                android:layout_height="80px"
+                android:layout_marginTop="20px"
+                android:background="@drawable/card_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20px"
+                    android:gravity="center"
+                    android:text="价格："
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/shop_price"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="600px"
+                android:layout_height="80px"
+                android:layout_marginTop="20px"
+                android:background="@drawable/card_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20px"
+                    android:gravity="center"
+                    android:text="规格："
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/shop_spec"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="600px"
+                android:layout_height="80px"
+                android:layout_marginTop="20px"
+                android:background="@drawable/card_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20px"
+                    android:gravity="center"
+                    android:text="生产日期："
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/shop_manufactureTime"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="600px"
+                android:layout_height="80px"
+                android:layout_marginTop="20px"
+                android:background="@drawable/card_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20px"
+                    android:gravity="center"
+                    android:text="保质期："
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/shop_qualityTime"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="600px"
+                android:layout_height="80px"
+                android:layout_marginTop="20px"
+                android:background="@drawable/card_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20px"
+                    android:gravity="center"
+                    android:text="商品状态："
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/shop_goodsStatus"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="600px"
+                android:layout_height="80px"
+                android:layout_marginTop="20px"
+                android:background="@drawable/card_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20px"
+                    android:gravity="center"
+                    android:text="检验商品："
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/shop_acceptedGoods"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

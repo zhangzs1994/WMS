@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:background="@drawable/top_bg"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/back_btn_bg"
+            android:onClick="back" />
+
+        <TextView
+            android:id="@+id/achi_title"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:text="业绩信息"
+            android:textColor="@color/colorWhite"
+            android:textSize="25sp" />
+
+        <LinearLayout
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"></LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:layout_marginTop="20px"
+                android:background="#20000000">
+
+                <TextView
+                    android:id="@+id/seven_day"
+                    android:layout_width="0px"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="近7日"
+                    android:textColor="#531a81"
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorWhite" />
+
+                <TextView
+                    android:id="@+id/thirty_day"
+                    android:layout_width="0px"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="近30日"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorWhite" />
+
+                <TextView
+                    android:id="@+id/half_year"
+                    android:layout_width="0px"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="近半年"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorWhite" />
+
+                <TextView
+                    android:id="@+id/one_year"
+                    android:layout_width="0px"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="近1年"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <include layout="@layout/order_info"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
