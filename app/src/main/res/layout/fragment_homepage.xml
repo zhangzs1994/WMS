@@ -175,6 +175,7 @@
                     android:background="@drawable/card_bg">
 
                     <LinearLayout
+                        android:id="@+id/layout_subTreasury"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="?android:attr/selectableItemBackground"
@@ -217,6 +218,7 @@
                     android:background="@drawable/card_bg">
 
                     <LinearLayout
+                        android:id="@+id/layout_classify"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="?android:attr/selectableItemBackground"
@@ -231,7 +233,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="商品管理"
+                            android:text="分类管理"
                             android:textColor="@color/colorWhite"
                             android:textSize="18sp" />
                     </LinearLayout>
@@ -253,6 +255,7 @@
                     android:background="@drawable/card_bg">
 
                     <LinearLayout
+                        android:id="@+id/layout_opLog"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="?android:attr/selectableItemBackground"

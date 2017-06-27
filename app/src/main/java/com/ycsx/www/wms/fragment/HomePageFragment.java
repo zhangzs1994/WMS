@@ -15,8 +15,11 @@ import android.widget.RelativeLayout;
 import com.github.demono.AutoScrollViewPager;
 import com.ycsx.www.wms.R;
 import com.ycsx.www.wms.activity.AchievementActivity;
+import com.ycsx.www.wms.activity.ClassifyMangerActivity;
+import com.ycsx.www.wms.activity.OpLogActivity;
 import com.ycsx.www.wms.activity.OrderMangerActivity;
 import com.ycsx.www.wms.activity.StockMangerActivity;
+import com.ycsx.www.wms.activity.SubTreasuryActivity;
 import com.ycsx.www.wms.adapter.HomeAdapter;
 
 import java.util.ArrayList;
@@ -27,12 +30,14 @@ import java.util.List;
  */
 public class HomePageFragment extends Fragment implements View.OnClickListener {
     private AutoScrollViewPager mViewPager;
-    private LinearLayout mLinearLayout, layout_order, layout_achievement, layout_stock;
+    private LinearLayout mLinearLayout, layout_order, layout_achievement, layout_stock,
+            layout_classify,layout_subTreasury,layout_opLog;
     private View mView;
     private List<ImageView> mDataList;
     private int diatance;
     private View view;
-    private int[] image = new int[]{R.drawable.major_image, R.drawable.major_image, R.drawable.major_image, R.drawable.major_image};
+    private int[] image = new int[]{R.drawable.major_image, R.drawable.major_image,
+            R.drawable.major_image, R.drawable.major_image};
     private Intent intent;
 
     @Override
@@ -69,9 +74,15 @@ public class HomePageFragment extends Fragment implements View.OnClickListener {
         layout_order = (LinearLayout) view.findViewById(R.id.layout_order);
         layout_achievement = (LinearLayout) view.findViewById(R.id.layout_achievement);
         layout_stock = (LinearLayout) view.findViewById(R.id.layout_stock);
+        layout_classify = (LinearLayout) view.findViewById(R.id.layout_classify);
+        layout_subTreasury = (LinearLayout) view.findViewById(R.id.layout_subTreasury);
+        layout_opLog = (LinearLayout) view.findViewById(R.id.layout_opLog);
         layout_order.setOnClickListener(this);
         layout_achievement.setOnClickListener(this);
         layout_stock.setOnClickListener(this);
+        layout_classify.setOnClickListener(this);
+        layout_subTreasury.setOnClickListener(this);
+        layout_opLog.setOnClickListener(this);
         mView = view.findViewById(R.id.view_redpoint);
     }
 
@@ -150,6 +161,18 @@ public class HomePageFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.layout_stock:
                 intent = new Intent(getActivity(), StockMangerActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.layout_classify:
+                intent = new Intent(getActivity(), ClassifyMangerActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.layout_subTreasury:
+                intent = new Intent(getActivity(), SubTreasuryActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.layout_opLog:
+                intent = new Intent(getActivity(), OpLogActivity.class);
                 startActivity(intent);
                 break;
         }

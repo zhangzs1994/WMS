@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:layout_weight="4"
             android:gravity="center"
-            android:text="下属业绩"
+            android:text="操作日志"
             android:textColor="@color/colorWhite"
             android:textSize="25sp" />
 
@@ -41,12 +41,40 @@
         android:background="#35000000"
         android:gravity="center_horizontal"
         android:orientation="vertical">
-        <ListView
-            android:id="@+id/junior_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@null"
-            android:layout_margin="20px"></ListView>
+
+        <LinearLayout
+            android:id="@+id/show_log"
+            android:layout_width="650px"
+            android:layout_height="100px"
+            android:layout_marginTop="60px"
+            android:background="@drawable/card_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_margin="15px"
+                android:layout_weight="0.6"
+                android:background="@drawable/shop_query" />
+
+            <TextView
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20px"
+                android:layout_weight="4"
+                android:gravity="center_vertical"
+                android:text="查看日志"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:layout_width="0px"
+                android:layout_height="50px"
+                android:layout_margin="20px"
+                android:layout_weight="0.3"
+                android:background="@drawable/mine_arrow" />
+        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>

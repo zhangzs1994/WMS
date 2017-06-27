@@ -52,7 +52,10 @@
         <activity android:name=".activity.MineAchiActivity" />
         <activity android:name=".activity.JuniorAchiActivity" />
         <activity android:name=".activity.SaleInfoActivity" />
-        <activity android:name=".activity.AchiInfoActivity"></activity>
+        <activity android:name=".activity.AchiInfoActivity" />
+        <activity android:name=".activity.ClassifyMangerActivity" />
+        <activity android:name=".activity.SubTreasuryActivity" />
+        <activity android:name=".activity.OpLogActivity"></activity>
     </application>
 
 </manifest>
