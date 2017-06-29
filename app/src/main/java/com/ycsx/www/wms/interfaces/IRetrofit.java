@@ -107,4 +107,8 @@ public interface IRetrofit {
     @FormUrlEncoded
     @POST("wms/querySuperior")
     Call<SuperiorInfo> querySuperior(@FieldMap Map<String, String> params);//查询下级信息
+
+    @FormUrlEncoded
+    @POST("wms/addOrder")
+    Call<Common> addOrder(@FieldMap Map<String, String> params);//提交订单
 }

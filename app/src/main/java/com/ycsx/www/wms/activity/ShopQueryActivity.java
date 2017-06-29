@@ -3,6 +3,7 @@ package com.ycsx.www.wms.activity;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -213,6 +214,7 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
                         Toast.makeText(ShopQueryActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
+                    Log.e("code", "=="+response.code());
                     Toast.makeText(ShopQueryActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
                 }
             }

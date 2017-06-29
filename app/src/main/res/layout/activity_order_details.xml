@@ -45,6 +45,7 @@
             android:id="@+id/order_shopInfo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="30px"></ListView>
+            android:background="@drawable/card_bg"
+            android:layout_margin="50px"></ListView>
     </LinearLayout>
 </LinearLayout>

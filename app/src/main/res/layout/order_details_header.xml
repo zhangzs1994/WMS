@@ -18,7 +18,7 @@
             <LinearLayout
                 android:layout_width="600px"
                 android:layout_height="80px"
-                android:background="@drawable/card_bg"
+                android:background="@drawable/bg_line"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -42,8 +42,7 @@
             <LinearLayout
                 android:layout_width="600px"
                 android:layout_height="80px"
-                android:layout_marginTop="20px"
-                android:background="@drawable/card_bg"
+                android:background="@drawable/bg_line"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -67,8 +66,7 @@
             <LinearLayout
                 android:layout_width="600px"
                 android:layout_height="80px"
-                android:layout_marginTop="20px"
-                android:background="@drawable/card_bg"
+                android:background="@drawable/bg_line"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -92,8 +90,7 @@
             <LinearLayout
                 android:layout_width="600px"
                 android:layout_height="80px"
-                android:layout_marginTop="20px"
-                android:background="@drawable/card_bg"
+                android:background="@drawable/bg_line"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -117,8 +114,7 @@
             <LinearLayout
                 android:layout_width="600px"
                 android:layout_height="80px"
-                android:layout_marginTop="20px"
-                android:background="@drawable/card_bg"
+                android:background="@drawable/bg_line"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -142,8 +138,6 @@
             <LinearLayout
                 android:layout_width="600px"
                 android:layout_height="80px"
-                android:layout_marginTop="20px"
-                android:background="@drawable/card_bg_line"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 

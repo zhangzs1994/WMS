@@ -67,7 +67,7 @@ public class UserLogin implements IUserLogin{
 
             @Override
             public void onFailure(Call<LoginInfo> call, Throwable t) {
-                Log.e("访问失败信息：", t.getMessage());
+                Log.e("访问失败信息：", t.getMessage()+"");
                 loginListener.loginFailed("无法访问！");
             }
         });
