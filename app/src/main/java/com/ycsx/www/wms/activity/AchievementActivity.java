@@ -60,7 +60,7 @@ public class AchievementActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.submit_query:
                 //提交记录查询
-                intent = new Intent(this, JuniorAchiActivity.class);
+                intent = new Intent(this, SubmitListActivity.class);
                 startActivity(intent);
                 break;
             case R.id.logistics_query:

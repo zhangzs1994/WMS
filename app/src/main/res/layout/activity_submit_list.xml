@@ -20,12 +20,11 @@
             android:onClick="back" />
 
         <TextView
-            android:id="@+id/title"
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="4"
             android:gravity="center"
-            android:text="订单列表"
+            android:text="提交记录"
             android:textColor="@color/colorWhite"
             android:textSize="25sp" />
 
@@ -39,14 +38,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="30px"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px"
+        android:layout_marginTop="30px"
         android:background="#35000000"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_margin="30px"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
             android:background="@drawable/card_bg"
             android:layout_height="match_parent"
             android:orientation="vertical">

@@ -18,7 +18,9 @@ import com.ycsx.www.wms.bean.AddOrderInfo;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AddOrderActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayout shop1, shop2, shop3, shop4, shop5, shop6, shop7, shop8, shop9, shop10, shop11,
@@ -144,8 +146,8 @@ public class AddOrderActivity extends BaseActivity implements View.OnClickListen
     private void initData() {
         orderDetial=gson.toJson(order, AddOrderInfo.class);
         Log.e("orderDetial===", orderDetial);
-//        Map<String, String> params = new HashMap<>();
-//        params.put("orderDetial", "");
+        Map<String, String> params = new HashMap<>();
+        params.put("orderDetial", orderDetial);
 //        Call<Common> call = RetrofitUtil.getInstance(API.URL).addOrder(params);
 //        call.enqueue(new Callback<Common>() {
 //            @Override
@@ -155,16 +157,16 @@ public class AddOrderActivity extends BaseActivity implements View.OnClickListen
 //                    if (("10200").equals(info.getStatus())) {
 //                        Toast.makeText(AddOrderActivity.this, "提交成功！", Toast.LENGTH_SHORT).show();
 //                    }else {
-//                        Toast.makeText(AddOrderActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(AddOrderActivity.this, "提交失败1！", Toast.LENGTH_SHORT).show();
 //                    }
 //                } else {
-//                    Toast.makeText(AddOrderActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AddOrderActivity.this, "提交失败2！", Toast.LENGTH_SHORT).show();
 //                }
 //            }
 //
 //            @Override
 //            public void onFailure(Call<Common> call, Throwable t) {
-//                Toast.makeText(AddOrderActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(AddOrderActivity.this, "提交失败3！", Toast.LENGTH_SHORT).show();
 //            }
 //        });
     }
@@ -285,7 +287,7 @@ public class AddOrderActivity extends BaseActivity implements View.OnClickListen
                 order.setName(pref.getString("name",""));
                 order.setDateTime(getTimeByMinute(0));
                 order.setOuaddress(ouaddress.getText()+"");
-                order.setOcost(ocost.getText()+"");
+                order.setOcost(Double.parseDouble(ocost.getText()+""));
                 if(shop1.getVisibility()==View.VISIBLE){
                     AddOrderInfo.DataBean data=new AddOrderInfo.DataBean();
                     data.setPid(Integer.parseInt(id1.getText()+""));

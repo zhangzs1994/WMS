@@ -55,7 +55,7 @@
                 android:textColor="@color/colorWhite" />
 
             <TextView
-                android:id="@+id/order_status"
+                android:id="@+id/order_time"
                 android:layout_width="0px"
                 android:layout_weight="1.5"
                 android:layout_height="match_parent"

@@ -56,7 +56,8 @@
         <activity android:name=".activity.ClassifyMangerActivity" />
         <activity android:name=".activity.SubTreasuryActivity" />
         <activity android:name=".activity.OpLogActivity" />
-        <activity android:name=".activity.AddOrderActivity"></activity>
+        <activity android:name=".activity.AddOrderActivity" />
+        <activity android:name=".activity.SubmitListActivity" />
     </application>
 
 </manifest>

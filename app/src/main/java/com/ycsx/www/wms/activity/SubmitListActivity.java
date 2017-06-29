@@ -4,11 +4,10 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ycsx.www.wms.R;
-import com.ycsx.www.wms.adapter.OrderRecyclerAdapter;
+import com.ycsx.www.wms.adapter.SubmitRecyclerAdapter;
 import com.ycsx.www.wms.base.BaseActivity;
 import com.ycsx.www.wms.bean.OrderInfo;
 import com.ycsx.www.wms.common.API;
@@ -26,18 +25,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderListActivity extends BaseActivity implements PullBaseView.OnHeaderRefreshListener, PullBaseView.OnFooterRefreshListener {
+public class SubmitListActivity extends BaseActivity implements PullBaseView.OnHeaderRefreshListener, PullBaseView.OnFooterRefreshListener  {
     private PullRecyclerView recyclerView;
-    private OrderRecyclerAdapter adapter;
+    private SubmitRecyclerAdapter adapter;
     private List<Map<String, Object>> list = new ArrayList();
     private int startRecord = 0;//开始条数
     private int pageRecords = 5;//显示条数
-    private TextView title;
 
     @Override
     public void init() {
         super.init();
-        setContentView(R.layout.activity_order_list);
+        setContentView(R.layout.activity_submit_list);
         initData();
         initView();
     }
@@ -57,23 +55,14 @@ public class OrderListActivity extends BaseActivity implements PullBaseView.OnHe
         //设置自定义分割线
         recyclerView.addItemDecoration(new MyDecoration(this, MyDecoration.VERTICAL_LIST));
         //适配器
-        adapter = new OrderRecyclerAdapter(this, list);
+        adapter = new SubmitRecyclerAdapter(this, list);
         recyclerView.setAdapter(adapter);
-        title= (TextView) findViewById(R.id.title);
-        title.setText(getIntent().getStringExtra("title"));
     }
 
     private void initData() {
         Map<String, String> params = new HashMap<>();
-        params.put("oid", getIntent().getStringExtra("oid"));
-        Log.e("ostatus===", getIntent().getStringExtra("ostatus") + "");
-        if (getIntent().getStringExtra("ostatus").equals("null")) {
-            params.put("ostatus", "");
-        } else {
-            params.put("ostatus", getIntent().getStringExtra("ostatus"));
-        }
-        params.put("starttime", getIntent().getStringExtra("starttime"));
-        params.put("endtime", getIntent().getStringExtra("endtime"));
+        params.put("uid", "");
+        params.put("ostatus", "");
         params.put("startRecord", startRecord + "");
         params.put("pageRecords", pageRecords + "");
         Call<OrderInfo> call = RetrofitUtil.getInstance(API.URL).selectOrderh1(params);
@@ -82,6 +71,7 @@ public class OrderListActivity extends BaseActivity implements PullBaseView.OnHe
             public void onResponse(Call<OrderInfo> call, Response<OrderInfo> response) {
                 if (response.isSuccessful()) {
                     OrderInfo info = response.body();
+                    Log.e("getStatus===", info.getStatus() + "");
                     if (("10200").equals(info.getStatus())) {
                         for (int i = 0; i < info.getData().size(); i++) {
                             Map<String, Object> map = new HashMap<String, Object>();
@@ -96,25 +86,24 @@ public class OrderListActivity extends BaseActivity implements PullBaseView.OnHe
                             map.put("criteria", info.getData().get(i).getCriteria() + "");//审核原因
                             map.put("datechanged", info.getData().get(i).getDatechanged() + "");//最后修改日期
                             map.put("expressnumber", info.getData().get(i).getExpressnumber() + "");//快递单号
-                            map.put("title", title.getText()+"");//标题
                             list.add(map);
                         }
                         adapter.notifyDataSetChanged();
                     }else if(("10365").equals(info.getStatus())){
-                        Toast.makeText(OrderListActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SubmitListActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
                     }else {
-                        Toast.makeText(OrderListActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SubmitListActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Log.e("返回码===", response.code() + "");
-                    Toast.makeText(OrderListActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SubmitListActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<OrderInfo> call, Throwable t) {
                 Log.e("返回===", t.getMessage() + "");
-                Toast.makeText(OrderListActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SubmitListActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -130,7 +119,7 @@ public class OrderListActivity extends BaseActivity implements PullBaseView.OnHe
                 startRecord = 0;
                 list = new ArrayList();
                 initData();
-                adapter = new OrderRecyclerAdapter(OrderListActivity.this, list);
+                adapter = new SubmitRecyclerAdapter(SubmitListActivity.this, list);
                 recyclerView.setAdapter(adapter);
                 recyclerView.onHeaderRefreshComplete();
             }
@@ -144,7 +133,7 @@ public class OrderListActivity extends BaseActivity implements PullBaseView.OnHe
             @Override
             public void run() {
                 if (list.size() < 5) {
-                    Toast.makeText(OrderListActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SubmitListActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
                 } else {
                     startRecord = startRecord + pageRecords;
                     initData();

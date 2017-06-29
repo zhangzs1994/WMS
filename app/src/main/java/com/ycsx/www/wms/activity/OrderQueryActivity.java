@@ -70,6 +70,7 @@ public class OrderQueryActivity extends BaseActivity {
                     Toast.makeText(OrderQueryActivity.this, "请选择结束日期！", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(OrderQueryActivity.this, OrderListActivity.class);
+                    intent.putExtra("title", "订单列表");
                     intent.putExtra("oid", order_id.getText() + "");
                     intent.putExtra("ostatus", status + "");
                     intent.putExtra("starttime", start_dataTime.getText() + "");

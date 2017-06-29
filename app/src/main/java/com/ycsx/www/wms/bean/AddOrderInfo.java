@@ -10,7 +10,7 @@ public class AddOrderInfo {
     private String name;
     private String ouaddress;
     private String dateTime;
-    private String ocost;
+    private double ocost;
     private List<DataBean> data;
 
     public static class DataBean{
@@ -75,11 +75,11 @@ public class AddOrderInfo {
         this.dateTime = dateTime;
     }
 
-    public String getOcost() {
+    public double getOcost() {
         return ocost;
     }
 
-    public void setOcost(String ocost) {
+    public void setOcost(double ocost) {
         this.ocost = ocost;
     }
 

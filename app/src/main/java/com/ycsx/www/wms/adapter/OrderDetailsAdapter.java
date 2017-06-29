@@ -66,7 +66,7 @@ public class OrderDetailsAdapter extends BaseAdapter {
         holder.shop_num.setText("数量："+list.get(position).get("freightamount").toString());
         holder.shop_totalPrice.setText("总价："+list.get(position).get("iocost").toString());
         holder.order_id.setText(list.get(position).get("oid").toString());
-        holder.order_price.setText(list.get(position).get("price").toString());
+        holder.order_price.setText(list.get(position).get("ocost").toString());
         if(list.get(position).get("ostatus").equals("0")){
             holder.order_status.setText("未审核");
         }else if(list.get(position).get("ostatus").equals("1")){

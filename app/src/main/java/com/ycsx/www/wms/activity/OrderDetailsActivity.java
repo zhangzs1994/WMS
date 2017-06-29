@@ -2,7 +2,10 @@ package com.ycsx.www.wms.activity;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ycsx.www.wms.R;
@@ -21,11 +24,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderDetailsActivity extends BaseActivity {
+public class OrderDetailsActivity extends BaseActivity implements View.OnClickListener{
     private ListView order_shopInfo;
     private OrderDetailsAdapter adapter;
     private List<Map<String,Object>> list=new ArrayList<>();
     private View view;
+    private TextView title;
+    private LinearLayout layout_audit;
+    private Button audit_yes,audit_no;
 
     @Override
     public void init() {
@@ -85,9 +91,32 @@ public class OrderDetailsActivity extends BaseActivity {
     private void initView() {
         view=View.inflate(this,R.layout.order_details_header,null);
         order_shopInfo= (ListView) findViewById(R.id.order_shopInfo);
+        layout_audit= (LinearLayout) findViewById(R.id.layout_audit);
+        title= (TextView) findViewById(R.id.title);
+        if(getIntent().getStringExtra("title").equals("订单列表")){
+            title.setText("订单详情");
+            layout_audit.setVisibility(View.GONE);
+        }else if(getIntent().getStringExtra("title").equals("订单审核")){
+            title.setText("审核详情");
+            layout_audit.setVisibility(View.VISIBLE);
+        }
+        audit_yes= (Button) findViewById(R.id.audit_yes);
+        audit_no= (Button) findViewById(R.id.audit_no);
+        audit_yes.setOnClickListener(this);
+        audit_no.setOnClickListener(this);
     }
 
     public void back(View view){
         finish();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.audit_yes:
+                break;
+            case R.id.audit_no:
+                break;
+        }
     }
 }

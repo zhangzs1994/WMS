@@ -12,7 +12,7 @@ import com.ycsx.www.wms.R;
 import com.ycsx.www.wms.activity.OrderDetailsActivity;
 import com.ycsx.www.wms.holder.BottomViewHolder;
 import com.ycsx.www.wms.holder.HeaderViewHolder;
-import com.ycsx.www.wms.holder.OrderRecyclerHolder;
+import com.ycsx.www.wms.holder.SubmitRecyclerHolder;
 
 import java.util.List;
 import java.util.Map;
@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * Created by ZZS_PC on 2017/5/11.
  */
-public class OrderRecyclerAdapter extends RecyclerView.Adapter{
+public class SubmitRecyclerAdapter extends RecyclerView.Adapter{
     private Context context;
     private List<Map<String,Object>> list;
     //item类型
@@ -30,7 +30,7 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter{
     private int mHeaderCount=0;//头部View个数
     private int mBottomCount=0;//底部View个数
 
-    public OrderRecyclerAdapter(Context context, List<Map<String,Object>> list) {
+    public SubmitRecyclerAdapter(Context context, List<Map<String,Object>> list) {
         this.context = context;
         this.list = list;
     }
@@ -73,7 +73,7 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter{
             return new HeaderViewHolder(LayoutInflater.from(context).inflate(R.layout.header_view, parent, false));
         } else if (viewType == ITEM_TYPE_CONTENT) {
             //获取内容布局
-            return new OrderRecyclerHolder(LayoutInflater.from(context).inflate(R.layout.order_recycler_item, parent, false));
+            return new SubmitRecyclerHolder(LayoutInflater.from(context).inflate(R.layout.submit_recycler_item, parent, false));
         } else if (viewType == ITEM_TYPE_BOTTOM) {
             //获取底部布局
             return new BottomViewHolder(LayoutInflater.from(context).inflate(R.layout.footer_view, parent, false));
@@ -91,24 +91,16 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter{
                     Toast.makeText(context, "这是头部", Toast.LENGTH_SHORT).show();
                 }
             });
-        } else if (holder instanceof OrderRecyclerHolder) {
+        } else if (holder instanceof SubmitRecyclerHolder) {
             //处理内容数据
-            ((OrderRecyclerHolder)holder).order_id.setText("订单号："+list.get(position).get("oid"));
-            //((OrderRecyclerHolder)holder).order_num.setText("订单数："+list.get(position).get("describ")+"");
-            ((OrderRecyclerHolder)holder).order_price.setText("总额："+list.get(position).get("ocost"));
-            if(list.get(position).get("ostatus").equals("0")){
-                ((OrderRecyclerHolder)holder).order_status.setText("状态：未审核");
-            }else if(list.get(position).get("ostatus").equals("1")){
-                ((OrderRecyclerHolder)holder).order_status.setText("状态：审核已通过");
-            }else if(list.get(position).get("ostatus").equals("2")){
-                ((OrderRecyclerHolder)holder).order_status.setText("状态：审核未通过");
-            }
-            ((OrderRecyclerHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
+            ((SubmitRecyclerHolder)holder).order_id.setText("订单号："+list.get(position).get("oid"));
+            ((SubmitRecyclerHolder)holder).order_price.setText("总额："+list.get(position).get("ocost"));
+            ((SubmitRecyclerHolder)holder).order_time.setText("时间："+list.get(position).get("octime"));
+            ((SubmitRecyclerHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent=new Intent(context, OrderDetailsActivity.class);
                     intent.putExtra("order_id",list.get(position).get("oid").toString());
-                    intent.putExtra("title",list.get(position).get("title").toString());
                     context.startActivity(intent);
                 }
             });
