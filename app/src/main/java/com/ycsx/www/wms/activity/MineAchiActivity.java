@@ -105,6 +105,8 @@ public class MineAchiActivity extends BaseActivity implements View.OnClickListen
         switch (v.getId()) {
             case R.id.saleInfo:
                 intent = new Intent(this, SaleInfoActivity.class);
+                intent.putExtra("title","订单列表");
+                intent.putExtra("uid",getIntent().getStringExtra("id"));
                 startActivity(intent);
                 break;
             case R.id.show_more:

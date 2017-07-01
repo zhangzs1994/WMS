@@ -29,35 +29,29 @@
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_marginLeft="30px"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <!--<TextView-->
-                <!--android:id="@+id/order_num"-->
-                <!--android:layout_width="0px"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:ellipsize="end"-->
-                <!--android:maxLines="2"-->
-                <!--android:text="件数"-->
-                <!--android:textColor="@color/colorWhite" />-->
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/order_price"
-                android:layout_width="0px"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="总价"
                 android:textColor="@color/colorWhite" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_marginLeft="30px"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/order_time"
-                android:layout_width="0px"
-                android:layout_weight="1.5"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:ellipsize="end"

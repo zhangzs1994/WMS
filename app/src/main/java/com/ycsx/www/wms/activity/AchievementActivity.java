@@ -55,7 +55,7 @@ public class AchievementActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.order_submit:
                 //创建提交订单
-                intent = new Intent(this, AddOrderActivity.class);
+                intent = new Intent(this, MyOrderActivity.class);
                 startActivity(intent);
                 break;
             case R.id.submit_query:

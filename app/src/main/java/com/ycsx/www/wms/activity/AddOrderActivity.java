@@ -14,6 +14,9 @@ import com.google.gson.GsonBuilder;
 import com.ycsx.www.wms.R;
 import com.ycsx.www.wms.base.BaseActivity;
 import com.ycsx.www.wms.bean.AddOrderInfo;
+import com.ycsx.www.wms.bean.Common;
+import com.ycsx.www.wms.common.API;
+import com.ycsx.www.wms.util.RetrofitUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,6 +24,10 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AddOrderActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayout shop1, shop2, shop3, shop4, shop5, shop6, shop7, shop8, shop9, shop10, shop11,
@@ -148,27 +155,28 @@ public class AddOrderActivity extends BaseActivity implements View.OnClickListen
         Log.e("orderDetial===", orderDetial);
         Map<String, String> params = new HashMap<>();
         params.put("orderDetial", orderDetial);
-//        Call<Common> call = RetrofitUtil.getInstance(API.URL).addOrder(params);
-//        call.enqueue(new Callback<Common>() {
-//            @Override
-//            public void onResponse(Call<Common> call, Response<Common> response) {
-//                if (response.isSuccessful()) {
-//                    Common info = response.body();
-//                    if (("10200").equals(info.getStatus())) {
-//                        Toast.makeText(AddOrderActivity.this, "提交成功！", Toast.LENGTH_SHORT).show();
-//                    }else {
-//                        Toast.makeText(AddOrderActivity.this, "提交失败1！", Toast.LENGTH_SHORT).show();
-//                    }
-//                } else {
-//                    Toast.makeText(AddOrderActivity.this, "提交失败2！", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Common> call, Throwable t) {
-//                Toast.makeText(AddOrderActivity.this, "提交失败3！", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        Call<Common> call = RetrofitUtil.getInstance(API.URL).addOrder(params);
+        call.enqueue(new Callback<Common>() {
+            @Override
+            public void onResponse(Call<Common> call, Response<Common> response) {
+                if (response.isSuccessful()) {
+                    Common info = response.body();
+                    if (("10200").equals(info.getStatus())) {
+                        finish();
+                        Toast.makeText(AddOrderActivity.this, "提交成功！", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(AddOrderActivity.this, "提交失败1！", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(AddOrderActivity.this, "提交失败2！", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Common> call, Throwable t) {
+                Toast.makeText(AddOrderActivity.this, "提交失败3！", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void back(View view) {

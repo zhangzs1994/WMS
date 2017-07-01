@@ -2,9 +2,13 @@ package com.ycsx.www.wms.activity;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,8 +34,12 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
     private List<Map<String,Object>> list=new ArrayList<>();
     private View view;
     private TextView title;
-    private LinearLayout layout_audit;
-    private Button audit_yes,audit_no;
+    private LinearLayout layout_audit,layout_express,express;
+    private Button audit_yes,audit_no,btn_express;
+    private Spinner spinner;
+    private String[] spinnerChild = {"一般发货", "快递发货"};
+    private ArrayAdapter<String> arrayAdapter;
+    private EditText audit_explain,express_id;
 
     @Override
     public void init() {
@@ -42,6 +50,28 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
         adapter=new OrderDetailsAdapter(view,list,this);
         order_shopInfo.addHeaderView(view);
         order_shopInfo.setAdapter(adapter);
+        arrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, spinnerChild);
+        arrayAdapter.setDropDownViewResource(R.layout.dropdown_stytle);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position==0) {
+                    layout_express.setVisibility(View.GONE);
+                } else {
+                    layout_express.setVisibility(View.VISIBLE);
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        btn_express.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void initData() {
@@ -93,17 +123,36 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
         order_shopInfo= (ListView) findViewById(R.id.order_shopInfo);
         layout_audit= (LinearLayout) findViewById(R.id.layout_audit);
         title= (TextView) findViewById(R.id.title);
-        if(getIntent().getStringExtra("title").equals("订单列表")){
-            title.setText("订单详情");
-            layout_audit.setVisibility(View.GONE);
-        }else if(getIntent().getStringExtra("title").equals("订单审核")){
+        if(getIntent().getStringExtra("title").equals("订单审核")){
             title.setText("审核详情");
             layout_audit.setVisibility(View.VISIBLE);
+        }else{
+            title.setText("订单详情");
+            layout_audit.setVisibility(View.GONE);
         }
         audit_yes= (Button) findViewById(R.id.audit_yes);
         audit_no= (Button) findViewById(R.id.audit_no);
         audit_yes.setOnClickListener(this);
         audit_no.setOnClickListener(this);
+        btn_express = (Button) findViewById(R.id.btn_express);
+        spinner = (Spinner) findViewById(R.id.spinner);
+        express_id = (EditText) findViewById(R.id.express_id);
+        audit_explain = (EditText) findViewById(R.id.audit_explain);
+        layout_express = (LinearLayout) findViewById(R.id.layout_express);
+        express = (LinearLayout) findViewById(R.id.express);
+        if(getIntent().getStringExtra("title").equals("订单审核")){
+            title.setText("审核详情");
+            layout_audit.setVisibility(View.VISIBLE);
+            express.setVisibility(View.GONE);
+        }else if(getIntent().getStringExtra("title").equals("订单发货")){
+            title.setText("发货详情");
+            layout_audit.setVisibility(View.GONE);
+            express.setVisibility(View.VISIBLE);
+        }else{
+            title.setText("订单详情");
+            layout_audit.setVisibility(View.GONE);
+            express.setVisibility(View.GONE);
+        }
     }
 
     public void back(View view){

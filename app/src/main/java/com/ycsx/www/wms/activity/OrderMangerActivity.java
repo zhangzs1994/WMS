@@ -48,8 +48,13 @@ public class OrderMangerActivity extends BaseActivity implements View.OnClickLis
                 startActivity(intent);
                 break;
             case R.id.order_delivery:
-//                intent = new Intent(this, OrderQueryActivity.class);
-//                startActivity(intent);
+                intent = new Intent(this, OrderListActivity.class);
+                intent.putExtra("title", "订单发货");
+                intent.putExtra("oid", "");
+                intent.putExtra("ostatus", "1");
+                intent.putExtra("starttime", "");
+                intent.putExtra("endtime", "");
+                startActivity(intent);
                 break;
         }
     }

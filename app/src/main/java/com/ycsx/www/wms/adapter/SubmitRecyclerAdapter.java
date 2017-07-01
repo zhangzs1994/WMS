@@ -101,6 +101,7 @@ public class SubmitRecyclerAdapter extends RecyclerView.Adapter{
                 public void onClick(View v) {
                     Intent intent=new Intent(context, OrderDetailsActivity.class);
                     intent.putExtra("order_id",list.get(position).get("oid").toString());
+                    intent.putExtra("title","提交记录");
                     context.startActivity(intent);
                 }
             });

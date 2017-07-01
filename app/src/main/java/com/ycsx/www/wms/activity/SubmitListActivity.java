@@ -1,5 +1,6 @@
 package com.ycsx.www.wms.activity;
 
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
@@ -60,9 +61,9 @@ public class SubmitListActivity extends BaseActivity implements PullBaseView.OnH
     }
 
     private void initData() {
+        SharedPreferences pref = getSharedPreferences("login",MODE_PRIVATE);
         Map<String, String> params = new HashMap<>();
-        params.put("uid", "");
-        params.put("ostatus", "");
+        params.put("uid", pref.getInt("id",0)+"");
         params.put("startRecord", startRecord + "");
         params.put("pageRecords", pageRecords + "");
         Call<OrderInfo> call = RetrofitUtil.getInstance(API.URL).selectOrderh1(params);

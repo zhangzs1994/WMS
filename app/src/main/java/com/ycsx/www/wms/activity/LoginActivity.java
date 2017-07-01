@@ -88,6 +88,7 @@ public class LoginActivity extends BaseActivity implements IUserLoginView {
         editor.putString("userpwd", user.getUserPassword());
         editor.putString("flag", user.getFlag());
         editor.putInt("id", user.getId());
+        editor.putString("name", user.getName());
         editor.putString("superior", user.getSuperior());
         editor.putString("status", user.getStatus());
         if (remember_pwd.isChecked()) {
