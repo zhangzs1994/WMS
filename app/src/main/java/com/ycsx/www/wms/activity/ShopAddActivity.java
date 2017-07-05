@@ -1,5 +1,6 @@
 package com.ycsx.www.wms.activity;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,7 +17,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ycsx.www.wms.R;
-import com.ycsx.www.wms.adapter.ShopRecyclerAdapter;
+import com.ycsx.www.wms.adapter.ShopAddAdapter;
 import com.ycsx.www.wms.base.BaseActivity;
 import com.ycsx.www.wms.bean.CategoryInfo;
 import com.ycsx.www.wms.bean.ShopInfo;
@@ -35,11 +36,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHeaderRefreshListener, PullBaseView.OnFooterRefreshListener {
+public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHeaderRefreshListener, PullBaseView.OnFooterRefreshListener {
     private Spinner spinner;
     private List<String> spinnerChild = new ArrayList<>();
     private PullRecyclerView recyclerView;
-    private ShopRecyclerAdapter adapter;
+    private ShopAddAdapter adapter;
     private List<Map<String, Object>> list = new ArrayList();
     private int startRecord = 0;//开始条数
     private int pageRecords = 5;//显示条数
@@ -54,7 +55,7 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
     @Override
     public void init() {
         super.init();
-        setContentView(R.layout.activity_shop_query);
+        setContentView(R.layout.activity_shop_add);
         initData(i);
         initView();
         queryDropdown();
@@ -71,7 +72,7 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
                     i = 1;
                 }
                 initData(i);
-                adapter = new ShopRecyclerAdapter(ShopQueryActivity.this, list);
+                adapter = new ShopAddAdapter(ShopAddActivity.this, list);
                 recyclerView.setAdapter(adapter);
             }
 
@@ -102,30 +103,41 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
                         for (int i = 0; i < info.getData().size(); i++) {
                             spinnerChild.add(info.getData().get(i).getCode() + ":" + info.getData().get(i).getValue());
                         }
-                        arrayAdapter = new ArrayAdapter<String>(ShopQueryActivity.this, R.layout.spinner_item, spinnerChild);
+                        arrayAdapter = new ArrayAdapter<String>(ShopAddActivity.this, R.layout.spinner_item, spinnerChild);
                         arrayAdapter.setDropDownViewResource(R.layout.dropdown_stytle);
                         spinner.setAdapter(arrayAdapter);
                     } else {
                         Log.e("getStatus==", info.getStatus() );
-                        Toast.makeText(ShopQueryActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ShopAddActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(ShopQueryActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ShopAddActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<CategoryInfo> call, Throwable t) {
-                Toast.makeText(ShopQueryActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ShopAddActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
             }
 
         });
     }
 
     public void back(View view) {
+        Intent intent=new Intent(this,AddOrderActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//刷新
+        startActivity(intent);
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent=new Intent(this,AddOrderActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//刷新
+        startActivity(intent);
+        finish();
+    }
 
     private void initView() {
         spinner = (Spinner) findViewById(R.id.spinner);
@@ -140,7 +152,7 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
         //设置自定义分割线
         recyclerView.addItemDecoration(new MyDecoration(this, MyDecoration.VERTICAL_LIST));
         //适配器
-        adapter = new ShopRecyclerAdapter(this, list);
+        adapter = new ShopAddAdapter(this, list);
         recyclerView.setAdapter(adapter);
     }
 
@@ -165,7 +177,7 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
                 list = new ArrayList();
                 i = 2;
                 initData(i);
-                adapter = new ShopRecyclerAdapter(ShopQueryActivity.this, list);
+                adapter = new ShopAddAdapter(ShopAddActivity.this, list);
                 recyclerView.setAdapter(adapter);
             }
         });
@@ -176,7 +188,6 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
         params.put("startRecord", startRecord + "");
         params.put("pageRecords", pageRecords + "");
         if (i == 1) {
-            Log.e("category==", category);
             params.put("category", category);
             call = RetrofitUtil.getInstance(API.URL).getGoodsByCategory(params);
         } else if (i == 2) {
@@ -193,6 +204,7 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
                     if (("10200").equals(user.getStatus())) {
                         for (int i = 0; i < user.getData().size(); i++) {
                             Map<String, Object> map = new HashMap<String, Object>();
+                            map.put("id", user.getData().get(i).getId() + "");//商品ID
                             map.put("name", user.getData().get(i).getName() + "");//商品名称
                             map.put("category", user.getData().get(i).getCategory() + "");//商品类目
                             map.put("instockTime", user.getData().get(i).getInstockTime() + "");//入库时间
@@ -210,22 +222,18 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
                         }
                         adapter.notifyDataSetChanged();
                     } else if (("10365").equals(user.getStatus())) {
-                        Toast.makeText(ShopQueryActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ShopAddActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
                     } else {
-                        Log.e("getStatus==", user.getStatus() );
-                        Log.e("getMessage==", user.getMessage());
-                        Toast.makeText(ShopQueryActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ShopAddActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Log.e("code", "=="+response.code());
-                    Toast.makeText(ShopQueryActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ShopAddActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ShopInfo> call, Throwable t) {
-                Log.e("getMessage", "=="+t.getMessage());
-                Toast.makeText(ShopQueryActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ShopAddActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -241,7 +249,7 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
                 startRecord = 0;
                 list = new ArrayList();
                 initData(i);
-                adapter = new ShopRecyclerAdapter(ShopQueryActivity.this, list);
+                adapter = new ShopAddAdapter(ShopAddActivity.this, list);
                 recyclerView.setAdapter(adapter);
                 recyclerView.onHeaderRefreshComplete();
             }
@@ -255,7 +263,7 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
             @Override
             public void run() {
                 if (list.size() < 5) {
-                    Toast.makeText(ShopQueryActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ShopAddActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
                 } else {
                     startRecord = startRecord + pageRecords;
                     initData(i);

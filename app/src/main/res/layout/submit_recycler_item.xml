@@ -33,12 +33,24 @@
 
             <TextView
                 android:id="@+id/order_price"
-                android:layout_width="match_parent"
+                android:layout_width="0px"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:ellipsize="end"
-                android:maxLines="2"
+                android:maxLines="1"
                 android:text="总价"
+                android:textColor="@color/colorWhite" />
+
+            <TextView
+                android:id="@+id/order_status"
+                android:layout_width="0px"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="状态"
                 android:textColor="@color/colorWhite" />
         </LinearLayout>
 
@@ -55,8 +67,8 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:ellipsize="end"
-                android:maxLines="2"
-                android:text="状态"
+                android:maxLines="1"
+                android:text="时间"
                 android:textColor="@color/colorWhite" />
         </LinearLayout>
 

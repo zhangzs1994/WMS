@@ -8,6 +8,7 @@ import com.ycsx.www.wms.bean.FlagInfo;
 import com.ycsx.www.wms.bean.LoginInfo;
 import com.ycsx.www.wms.bean.OrderDetailsInfo;
 import com.ycsx.www.wms.bean.OrderInfo;
+import com.ycsx.www.wms.bean.OrderShop;
 import com.ycsx.www.wms.bean.OutStockInfo;
 import com.ycsx.www.wms.bean.PermissionInfo;
 import com.ycsx.www.wms.bean.RolesInfo;
@@ -77,6 +78,10 @@ public interface IRetrofit {
     Call<ShopInfo> getLikeGoods(@FieldMap Map<String, String> params);//根据商品名获取商品信息
 
     @FormUrlEncoded
+    @POST("wms/getGoodsListLikeValue")
+    Call<ShopInfo> getGoodsListLikeValue(@FieldMap Map<String, String> params);//根据商品名、编号、条码获取商品信息
+
+    @FormUrlEncoded
     @POST("wms/getGoodsByCategory")
     Call<ShopInfo> getGoodsByCategory(@FieldMap Map<String, String> params);//根据商品类别获取商品信息
 
@@ -111,4 +116,16 @@ public interface IRetrofit {
     @FormUrlEncoded
     @POST("wms/addOrder")
     Call<Common> addOrder(@FieldMap Map<String, String> params);//提交订单
+
+    @FormUrlEncoded
+    @POST("wms/addMyorder")
+    Call<Common> addMyorder(@FieldMap Map<String, String> params);//添加订单商品
+
+    @FormUrlEncoded
+    @POST("wms/selectMyorde")
+    Call<OrderShop> selectMyorde(@FieldMap Map<String, String> params);//查询订单商品
+
+    @FormUrlEncoded
+    @POST("wms/deleteMyorde")
+    Call<Common> deleteMyorde(@FieldMap Map<String, String> params);//删除订单商品
 }

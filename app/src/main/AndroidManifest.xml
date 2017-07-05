@@ -56,9 +56,10 @@
         <activity android:name=".activity.ClassifyMangerActivity" />
         <activity android:name=".activity.SubTreasuryActivity" />
         <activity android:name=".activity.OpLogActivity" />
-        <activity android:name=".activity.AddOrderActivity" />
+        <activity android:name=".activity.AddOrderActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity android:name=".activity.SubmitListActivity" />
-        <activity android:name=".activity.MyOrderActivity"></activity>
+        <activity android:name=".activity.ShopAddActivity"></activity>
     </application>
 
 </manifest>

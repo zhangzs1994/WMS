@@ -96,6 +96,15 @@ public class SubmitRecyclerAdapter extends RecyclerView.Adapter{
             ((SubmitRecyclerHolder)holder).order_id.setText("订单号："+list.get(position).get("oid"));
             ((SubmitRecyclerHolder)holder).order_price.setText("总额："+list.get(position).get("ocost"));
             ((SubmitRecyclerHolder)holder).order_time.setText("时间："+list.get(position).get("octime"));
+            if(list.get(position).get("ostatus").toString().equals("0")){
+                ((SubmitRecyclerHolder)holder).order_status.setText("状态：待审核");
+            }else if(list.get(position).get("ostatus").toString().equals("1")){
+                ((SubmitRecyclerHolder)holder).order_status.setText("状态：审核不通过");
+            }else if(list.get(position).get("ostatus").toString().equals("2")){
+                ((SubmitRecyclerHolder)holder).order_status.setText("状态：审核通过");
+            }else if(list.get(position).get("ostatus").toString().equals("3")){
+                ((SubmitRecyclerHolder)holder).order_status.setText("状态：发货");
+            }
             ((SubmitRecyclerHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

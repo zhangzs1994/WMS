@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/colorWhite"
         android:background="@drawable/card_bg"
-        android:hint="请输入商品名"
+        android:hint="请输入商品名、编号或条码"
         android:textColorHint="@color/colorWhite"/>
 
     <LinearLayout

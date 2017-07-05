@@ -8,10 +8,21 @@ import java.util.List;
 public class AddOrderInfo {
     private int id;
     private String name;
+    private String contact;
+    private String receiving;
     private String ouaddress;
+    private String classify;
     private String dateTime;
     private double ocost;
     private List<DataBean> data;
+
+    public String getClassify() {
+        return classify;
+    }
+
+    public void setClassify(String classify) {
+        this.classify = classify;
+    }
 
     public static class DataBean{
         private int pid;
@@ -53,6 +64,22 @@ public class AddOrderInfo {
 
     public String getName() {
         return name;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getReceiving() {
+        return receiving;
+    }
+
+    public void setReceiving(String receiving) {
+        this.receiving = receiving;
     }
 
     public void setName(String name) {

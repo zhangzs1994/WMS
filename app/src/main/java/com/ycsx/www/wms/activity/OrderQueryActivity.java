@@ -24,7 +24,7 @@ import java.util.Date;
 
 public class OrderQueryActivity extends BaseActivity {
     private Spinner spinner;
-    private String[] spinnerChild = {"全 部", "未审核", "审核未通过", "审核已通过"};
+    private String[] spinnerChild = {"全 部", "待审核", "审核未通过", "审核已通过","发货"};
     private ArrayAdapter<String> arrayAdapter;
     private LinearLayout start_dataSelect, end_dataSelect;
     private TextView start_dataTime, end_dataTime;
@@ -44,12 +44,14 @@ public class OrderQueryActivity extends BaseActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if ("未审核".equals(spinnerChild[position])) {
+                if ("待审核".equals(spinnerChild[position])) {
                     status = "0";
                 } else if ("审核未通过".equals(spinnerChild[position])) {
                     status = "2";
                 } else if ("审核已通过".equals(spinnerChild[position])) {
                     status = "1";
+                } else if ("发货".equals(spinnerChild[position])) {
+                    status = "3";
                 } else {
                     status = "";
                 }
