@@ -306,7 +306,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="20px"
                         android:gravity="center"
-                        android:text="商品品质："
+                        android:text="良品数量："
                         android:textColor="@color/colorWhite"
                         android:textSize="20sp" />
 
@@ -387,38 +387,6 @@
                     android:gravity="center_vertical"
                     android:textColor="@color/colorWhite" />
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20px"
-                android:layout_marginBottom="50px"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/add_order_shop"
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="加入订单"
-                    android:textSize="20sp"
-                    android:layout_marginLeft="20px"
-                    android:background="@drawable/button_frame"
-                    android:textColor="@color/colorWhite" />
-
-                <Button
-                    android:id="@+id/submit_order"
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="提交订单"
-                    android:textSize="20sp"
-                    android:background="@drawable/button_frame"
-                    android:textColor="@color/colorWhite"
-                    android:layout_marginRight="20px"
-                    android:layout_marginLeft="50px" />
-                </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

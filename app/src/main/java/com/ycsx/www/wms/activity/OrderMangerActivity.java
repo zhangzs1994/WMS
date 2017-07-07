@@ -1,6 +1,7 @@
 package com.ycsx.www.wms.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -10,6 +11,7 @@ import com.ycsx.www.wms.base.BaseActivity;
 public class OrderMangerActivity extends BaseActivity implements View.OnClickListener{
     private LinearLayout order_query,order_audit,order_delivery;
     private Intent intent;
+    private SharedPreferences pref;
 
     @Override
     public void init() {
@@ -29,6 +31,17 @@ public class OrderMangerActivity extends BaseActivity implements View.OnClickLis
         order_query.setOnClickListener(this);
         order_audit.setOnClickListener(this);
         order_delivery.setOnClickListener(this);
+        pref = getSharedPreferences("login", MODE_PRIVATE);
+        if(pref.getString("menuNode","").indexOf("301")>=0){
+            order_audit.setVisibility(View.VISIBLE);
+        }else {
+            order_audit.setVisibility(View.GONE);
+        }
+        if(pref.getString("menuNode","").indexOf("303")>=0){
+            order_delivery.setVisibility(View.VISIBLE);
+        }else {
+            order_delivery.setVisibility(View.GONE);
+        }
     }
 
     @Override

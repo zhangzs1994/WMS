@@ -199,7 +199,7 @@ public class InStockActivity extends BaseActivity implements PullBaseView.OnHead
                             map.put("describ", user.getData().get(i).getDescrib() + "");//商品描述
                             map.put("transactor", user.getData().get(i).getTransactor() + "");//经办人
                             map.put("goodsStatus", user.getData().get(i).getGoodsStatus() + "");//商品状态
-                            map.put("acceptedGoods", user.getData().get(i).getAcceptedGoods() + "");//检验商品
+                            map.put("nondefectiveNum", user.getData().get(i).getNondefectiveNum() + "");//良品商品数量
                             list.add(map);
                         }
                         adapter.notifyDataSetChanged();

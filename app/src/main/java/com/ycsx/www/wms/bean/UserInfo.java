@@ -6,14 +6,15 @@ package com.ycsx.www.wms.bean;
 public class UserInfo {
     private String userName; //用户名
     private String userPassword; //用户密码
-    private String flag; //用户等级
+    private int flag; //用户等级
     private String name;  //姓名
-    private int age;   //年龄
+    private String age;   //年龄
     private String phone; //手机
     private String email;  //邮箱
     private String sex;   //性别
-    private String status; //用户状态
+    private int status; //用户状态
     private String superior; //上级
+    private String subordinate; //是否有下属员工，1：有；2：没有
     private int id;  //用户表ID
 
     public UserInfo() {
@@ -29,8 +30,8 @@ public class UserInfo {
         this.userPassword = userPassword;
     }
 
-    public UserInfo(String userName, String userPassword, String flag, String name, int age,
-                    String phone, String email, String sex, String status, int id, String superior) {
+    public UserInfo(String userName, String userPassword, int flag, String name, String age,
+                    String phone, String email, String sex, int status, int id, String superior) {
         this.userName = userName;
         this.userPassword = userPassword;
         this.flag = flag;
@@ -60,11 +61,11 @@ public class UserInfo {
         this.userPassword = userPassword;
     }
 
-    public String getFlag() {
+    public int getFlag() {
         return flag;
     }
 
-    public void setFlag(String flag) {
+    public void setFlag(int flag) {
         this.flag = flag;
     }
 
@@ -100,19 +101,19 @@ public class UserInfo {
         this.phone = phone;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -130,5 +131,13 @@ public class UserInfo {
 
     public void setSuperior(String superior) {
         this.superior = superior;
+    }
+
+    public String getSubordinate() {
+        return subordinate;
+    }
+
+    public void setSubordinate(String subordinate) {
+        this.subordinate = subordinate;
     }
 }

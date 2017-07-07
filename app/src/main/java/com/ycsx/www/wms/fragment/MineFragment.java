@@ -91,7 +91,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         pref = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
-        String flagCode = pref.getString("flag", "");
+        String flagCode = pref.getInt("flag", 0)+"";
         getFlag(flagCode);
         super.onStart();
     }

@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:layout_weight="4"
             android:gravity="center"
-            android:text="创建订单"
+            android:text="销售订单"
             android:textColor="@color/colorWhite"
             android:textSize="25sp" />
 

@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15px"
                 android:layout_weight="0.6"
-                android:background="@drawable/shop_query" />
+                android:background="@drawable/mine_achi" />
 
             <TextView
                 android:layout_width="0px"
@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15px"
                 android:layout_weight="0.6"
-                android:background="@drawable/shop_query" />
+                android:background="@drawable/underling" />
 
             <TextView
                 android:layout_width="0px"
@@ -132,7 +132,7 @@
                 android:layout_marginLeft="20px"
                 android:layout_weight="4"
                 android:gravity="center_vertical"
-                android:text="创建订单"
+                android:text="销售订单"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
 

@@ -92,10 +92,10 @@ public class ShopDetailsActivity extends BaseActivity {
         }else {
             shop_goodsStatus.setText(getIntent().getStringExtra("goodsStatus"));
         }
-        if(getIntent().getStringExtra("acceptedGoods").equals("null")){
+        if(getIntent().getStringExtra("nondefectiveNum").equals("null")){
             shop_acceptedGoods.setText("无");
         }else {
-            shop_acceptedGoods.setText(getIntent().getStringExtra("acceptedGoods"));
+            shop_acceptedGoods.setText(getIntent().getStringExtra("nondefectiveNum"));
         }
     }
 

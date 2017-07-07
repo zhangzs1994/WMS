@@ -13,7 +13,7 @@
         <ImageView
             android:layout_width="60px"
             android:layout_height="60px"
-            android:background="@drawable/major_home_red"/>
+            android:background="@drawable/quit_user"/>
 
         <TextView
             android:layout_width="400px"
@@ -37,7 +37,7 @@
         <ImageView
             android:layout_width="60px"
             android:layout_height="60px"
-            android:background="@drawable/major_mine_red"/>
+            android:background="@drawable/close_app"/>
 
         <TextView
             android:layout_width="400px"

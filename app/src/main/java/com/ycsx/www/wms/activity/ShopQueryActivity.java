@@ -1,7 +1,11 @@
 package com.ycsx.www.wms.activity;
 
+import android.Manifest;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
@@ -25,6 +30,7 @@ import com.ycsx.www.wms.recycler.MyDecoration;
 import com.ycsx.www.wms.recycler.PullBaseView;
 import com.ycsx.www.wms.recycler.PullRecyclerView;
 import com.ycsx.www.wms.util.RetrofitUtil;
+import com.ycsx.www.wms.zxing.android.CaptureActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,6 +56,9 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
     private String category;//类别
     private Call<ShopInfo> call;
     private EditText shop_name;
+    public final static int SCANNING_REQUEST_CODE = 1;
+    private ImageView zxing;
+    private String[] permissions = {Manifest.permission.CAMERA};
 
     @Override
     public void init() {
@@ -149,7 +158,7 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
         popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         popupWindow.setHeight(parent.getHeight());
         View view = LayoutInflater.from(this).inflate(R.layout.shop_popup, null);
-        LinearLayout layout_query = (LinearLayout) view.findViewById(R.id.layout_query);
+        layout_query = (LinearLayout) view.findViewById(R.id.layout_query);
         shop_name= (EditText) view.findViewById(R.id.shop_name);
         popupWindow.setContentView(view);
         popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
@@ -169,6 +178,37 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
                 recyclerView.setAdapter(adapter);
             }
         });
+        zxing = (ImageView) view.findViewById(R.id.zxing);
+        zxing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkPermissions(permissions);
+                Intent intent = new Intent(ShopQueryActivity.this, CaptureActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivityForResult(intent, SCANNING_REQUEST_CODE);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case SCANNING_REQUEST_CODE:
+                if (resultCode == RESULT_OK) {
+                    final Bundle bundle = data.getExtras();
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            shop_name.setText(data.getStringExtra("codedContent"));
+                        }
+                    });
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     private void initData(int i) {
@@ -205,7 +245,7 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
                             map.put("describ", user.getData().get(i).getDescrib() + "");//商品描述
                             map.put("transactor", user.getData().get(i).getTransactor() + "");//经办人
                             map.put("goodsStatus", user.getData().get(i).getGoodsStatus() + "");//商品状态
-                            map.put("acceptedGoods", user.getData().get(i).getAcceptedGoods() + "");//检验商品
+                            map.put("nondefectiveNum", user.getData().get(i).getNondefectiveNum() + "");//检验商品
                             list.add(map);
                         }
                         adapter.notifyDataSetChanged();

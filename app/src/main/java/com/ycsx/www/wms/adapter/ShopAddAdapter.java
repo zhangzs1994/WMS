@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.readystatesoftware.viewbadger.BadgeView;
 import com.ycsx.www.wms.R;
 import com.ycsx.www.wms.activity.AddOrderActivity;
+import com.ycsx.www.wms.activity.MyOrderShopActivity;
 import com.ycsx.www.wms.activity.ShopDetailsActivity;
 import com.ycsx.www.wms.bean.Common;
 import com.ycsx.www.wms.bean.OrderShop;
@@ -58,6 +59,7 @@ public class ShopAddAdapter extends RecyclerView.Adapter {
     private SharedPreferences.Editor editor;
     private TextView text_finish;
     private Button btn_finish;
+    private LinearLayout shop_card;
 
     public ShopAddAdapter(Context context, List<Map<String, Object>> list) {
         this.context = context;
@@ -143,18 +145,25 @@ public class ShopAddAdapter extends RecyclerView.Adapter {
                     intent.putExtra("describ", list.get(position).get("describ").toString());
                     intent.putExtra("transactor", list.get(position).get("transactor").toString());
                     intent.putExtra("goodsStatus", list.get(position).get("goodsStatus").toString());
-                    intent.putExtra("acceptedGoods", list.get(position).get("acceptedGoods").toString());
+                    intent.putExtra("nondefectiveNum", list.get(position).get("nondefectiveNum").toString());
                     context.startActivity(intent);
                 }
             });
             popupWindow = new PopupWindow(context);
             View view = LayoutInflater.from(context).inflate(R.layout.shop_finish_popup, null);
-            LinearLayout shop_card = (LinearLayout) view.findViewById(R.id.shop_card);
+            shop_card = (LinearLayout) view.findViewById(R.id.shop_card);
             badgeView = new BadgeView(context, shop_card);
             badgeView.setBackgroundResource(R.drawable.update_round);
             badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT); //默认值
             badgeView.setBadgeMargin(5);
             badgeView.setTextSize(12);
+            shop_card.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, MyOrderShopActivity.class);
+                    context.startActivity(intent);
+                }
+            });
             text_finish = (TextView) view.findViewById(R.id.text_finish);
             btn_finish = (Button) view.findViewById(R.id.btn_finish);
             popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
@@ -166,7 +175,7 @@ public class ShopAddAdapter extends RecyclerView.Adapter {
             btn_finish.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(context,AddOrderActivity.class);
+                    Intent intent = new Intent(context, AddOrderActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//刷新
                     context.startActivity(intent);
                 }
@@ -287,7 +296,7 @@ public class ShopAddAdapter extends RecyclerView.Adapter {
                                                 Toast.makeText(context, "添加失败1！", Toast.LENGTH_SHORT).show();
                                             }
                                         } else {
-                                            Log.e("code==", response.code()+"");
+                                            Log.e("code==", response.code() + "");
                                             Toast.makeText(context, "添加失败2！", Toast.LENGTH_SHORT).show();
                                         }
                                     }
@@ -327,17 +336,17 @@ public class ShopAddAdapter extends RecyclerView.Adapter {
                     OrderShop info = response.body();
                     if (("10200").equals(info.getStatus())) {
                         count = info.getData().size();
-                    }else  if(("10365").equals(info.getStatus())) {
-                        count=0;
+                    } else if (("10365").equals(info.getStatus())) {
+                        count = 0;
                     } else {
                         Toast.makeText(context, "查询失败1！", Toast.LENGTH_SHORT).show();
                     }
-                    if(count>0){
-                        badgeView.setText(count+"");
+                    if (count > 0) {
+                        badgeView.setText(count + "");
                         badgeView.show();
                         text_finish.setVisibility(View.GONE);
                         btn_finish.setVisibility(View.VISIBLE);
-                    }else {
+                    } else {
                         badgeView.hide();
                         text_finish.setVisibility(View.VISIBLE);
                         btn_finish.setVisibility(View.GONE);

@@ -93,7 +93,7 @@ public class RolesActivity extends BaseActivity {
     private List<String> getRoles() {
         Map<String, String> params = new HashMap<>();
         params.put("authorizationCode", API.authorizationCode);
-        Call<RolesInfo> call = RetrofitUtil.getInstance(API.URL).getRoles(params);
+        Call<RolesInfo> call = RetrofitUtil.getInstance(API.URL).queryRoles(params);
         call.enqueue(new Callback<RolesInfo>() {
             @Override
             public void onResponse(Call<RolesInfo> call, Response<RolesInfo> response) {

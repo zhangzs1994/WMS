@@ -97,11 +97,13 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter{
             //((OrderRecyclerHolder)holder).order_num.setText("订单数："+list.get(position).get("describ")+"");
             ((OrderRecyclerHolder)holder).order_price.setText("总额："+list.get(position).get("ocost"));
             if(list.get(position).get("ostatus").equals("0")){
-                ((OrderRecyclerHolder)holder).order_status.setText("状态：未审核");
+                ((OrderRecyclerHolder)holder).order_status.setText("状态：待审核");
             }else if(list.get(position).get("ostatus").equals("1")){
                 ((OrderRecyclerHolder)holder).order_status.setText("状态：审核已通过");
             }else if(list.get(position).get("ostatus").equals("2")){
                 ((OrderRecyclerHolder)holder).order_status.setText("状态：审核未通过");
+            }else if(list.get(position).get("ostatus").equals("3")){
+                ((OrderRecyclerHolder)holder).order_status.setText("状态：发货");
             }
             ((OrderRecyclerHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

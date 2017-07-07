@@ -43,7 +43,7 @@ public class UserInfo implements IUserInfo {
                         }else{
                             user.setSex("女");
                         }
-                        user.setAge(Integer.parseInt(login.getData().get(0).getAge().toString()));
+                        user.setAge(login.getData().get(0).getAge().toString());
                         user.setPhone(login.getData().get(0).getPhone());
                         user.setEmail(login.getData().get(0).getMail());
                         user.setSuperior(login.getData().get(0).getSuperior());

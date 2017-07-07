@@ -50,9 +50,10 @@ public class UserLogin implements IUserLogin{
                         }else{
                             user.setSex("女");
                         }
-                        user.setAge(Integer.parseInt(login.getData().get(0).getAge().toString()));
+                        user.setAge(login.getData().get(0).getAge());
                         user.setPhone(login.getData().get(0).getPhone());
                         user.setEmail(login.getData().get(0).getMail());
+                        user.setSubordinate(login.getData().get(0).getSubordinate());
                         loginListener.loginSuccess(user);
                     } else {
                         if (!userInfo.getUserName().equals("") && !userInfo.getUserPassword().equals("")) {

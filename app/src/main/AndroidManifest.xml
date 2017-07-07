@@ -7,6 +7,9 @@
     <!-- 写区存储的权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:allowBackup="true"
@@ -56,10 +59,16 @@
         <activity android:name=".activity.ClassifyMangerActivity" />
         <activity android:name=".activity.SubTreasuryActivity" />
         <activity android:name=".activity.OpLogActivity" />
-        <activity android:name=".activity.AddOrderActivity"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity
+            android:name=".activity.AddOrderActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity android:name=".activity.SubmitListActivity" />
-        <activity android:name=".activity.ShopAddActivity"></activity>
+        <activity android:name=".activity.ShopAddActivity" />
+        <activity android:name=".activity.MyOrderShopActivity" />
+        <activity android:name=".activity.LogisticsActivity"></activity>
+        <activity android:name=".zxing.android.CaptureActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"/>
     </application>
 
 </manifest>

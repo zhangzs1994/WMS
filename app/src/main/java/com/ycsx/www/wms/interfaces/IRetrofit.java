@@ -15,6 +15,7 @@ import com.ycsx.www.wms.bean.RolesInfo;
 import com.ycsx.www.wms.bean.ShopInfo;
 import com.ycsx.www.wms.bean.SuperiorInfo;
 import com.ycsx.www.wms.bean.Test;
+import com.ycsx.www.wms.bean.UserRoles;
 
 import java.util.List;
 import java.util.Map;
@@ -63,7 +64,11 @@ public interface IRetrofit {
 
     @FormUrlEncoded
     @POST("wms/queryRoles")
-    Call<RolesInfo> getRoles(@FieldMap Map<String, String> params);//获取角色分组信息
+    Call<RolesInfo> queryRoles(@FieldMap Map<String, String> params);//获取角色分组信息
+
+    @FormUrlEncoded
+    @POST("wms/getRoles")
+    Call<UserRoles> getRoles(@FieldMap Map<String, String> params);//获取角色权限信息
 
     @FormUrlEncoded
     @POST("wms/queryFlagCount")

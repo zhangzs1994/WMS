@@ -2,6 +2,7 @@ package com.ycsx.www.wms.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -67,7 +68,10 @@ public class JuniorAchiActivity extends BaseActivity {
                             map.put("name",info.getData().get(i).getName()+"");
                             list.add(map);
                         }
+                    }else if(("10666").equals(info.getStatus())){
+                        Toast.makeText(JuniorAchiActivity.this, "无下属信息！", Toast.LENGTH_SHORT).show();
                     }else {
+                        Log.e("code", "=="+info.getStatus());
                         Toast.makeText(JuniorAchiActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {

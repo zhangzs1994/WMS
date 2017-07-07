@@ -26,6 +26,12 @@ public class AchievementActivity extends BaseActivity implements View.OnClickLis
     private void initView() {
         mine_query = (LinearLayout) findViewById(R.id.mine_query);
         junior_query = (LinearLayout) findViewById(R.id.junior_query);
+        SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
+        if(pref.getString("subordinate","0").equals("1")){
+            junior_query.setVisibility(View.VISIBLE);
+        }else{
+            junior_query.setVisibility(View.GONE);
+        }
         order_submit = (LinearLayout) findViewById(R.id.order_submit);
         submit_query = (LinearLayout) findViewById(R.id.submit_query);
         logistics_query = (LinearLayout) findViewById(R.id.logistics_query);
@@ -65,8 +71,8 @@ public class AchievementActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.logistics_query:
 //                物流查询
-//                intent = new Intent(this, JuniorAchiActivity.class);
-//                startActivity(intent);
+                intent = new Intent(this, LogisticsActivity.class);
+                startActivity(intent);
                 break;
         }
     }

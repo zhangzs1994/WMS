@@ -68,11 +68,13 @@ public class OrderDetailsAdapter extends BaseAdapter {
         holder.order_id.setText(list.get(position).get("oid").toString());
         holder.order_price.setText(list.get(position).get("ocost").toString());
         if(list.get(position).get("ostatus").equals("0")){
-            holder.order_status.setText("未审核");
+            holder.order_status.setText("待审核");
         }else if(list.get(position).get("ostatus").equals("1")){
             holder.order_status.setText("审核已通过");
         }else if(list.get(position).get("ostatus").equals("2")){
             holder.order_status.setText("审核未通过");
+        }else if(list.get(position).get("ostatus").equals("3")){
+            holder.order_status.setText("发货");
         }
         holder.order_time.setText(list.get(position).get("inventime").toString());
         holder.order_address.setText(list.get(position).get("ouaddress").toString());

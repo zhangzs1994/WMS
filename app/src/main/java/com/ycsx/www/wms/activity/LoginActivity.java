@@ -11,9 +11,19 @@ import android.widget.Toast;
 import com.ycsx.www.wms.R;
 import com.ycsx.www.wms.base.BaseActivity;
 import com.ycsx.www.wms.bean.UserInfo;
+import com.ycsx.www.wms.bean.UserRoles;
+import com.ycsx.www.wms.common.API;
 import com.ycsx.www.wms.presenter.UserLoginPresenter;
 import com.ycsx.www.wms.util.LoadingDialog;
+import com.ycsx.www.wms.util.RetrofitUtil;
 import com.ycsx.www.wms.view.IUserLoginView;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends BaseActivity implements IUserLoginView {
     private EditText userName, userPassword;
@@ -21,6 +31,8 @@ public class LoginActivity extends BaseActivity implements IUserLoginView {
     private CheckBox remember_pwd, automatic_login;
     private UserLoginPresenter userLoginPresenter = new UserLoginPresenter(this);
     private LoadingDialog dialog;
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
 
     @Override
     public void init() {
@@ -43,7 +55,6 @@ public class LoginActivity extends BaseActivity implements IUserLoginView {
     }
 
     public void initCheckBox() {
-        SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
         remember_pwd.setChecked(pref.getBoolean("remember_pwd", false));
 //        automatic_login.setChecked(pref.getBoolean("automatic_login", false));
         if (remember_pwd.isChecked()) {
@@ -64,6 +75,8 @@ public class LoginActivity extends BaseActivity implements IUserLoginView {
         remember_pwd = (CheckBox) findViewById(R.id.remember_pwd);
 //        automatic_login = (CheckBox) findViewById(R.id.automatic_login);
         dialog = new LoadingDialog(this, R.style.CustomDialog);
+        pref = getSharedPreferences("login", MODE_PRIVATE);
+        editor = pref.edit();
     }
 
     @Override
@@ -83,14 +96,14 @@ public class LoginActivity extends BaseActivity implements IUserLoginView {
 
     @Override
     public void LoginSuccess(UserInfo user) {
-        SharedPreferences.Editor editor = getSharedPreferences("login", MODE_PRIVATE).edit();
         editor.putString("username", user.getUserName());
         editor.putString("userpwd", user.getUserPassword());
-        editor.putString("flag", user.getFlag());
+        editor.putInt("flag", user.getFlag());
         editor.putInt("id", user.getId());
         editor.putString("name", user.getName());
         editor.putString("superior", user.getSuperior());
-        editor.putString("status", user.getStatus());
+        editor.putInt("status", user.getStatus());
+        editor.putString("subordinate", user.getSubordinate());
         if (remember_pwd.isChecked()) {
             editor.putBoolean("remember_pwd", true);
         } else {
@@ -103,6 +116,12 @@ public class LoginActivity extends BaseActivity implements IUserLoginView {
 //        }
         editor.commit();
         Toast.makeText(LoginActivity.this, user.getUserName() + "登陆成功！", Toast.LENGTH_SHORT).show();
+        initData();
+//        if(pref.getString("menuNode","").indexOf("300011")>=0){
+//            Toast.makeText(LoginActivity.this, "存在", Toast.LENGTH_SHORT).show();
+//        }else {
+//            Toast.makeText(LoginActivity.this, "不存在", Toast.LENGTH_SHORT).show();
+//        }
         Intent intent = new Intent(this, MajorActivity.class);
         startActivity(intent);
         finish();
@@ -123,5 +142,34 @@ public class LoginActivity extends BaseActivity implements IUserLoginView {
         dialog.dismiss();
     }
 
+    private void initData() {
+        Map<String, String> params = new HashMap<>();
+        params.put("authorizationCode", API.authorizationCode);
+        Call<UserRoles> call = RetrofitUtil.getInstance(API.URL).getRoles(params);
+        call.enqueue(new Callback<UserRoles>() {
+            @Override
+            public void onResponse(Call<UserRoles> call, Response<UserRoles> response) {
+                if (response.isSuccessful()) {
+                    UserRoles info = response.body();
+                    if (("10200").equals(info.getStatus())) {
+                        for (int i = 0; i < info.getData().size(); i++) {
+                            if (pref.getInt("flag", 0) == info.getData().get(i).getFlag()) {
+                                editor.putString("menuNode",info.getData().get(i).getMenuNode());
+                                editor.commit();
+                            }
+                        }
+                    } else {
+                        Toast.makeText(LoginActivity.this, "获取失败1！", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(LoginActivity.this, "获取失败2！", Toast.LENGTH_SHORT).show();
+                }
+            }
 
+            @Override
+            public void onFailure(Call<UserRoles> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "获取失败3！", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

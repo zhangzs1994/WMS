@@ -11,15 +11,30 @@
         android:layout_height="match_parent">
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/shop_name"
+    <LinearLayout
         android:layout_width="0px"
-        android:layout_weight="4"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorWhite"
+        android:layout_weight="6"
         android:background="@drawable/card_bg"
-        android:hint="请输入商品名、编号或条码"
-        android:textColorHint="@color/colorWhite"/>
+        android:layout_height="80px"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/shop_name"
+            android:layout_width="400px"
+            android:layout_height="match_parent"
+            android:textColor="@color/colorWhite"
+            android:textSize="15sp"
+            android:background="@null"
+            android:hint="请输入商品名、编号或条码"
+            android:textColorHint="@color/colorWhite"/>
+
+        <ImageView
+            android:id="@+id/zxing"
+            android:layout_width="50px"
+            android:layout_height="50px"
+            android:layout_marginLeft="30px"
+            android:layout_gravity="center"
+            android:background="@drawable/cil"/>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layout_query"

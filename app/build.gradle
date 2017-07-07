@@ -45,5 +45,8 @@ dependencies {
     compile files('libs/android-viewbadger.jar')
     //自动滚动viewpager的依赖包
     compile 'com.github.demoNo:AutoScrollViewPager:v1.0.2'
+    //图表框架依赖包
     compile files('libs/hellocharts-library-1.5.8.jar')
+    //二维码依赖包
+    compile files('libs/zxing_core-3.3.0.jar')
 }

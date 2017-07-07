@@ -1,6 +1,7 @@
 package com.ycsx.www.wms.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -10,6 +11,7 @@ import com.ycsx.www.wms.base.BaseActivity;
 public class StockMangerActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayout shop_query, in_stock, out_stock;
     private Intent intent;
+    private SharedPreferences pref;
 
     @Override
     public void init() {
@@ -25,6 +27,22 @@ public class StockMangerActivity extends BaseActivity implements View.OnClickLis
         shop_query.setOnClickListener(this);
         in_stock.setOnClickListener(this);
         out_stock.setOnClickListener(this);
+        pref = getSharedPreferences("login", MODE_PRIVATE);
+        if(pref.getString("menuNode","").indexOf("30001")>=0){
+            shop_query.setVisibility(View.VISIBLE);
+        }else {
+            shop_query.setVisibility(View.GONE);
+        }
+        if(pref.getString("menuNode","").indexOf("10002")>=0){
+            in_stock.setVisibility(View.VISIBLE);
+        }else {
+            in_stock.setVisibility(View.GONE);
+        }
+        if(pref.getString("menuNode","").indexOf("20002")>=0){
+            out_stock.setVisibility(View.VISIBLE);
+        }else {
+            out_stock.setVisibility(View.GONE);
+        }
     }
 
     public void back(View view) {

@@ -7,9 +7,8 @@ import java.util.List;
  */
 public class LoginInfo {
 
-
     /**
-     * data : [{"superior":null,"flag":null,"mail":"707821289@qq.com","phone":"18672346113","sex":null,"name":"","userpwd":"123456","id":4,"age":null,"username":"ceshi","status":1}]
+     * data : [{"sexValue":null,"subordinateValue":"无下级","flag":4,"mail":"","subordinate":"2","statusValue":"在职","sex":"0","flagValue":"员工","userpwd":"123456","superior":"zzs","phone":"","name":"abc","id":40,"age":"","username":"abc","status":1}]
      * page : null
      * status : 10200
      * message : 请求操作成功
@@ -54,44 +53,62 @@ public class LoginInfo {
 
     public static class DataBean {
         /**
-         * superior : null
-         * flag : null
-         * mail : 707821289@qq.com
-         * phone : 18672346113
-         * sex : null
-         * name :
+         * sexValue : null
+         * subordinateValue : 无下级
+         * flag : 4
+         * mail :
+         * subordinate : 2
+         * statusValue : 在职
+         * sex : 0
+         * flagValue : 员工
          * userpwd : 123456
-         * id : 4
-         * age : null
-         * username : ceshi
+         * superior : zzs
+         * phone :
+         * name : abc
+         * id : 40
+         * age :
+         * username : abc
          * status : 1
          */
 
-        private String superior;
-        private String flag;
+        private String sexValue;
+        private String subordinateValue;
+        private int flag;
         private String mail;
-        private String phone;
+        private String subordinate;
+        private String statusValue;
         private String sex;
-        private String name;
+        private String flagValue;
         private String userpwd;
+        private String superior;
+        private String phone;
+        private String name;
         private int id;
-        private int age;
+        private String age;
         private String username;
-        private String status;
+        private int status;
 
-        public String getSuperior() {
-            return superior;
+        public String getSexValue() {
+            return sexValue;
         }
 
-        public void setSuperior(String superior) {
-            this.superior = superior;
+        public void setSexValue(String sexValue) {
+            this.sexValue = sexValue;
         }
 
-        public String getFlag() {
+        public String getSubordinateValue() {
+            return subordinateValue;
+        }
+
+        public void setSubordinateValue(String subordinateValue) {
+            this.subordinateValue = subordinateValue;
+        }
+
+        public int getFlag() {
             return flag;
         }
 
-        public void setFlag(String flag) {
+        public void setFlag(int flag) {
             this.flag = flag;
         }
 
@@ -103,12 +120,20 @@ public class LoginInfo {
             this.mail = mail;
         }
 
-        public String getPhone() {
-            return phone;
+        public String getSubordinate() {
+            return subordinate;
         }
 
-        public void setPhone(String phone) {
-            this.phone = phone;
+        public void setSubordinate(String subordinate) {
+            this.subordinate = subordinate;
+        }
+
+        public String getStatusValue() {
+            return statusValue;
+        }
+
+        public void setStatusValue(String statusValue) {
+            this.statusValue = statusValue;
         }
 
         public String getSex() {
@@ -119,12 +144,12 @@ public class LoginInfo {
             this.sex = sex;
         }
 
-        public String getName() {
-            return name;
+        public String getFlagValue() {
+            return flagValue;
         }
 
-        public void setName(String name) {
-            this.name = name;
+        public void setFlagValue(String flagValue) {
+            this.flagValue = flagValue;
         }
 
         public String getUserpwd() {
@@ -135,6 +160,30 @@ public class LoginInfo {
             this.userpwd = userpwd;
         }
 
+        public String getSuperior() {
+            return superior;
+        }
+
+        public void setSuperior(String superior) {
+            this.superior = superior;
+        }
+
+        public String getPhone() {
+            return phone;
+        }
+
+        public void setPhone(String phone) {
+            this.phone = phone;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
         public int getId() {
             return id;
         }
@@ -143,11 +192,11 @@ public class LoginInfo {
             this.id = id;
         }
 
-        public Object getAge() {
+        public String getAge() {
             return age;
         }
 
-        public void setAge(int age) {
+        public void setAge(String age) {
             this.age = age;
         }
 
@@ -159,11 +208,11 @@ public class LoginInfo {
             this.username = username;
         }
 
-        public String getStatus() {
+        public int getStatus() {
             return status;
         }
 
-        public void setStatus(String status) {
+        public void setStatus(int status) {
             this.status = status;
         }
     }

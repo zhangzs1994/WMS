@@ -52,7 +52,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="订  单  号:"
+                android:text="\u3000订单号:"
                 android:textColor="@color/colorWhite" />
 
             <LinearLayout
@@ -162,7 +162,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="状        态:"
+                android:text="\u3000\u3000状态:"
                 android:textColor="@color/colorWhite" />
 
             <LinearLayout

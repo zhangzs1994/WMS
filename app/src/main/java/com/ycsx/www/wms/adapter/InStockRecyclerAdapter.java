@@ -113,7 +113,7 @@ public class InStockRecyclerAdapter extends RecyclerView.Adapter{
                     intent.putExtra("describ",list.get(position).get("describ").toString());
                     intent.putExtra("transactor",list.get(position).get("transactor").toString());
                     intent.putExtra("goodsStatus",list.get(position).get("goodsStatus").toString());
-                    intent.putExtra("acceptedGoods",list.get(position).get("acceptedGoods").toString());
+                    intent.putExtra("nondefectiveNum",list.get(position).get("nondefectiveNum").toString());
                     context.startActivity(intent);
                 }
             });

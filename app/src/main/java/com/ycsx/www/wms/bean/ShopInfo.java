@@ -8,22 +8,22 @@ import java.util.List;
 public class ShopInfo {
 
     /**
-     * data : [{"totalPrice":100,"inventoryMinnum":0,"qualitytimeNum":0,"qualityTime":180,"spec":"重量","transactor":"李四","instockTime":"2017-05-28 15:38:40","describ":"有点甜！！！","inventoryMaxnum":0,"price":2.5,"acceptedNum":0,"id":14,"outstockNum":0,"stock":15,"goodsNum":null,"outstockTime":null,"inventoryStatus":"库存预警未开启","thePool":"主库","measurementUnit":"箱","barCode":null,"qualitytimeStatus":"保质期预警未开启","manufactureTime":"2017-01-28 15:38:40","goodsStatus":"已入库","name":"奥利奥2","instockNum":15,"category":"饼干类","retailPrice":1,"tradePrice":1,"acceptedGoods":"待检品"},{"totalPrice":100,"inventoryMinnum":0,"qualitytimeNum":0,"qualityTime":180,"spec":"重量","transactor":"李四","instockTime":"2017-06-09 15:38:40","describ":"有点甜！！！","inventoryMaxnum":0,"price":2.5,"acceptedNum":0,"id":15,"outstockNum":0,"stock":15,"goodsNum":null,"outstockTime":null,"inventoryStatus":"库存预警未开启","thePool":"主库","measurementUnit":"箱","barCode":null,"qualitytimeStatus":"保质期预警未开启","manufactureTime":"2017-01-28 15:38:40","goodsStatus":"已入库","name":"脉动3","instockNum":15,"category":"未分类","retailPrice":1,"tradePrice":1,"acceptedGoods":"待检品"}]
-     * page : {"currentPage":4,"pageRecords":2,"totalPages":9,"totalRecords":17,"startRecord":6,"nextPage":null,"previousPage":null,"hasNextPage":false,"hasPreviousPage":false}
+     * data : [{"totalPrice":"2.50","inventoryMinnum":"10","qualitytimeNum":"50","qualityTime":"180","spec":"重量","transactor":"李四","instockTime":"2017-06-27 15:38:40","describ":"有点甜！！！","inventoryMaxnum":"50","price":"2.50","acceptedNum":"20","id":22,"outstockNum":"0","stock":"100","goodsNum":"11111","outstockTime":null,"inventoryStatus":"库存预警开启","pictureUrl":null,"thePool":"主库","measurementUnit":"<空>","nondefectiveNum":2,"barCode":"22222","qualitytimeStatus":"保质期预警未开启","manufactureTime":"2017-01-28 15:38:40","goodsStatus":"已入库","name":"黄鹤楼","instockNum":"100","category":"未分类","retailPrice":"2.50","tradePrice":"2.50"}]
+     * page : null
      * status : 10200
      * message : 请求操作成功
      */
 
-    private PageBean page;
+    private Object page;
     private String status;
     private String message;
     private List<DataBean> data;
 
-    public PageBean getPage() {
+    public Object getPage() {
         return page;
     }
 
-    public void setPage(PageBean page) {
+    public void setPage(Object page) {
         this.page = page;
     }
 
@@ -51,194 +51,100 @@ public class ShopInfo {
         this.data = data;
     }
 
-    public static class PageBean {
-        /**
-         * currentPage : 4
-         * pageRecords : 2
-         * totalPages : 9
-         * totalRecords : 17
-         * startRecord : 6
-         * nextPage : null
-         * previousPage : null
-         * hasNextPage : false
-         * hasPreviousPage : false
-         */
-
-        private int currentPage;
-        private int pageRecords;
-        private int totalPages;
-        private int totalRecords;
-        private int startRecord;
-        private String nextPage;
-        private String previousPage;
-        private boolean hasNextPage;
-        private boolean hasPreviousPage;
-
-        public int getCurrentPage() {
-            return currentPage;
-        }
-
-        public void setCurrentPage(int currentPage) {
-            this.currentPage = currentPage;
-        }
-
-        public int getPageRecords() {
-            return pageRecords;
-        }
-
-        public void setPageRecords(int pageRecords) {
-            this.pageRecords = pageRecords;
-        }
-
-        public int getTotalPages() {
-            return totalPages;
-        }
-
-        public void setTotalPages(int totalPages) {
-            this.totalPages = totalPages;
-        }
-
-        public int getTotalRecords() {
-            return totalRecords;
-        }
-
-        public void setTotalRecords(int totalRecords) {
-            this.totalRecords = totalRecords;
-        }
-
-        public int getStartRecord() {
-            return startRecord;
-        }
-
-        public void setStartRecord(int startRecord) {
-            this.startRecord = startRecord;
-        }
-
-        public String getNextPage() {
-            return nextPage;
-        }
-
-        public void setNextPage(String nextPage) {
-            this.nextPage = nextPage;
-        }
-
-        public String getPreviousPage() {
-            return previousPage;
-        }
-
-        public void setPreviousPage(String previousPage) {
-            this.previousPage = previousPage;
-        }
-
-        public boolean isHasNextPage() {
-            return hasNextPage;
-        }
-
-        public void setHasNextPage(boolean hasNextPage) {
-            this.hasNextPage = hasNextPage;
-        }
-
-        public boolean isHasPreviousPage() {
-            return hasPreviousPage;
-        }
-
-        public void setHasPreviousPage(boolean hasPreviousPage) {
-            this.hasPreviousPage = hasPreviousPage;
-        }
-    }
-
     public static class DataBean {
         /**
-         * totalPrice : 100.0
-         * inventoryMinnum : 0
-         * qualitytimeNum : 0
+         * totalPrice : 2.50
+         * inventoryMinnum : 10
+         * qualitytimeNum : 50
          * qualityTime : 180
          * spec : 重量
          * transactor : 李四
-         * instockTime : 2017-05-28 15:38:40
+         * instockTime : 2017-06-27 15:38:40
          * describ : 有点甜！！！
-         * inventoryMaxnum : 0
-         * price : 2.5
-         * acceptedNum : 0
-         * id : 14
+         * inventoryMaxnum : 50
+         * price : 2.50
+         * acceptedNum : 20
+         * id : 22
          * outstockNum : 0
-         * stock : 15
-         * goodsNum : null
+         * stock : 100
+         * goodsNum : 11111
          * outstockTime : null
-         * inventoryStatus : 库存预警未开启
+         * inventoryStatus : 库存预警开启
+         * pictureUrl : null
          * thePool : 主库
-         * measurementUnit : 箱
-         * barCode : null
+         * measurementUnit : <空>
+         * nondefectiveNum : 2
+         * barCode : 22222
          * qualitytimeStatus : 保质期预警未开启
          * manufactureTime : 2017-01-28 15:38:40
          * goodsStatus : 已入库
-         * name : 奥利奥2
-         * instockNum : 15
-         * category : 饼干类
-         * retailPrice : 1.0
-         * tradePrice : 1.0
-         * acceptedGoods : 待检品
+         * name : 黄鹤楼
+         * instockNum : 100
+         * category : 未分类
+         * retailPrice : 2.50
+         * tradePrice : 2.50
          */
 
-        private double totalPrice;
-        private int inventoryMinnum;
-        private int qualitytimeNum;
-        private int qualityTime;
+        private String totalPrice;
+        private String inventoryMinnum;
+        private String qualitytimeNum;
+        private String qualityTime;
         private String spec;
         private String transactor;
         private String instockTime;
         private String describ;
-        private int inventoryMaxnum;
-        private double price;
-        private int acceptedNum;
+        private String inventoryMaxnum;
+        private String price;
+        private String acceptedNum;
         private int id;
-        private int outstockNum;
-        private int stock;
+        private String outstockNum;
+        private String stock;
         private String goodsNum;
         private String outstockTime;
         private String inventoryStatus;
+        private String pictureUrl;
         private String thePool;
         private String measurementUnit;
+        private int nondefectiveNum;
         private String barCode;
         private String qualitytimeStatus;
         private String manufactureTime;
         private String goodsStatus;
         private String name;
-        private int instockNum;
+        private String instockNum;
         private String category;
-        private double retailPrice;
-        private double tradePrice;
-        private String acceptedGoods;
+        private String retailPrice;
+        private String tradePrice;
 
-        public double getTotalPrice() {
+        public String getTotalPrice() {
             return totalPrice;
         }
 
-        public void setTotalPrice(double totalPrice) {
+        public void setTotalPrice(String totalPrice) {
             this.totalPrice = totalPrice;
         }
 
-        public int getInventoryMinnum() {
+        public String getInventoryMinnum() {
             return inventoryMinnum;
         }
 
-        public void setInventoryMinnum(int inventoryMinnum) {
+        public void setInventoryMinnum(String inventoryMinnum) {
             this.inventoryMinnum = inventoryMinnum;
         }
 
-        public int getQualitytimeNum() {
+        public String getQualitytimeNum() {
             return qualitytimeNum;
         }
 
-        public void setQualitytimeNum(int qualitytimeNum) {
+        public void setQualitytimeNum(String qualitytimeNum) {
             this.qualitytimeNum = qualitytimeNum;
         }
 
-        public int getQualityTime() {
+        public String getQualityTime() {
             return qualityTime;
         }
 
-        public void setQualityTime(int qualityTime) {
+        public void setQualityTime(String qualityTime) {
             this.qualityTime = qualityTime;
         }
 
@@ -274,27 +180,27 @@ public class ShopInfo {
             this.describ = describ;
         }
 
-        public int getInventoryMaxnum() {
+        public String getInventoryMaxnum() {
             return inventoryMaxnum;
         }
 
-        public void setInventoryMaxnum(int inventoryMaxnum) {
+        public void setInventoryMaxnum(String inventoryMaxnum) {
             this.inventoryMaxnum = inventoryMaxnum;
         }
 
-        public double getPrice() {
+        public String getPrice() {
             return price;
         }
 
-        public void setPrice(double price) {
+        public void setPrice(String price) {
             this.price = price;
         }
 
-        public int getAcceptedNum() {
+        public String getAcceptedNum() {
             return acceptedNum;
         }
 
-        public void setAcceptedNum(int acceptedNum) {
+        public void setAcceptedNum(String acceptedNum) {
             this.acceptedNum = acceptedNum;
         }
 
@@ -306,19 +212,19 @@ public class ShopInfo {
             this.id = id;
         }
 
-        public int getOutstockNum() {
+        public String getOutstockNum() {
             return outstockNum;
         }
 
-        public void setOutstockNum(int outstockNum) {
+        public void setOutstockNum(String outstockNum) {
             this.outstockNum = outstockNum;
         }
 
-        public int getStock() {
+        public String getStock() {
             return stock;
         }
 
-        public void setStock(int stock) {
+        public void setStock(String stock) {
             this.stock = stock;
         }
 
@@ -346,6 +252,14 @@ public class ShopInfo {
             this.inventoryStatus = inventoryStatus;
         }
 
+        public String getPictureUrl() {
+            return pictureUrl;
+        }
+
+        public void setPictureUrl(String pictureUrl) {
+            this.pictureUrl = pictureUrl;
+        }
+
         public String getThePool() {
             return thePool;
         }
@@ -360,6 +274,14 @@ public class ShopInfo {
 
         public void setMeasurementUnit(String measurementUnit) {
             this.measurementUnit = measurementUnit;
+        }
+
+        public int getNondefectiveNum() {
+            return nondefectiveNum;
+        }
+
+        public void setNondefectiveNum(int nondefectiveNum) {
+            this.nondefectiveNum = nondefectiveNum;
         }
 
         public String getBarCode() {
@@ -402,11 +324,11 @@ public class ShopInfo {
             this.name = name;
         }
 
-        public int getInstockNum() {
+        public String getInstockNum() {
             return instockNum;
         }
 
-        public void setInstockNum(int instockNum) {
+        public void setInstockNum(String instockNum) {
             this.instockNum = instockNum;
         }
 
@@ -418,28 +340,20 @@ public class ShopInfo {
             this.category = category;
         }
 
-        public double getRetailPrice() {
+        public String getRetailPrice() {
             return retailPrice;
         }
 
-        public void setRetailPrice(double retailPrice) {
+        public void setRetailPrice(String retailPrice) {
             this.retailPrice = retailPrice;
         }
 
-        public double getTradePrice() {
+        public String getTradePrice() {
             return tradePrice;
         }
 
-        public void setTradePrice(double tradePrice) {
+        public void setTradePrice(String tradePrice) {
             this.tradePrice = tradePrice;
-        }
-
-        public String getAcceptedGoods() {
-            return acceptedGoods;
-        }
-
-        public void setAcceptedGoods(String acceptedGoods) {
-            this.acceptedGoods = acceptedGoods;
         }
     }
 }

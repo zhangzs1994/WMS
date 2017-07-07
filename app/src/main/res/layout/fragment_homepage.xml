@@ -38,7 +38,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="1200px">
+        android:layout_height="1100px">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -185,7 +185,7 @@
                         <ImageView
                             android:layout_width="120px"
                             android:layout_height="120px"
-                            android:background="@drawable/major_stock" />
+                            android:background="@drawable/subtreasury" />
 
                         <TextView
                             android:layout_width="wrap_content"
