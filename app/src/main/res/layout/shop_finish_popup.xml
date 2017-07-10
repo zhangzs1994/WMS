@@ -36,17 +36,17 @@
             <TextView
                 android:id="@+id/text_finish"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80px"
                 android:text="添加完成"
                 android:textSize="20sp"
-                android:gravity="center_horizontal"
+                android:gravity="center"
                 android:textColor="@color/fontColor"
                 android:layout_gravity="center"/>
 
             <Button
                 android:id="@+id/btn_finish"
                 android:layout_width="300px"
-                android:layout_height="match_parent"
+                android:layout_height="80px"
                 android:text="添加完成"
                 android:visibility="gone"
                 android:textColor="@color/colorWhite"

@@ -42,7 +42,7 @@ public class JuniorAchiActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 intent = new Intent(JuniorAchiActivity.this, MineAchiActivity.class);
-                intent.putExtra("title", list.get(position).get("name")+"的业绩");
+                intent.putExtra("title", list.get(position).get("username")+"的业绩");
                 intent.putExtra("id", list.get(position).get("id").toString());
                 startActivity(intent);
             }

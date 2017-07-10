@@ -49,7 +49,6 @@
         android:layout_marginLeft="30px"
         android:layout_marginRight="30px"
         android:layout_marginTop="30px"
-        android:layout_marginBottom="100px"
         android:layout_weight="8"
         android:background="#35000000"
         android:gravity="center_horizontal"
@@ -85,5 +84,6 @@
         </LinearLayout>
 
     </LinearLayout>
+    <include layout="@layout/shop_finish_popup"/>
 
 </LinearLayout>

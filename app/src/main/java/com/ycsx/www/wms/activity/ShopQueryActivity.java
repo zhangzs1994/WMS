@@ -43,7 +43,8 @@ import retrofit2.Response;
 
 public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHeaderRefreshListener, PullBaseView.OnFooterRefreshListener {
     private Spinner spinner;
-    private List<String> spinnerChild = new ArrayList<>();
+    private List<String> spinnerValue = new ArrayList<>();
+    private List<String> spinnerCode = new ArrayList<>();
     private PullRecyclerView recyclerView;
     private ShopRecyclerAdapter adapter;
     private List<Map<String, Object>> list = new ArrayList();
@@ -70,13 +71,17 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                category = arrayAdapter.getItem(position).toString();
+                category = spinnerValue.get(position).toString();
                 startRecord = 0;
                 list = new ArrayList();
                 if (category.equals("全部")) {
                     i = 0;
                 } else {
-                    category = category.substring(0, spinnerChild.get(position).indexOf(":"));
+                    for (int i = 0; i < spinnerValue.size(); i++) {
+                        if (spinnerValue.get(i).toString().equals(spinnerValue.get(position).toString())) {
+                            category = spinnerCode.get(i-1).toString();
+                        }
+                    }
                     i = 1;
                 }
                 initData(i);
@@ -98,7 +103,7 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
     }
 
     private void queryDropdown() {
-        spinnerChild.add("全部");
+        spinnerValue.add("全部");
         Map<String, String> params = new HashMap<>();
         params.put("colName", "goodsCategory");
         Call<CategoryInfo> call = RetrofitUtil.getInstance(API.URL).queryDropdown(params);
@@ -109,13 +114,14 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
                     CategoryInfo info = response.body();
                     if (("10200").equals(info.getStatus())) {
                         for (int i = 0; i < info.getData().size(); i++) {
-                            spinnerChild.add(info.getData().get(i).getCode() + ":" + info.getData().get(i).getValue());
+                            spinnerValue.add(info.getData().get(i).getValue() + "");
+                            spinnerCode.add(info.getData().get(i).getCode() + "");
                         }
-                        arrayAdapter = new ArrayAdapter<String>(ShopQueryActivity.this, R.layout.spinner_item, spinnerChild);
+                        arrayAdapter = new ArrayAdapter<String>(ShopQueryActivity.this, R.layout.spinner_item, spinnerValue);
                         arrayAdapter.setDropDownViewResource(R.layout.dropdown_stytle);
                         spinner.setAdapter(arrayAdapter);
                     } else {
-                        Log.e("getStatus==", info.getStatus() );
+                        Log.e("getStatus==", info.getStatus());
                         Toast.makeText(ShopQueryActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -159,7 +165,7 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
         popupWindow.setHeight(parent.getHeight());
         View view = LayoutInflater.from(this).inflate(R.layout.shop_popup, null);
         layout_query = (LinearLayout) view.findViewById(R.id.layout_query);
-        shop_name= (EditText) view.findViewById(R.id.shop_name);
+        shop_name = (EditText) view.findViewById(R.id.shop_name);
         popupWindow.setContentView(view);
         popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
         popupWindow.setOutsideTouchable(false);
@@ -238,7 +244,7 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
                             map.put("instockTime", user.getData().get(i).getInstockTime() + "");//入库时间
                             map.put("outstockTime", user.getData().get(i).getOutstockTime() + "");//出库时间
                             map.put("stock", user.getData().get(i).getStock() + "");//库存
-                            map.put("price", user.getData().get(i).getPrice() + "");//价格
+                            map.put("price", user.getData().get(i).getPrice());//价格
                             map.put("spec", user.getData().get(i).getSpec() + "");//规格
                             map.put("manufactureTime", user.getData().get(i).getManufactureTime() + "");//生产日期
                             map.put("qualityTime", user.getData().get(i).getQualityTime() + "");//保质期
@@ -252,19 +258,19 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
                     } else if (("10365").equals(user.getStatus())) {
                         Toast.makeText(ShopQueryActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
                     } else {
-                        Log.e("getStatus==", user.getStatus() );
+                        Log.e("getStatus==", user.getStatus());
                         Log.e("getMessage==", user.getMessage());
                         Toast.makeText(ShopQueryActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Log.e("code", "=="+response.code());
+                    Log.e("code", "==" + response.code());
                     Toast.makeText(ShopQueryActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ShopInfo> call, Throwable t) {
-                Log.e("getMessage", "=="+t.getMessage());
+                Log.e("getMessage", "==" + t.getMessage());
                 Toast.makeText(ShopQueryActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
             }
         });

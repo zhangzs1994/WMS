@@ -24,6 +24,7 @@ import com.ycsx.www.wms.bean.OrderShop;
 import com.ycsx.www.wms.common.API;
 import com.ycsx.www.wms.util.RetrofitUtil;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,11 +36,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddOrderActivity extends BaseActivity implements View.OnClickListener {
-    private Button submit, keep;
+public class SaleOrderActivity extends BaseActivity implements View.OnClickListener {
+    private Button submit;
     private AddOrderInfo order=new AddOrderInfo();
     private List<AddOrderInfo.DataBean> datas=new ArrayList<>();
-    private List<Map<String,String>> list;
+    private List<Map<String,Object>> list;
     private String orderDetial;
     private GsonBuilder builder;
     private Gson gson;
@@ -47,12 +48,13 @@ public class AddOrderActivity extends BaseActivity implements View.OnClickListen
     private Intent intent;
     private ListView listView;
     private AddOrderListAdapter adapter;
-    private Double price=0.0;
+    private Double price=0.00;
     private TextView ocost,receiving,contact,ouaddress;
     private Spinner spinner;
     private ArrayAdapter<String> arrayAdapter;
     private String[] spinnerChild = {"正常", "非正常"};
     private String status;
+    private SharedPreferences pref;
 
     @Override
     public void init() {
@@ -88,15 +90,14 @@ public class AddOrderActivity extends BaseActivity implements View.OnClickListen
         spinner = (Spinner) findViewById(R.id.spinner);
         add_shop = (LinearLayout) findViewById(R.id.add_shop);
         submit = (Button) findViewById(R.id.submit);
-        keep = (Button) findViewById(R.id.keep);
         listView = (ListView) findViewById(R.id.listView);
         ocost = (TextView) findViewById(R.id.ocost);
         receiving = (TextView) findViewById(R.id.receiving);
         contact = (TextView) findViewById(R.id.contact);
         ouaddress = (TextView) findViewById(R.id.ouaddress);
         submit.setOnClickListener(this);
-        keep.setOnClickListener(this);
         add_shop.setOnClickListener(this);
+        ocost.setText(new DecimalFormat("######0.00").format(price));
     }
 
     private void initData() {
@@ -112,18 +113,18 @@ public class AddOrderActivity extends BaseActivity implements View.OnClickListen
                     Common info = response.body();
                     if (("10200").equals(info.getStatus())) {
                         finish();
-                        Toast.makeText(AddOrderActivity.this, "提交成功！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SaleOrderActivity.this, "提交成功！", Toast.LENGTH_SHORT).show();
                     }else {
-                        Toast.makeText(AddOrderActivity.this, "提交失败1！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SaleOrderActivity.this, "提交失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(AddOrderActivity.this, "提交失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SaleOrderActivity.this, "提交失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Common> call, Throwable t) {
-                Toast.makeText(AddOrderActivity.this, "提交失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SaleOrderActivity.this, "提交失败3！", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -140,10 +141,10 @@ public class AddOrderActivity extends BaseActivity implements View.OnClickListen
                     OrderShop info = response.body();
                     if (("10200").equals(info.getStatus())) {
                         for (int i = 0; i < info.getData().size(); i++) {
-                            Map<String, String> map = new HashMap<String, String>();
+                            Map<String, Object> map = new HashMap<String, Object>();
                             map.put("uid", info.getData().get(i).getUid() + "");
                             map.put("pid", info.getData().get(i).getPid() + "");
-                            map.put("price", info.getData().get(i).getPrice() + "");
+                            map.put("price", info.getData().get(i).getPrice());
                             map.put("pname", info.getData().get(i).getPname() + "");
                             map.put("num", info.getData().get(i).getNum() + "");
                             list.add(map);
@@ -154,22 +155,22 @@ public class AddOrderActivity extends BaseActivity implements View.OnClickListen
                             datas.add(data);
                             price=price+Double.parseDouble(info.getData().get(i).getPrice()+"")*Double.parseDouble(info.getData().get(i).getNum()+"");
                         }
-                        ocost.setText(price+"");
+                        ocost.setText(new DecimalFormat("######0.00").format(price));
                     }else  if(("10365").equals(info.getStatus())) {
                         AddOrderInfo.DataBean data = new AddOrderInfo.DataBean();
                         datas.add(data);
                     } else{
-                        Toast.makeText(AddOrderActivity.this, "查询失败1！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SaleOrderActivity.this, "查询失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(AddOrderActivity.this, "查询失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SaleOrderActivity.this, "查询失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<OrderShop> call, Throwable t) {
                 Log.e("getMessage","==="+t.getMessage());
-                Toast.makeText(AddOrderActivity.this, "查询失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SaleOrderActivity.this, "查询失败3！", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -197,15 +198,23 @@ public class AddOrderActivity extends BaseActivity implements View.OnClickListen
                 order.setReceiving(receiving.getText().toString());
                 order.setContact(contact.getText().toString());
                 order.setClassify(status);
-                order.setOcost(Double.parseDouble(ocost.getText().toString()));
-                if(datas.size()==0){
-                    Toast.makeText(AddOrderActivity.this, "请添加商品！", Toast.LENGTH_SHORT).show();
+                if(ocost.getText().toString().equals("")){
+                    order.setOcost(0.00);
+                }else{
+                    order.setOcost(Double.parseDouble(ocost.getText().toString()));
+                }
+                if(list.size()==0){
+                    Toast.makeText(SaleOrderActivity.this, "请添加商品！", Toast.LENGTH_SHORT).show();
+                }else if(order.getReceiving().equals("")){
+                    Toast.makeText(SaleOrderActivity.this, "请输入收货人！", Toast.LENGTH_SHORT).show();
+                }else if(order.getContact().equals("")){
+                    Toast.makeText(SaleOrderActivity.this, "请输入联系方式！", Toast.LENGTH_SHORT).show();
+                }else if(order.getOuaddress().equals("")){
+                    Toast.makeText(SaleOrderActivity.this, "请输入收货地址！", Toast.LENGTH_SHORT).show();
                 }else{
                     order.setData(datas);
                     initData();
                 }
-                break;
-            case R.id.keep:
                 break;
             case R.id.add_shop:
                 intent=new Intent(this,ShopAddActivity.class);

@@ -16,46 +16,77 @@ import android.widget.Toast;
 
 import com.ycsx.www.wms.R;
 import com.ycsx.www.wms.base.BaseActivity;
+import com.ycsx.www.wms.bean.CategoryInfo;
+import com.ycsx.www.wms.common.API;
+import com.ycsx.www.wms.util.RetrofitUtil;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class OrderQueryActivity extends BaseActivity {
-    private Spinner spinner;
-    private String[] spinnerChild = {"全 部", "待审核", "审核未通过", "审核已通过","发货"};
-    private ArrayAdapter<String> arrayAdapter;
+    private Spinner spinner2,spinner1;
+    private List<String> spinnerValue2 = new ArrayList<>();
+    private List<String> spinnerCode2 = new ArrayList<>();
+    private List<String> spinnerValue1 = new ArrayList<>();
+    private List<String> spinnerCode1 = new ArrayList<>();
+    private ArrayAdapter<String> arrayAdapter1;
+    private ArrayAdapter<String> arrayAdapter2;
     private LinearLayout start_dataSelect, end_dataSelect;
     private TextView start_dataTime, end_dataTime;
     private Button query;
     private DatePickerDialog dialog;
     private EditText order_id;
     private String status;
+    private String classify;
 
     @Override
     public void init() {
         super.init();
         setContentView(R.layout.activity_order_query);
         initView();
-        arrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, spinnerChild);
-        arrayAdapter.setDropDownViewResource(R.layout.dropdown_stytle);
-        spinner.setAdapter(arrayAdapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        queryDropdown1();
+        queryDropdown2();
+        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if ("待审核".equals(spinnerChild[position])) {
-                    status = "0";
-                } else if ("审核未通过".equals(spinnerChild[position])) {
-                    status = "2";
-                } else if ("审核已通过".equals(spinnerChild[position])) {
-                    status = "1";
-                } else if ("发货".equals(spinnerChild[position])) {
-                    status = "3";
-                } else {
-                    status = "";
+                if(spinnerValue1.get(position).toString().equals("全部")){
+                    classify = "";
+                }else{
+                    for (int i = 0; i < spinnerValue1.size(); i++) {
+                        if (spinnerValue1.get(i).toString().equals(spinnerValue1.get(position).toString())) {
+                            classify = spinnerCode1.get(i-1).toString();
+                        }
+                    }
                 }
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                status = "";
+            }
+        });
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(spinnerValue2.get(position).toString().equals("全部")){
+                    status = "";
+                }else{
+                    for (int i = 0; i < spinnerValue2.size(); i++) {
+                        if (spinnerValue2.get(i).toString().equals(spinnerValue2.get(position).toString())) {
+                            status = spinnerCode2.get(i-1).toString();
+                        }
+                    }
+                }
             }
 
             @Override
@@ -75,11 +106,80 @@ public class OrderQueryActivity extends BaseActivity {
                     intent.putExtra("title", "订单列表");
                     intent.putExtra("oid", order_id.getText() + "");
                     intent.putExtra("ostatus", status + "");
+                    intent.putExtra("classify", classify + "");
                     intent.putExtra("starttime", start_dataTime.getText() + "");
                     intent.putExtra("endtime", end_dataTime.getText() + "");
                     startActivity(intent);
                 }
             }
+        });
+    }
+
+    private void queryDropdown1() {
+        spinnerValue1.add("全部");
+        Map<String, String> params = new HashMap<>();
+        params.put("colName", "order1");
+        Call<CategoryInfo> call = RetrofitUtil.getInstance(API.URL).queryDropdown(params);
+        call.enqueue(new Callback<CategoryInfo>() {
+            @Override
+            public void onResponse(Call<CategoryInfo> call, Response<CategoryInfo> response) {
+                if (response.isSuccessful()) {
+                    CategoryInfo info = response.body();
+                    if (("10200").equals(info.getStatus())) {
+                        for (int i = 0; i < info.getData().size(); i++) {
+                            spinnerValue1.add(info.getData().get(i).getValue() + "");
+                            spinnerCode1.add(info.getData().get(i).getCode() + "");
+                        }
+                        arrayAdapter1 = new ArrayAdapter<String>(OrderQueryActivity.this, R.layout.spinner_item, spinnerValue1);
+                        arrayAdapter1.setDropDownViewResource(R.layout.dropdown_stytle);
+                        spinner1.setAdapter(arrayAdapter1);
+                    } else {
+                        Toast.makeText(OrderQueryActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(OrderQueryActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CategoryInfo> call, Throwable t) {
+                Toast.makeText(OrderQueryActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+    }
+
+    private void queryDropdown2() {
+        spinnerValue2.add("全部");
+        Map<String, String> params = new HashMap<>();
+        params.put("colName", "order2");
+        Call<CategoryInfo> call = RetrofitUtil.getInstance(API.URL).queryDropdown(params);
+        call.enqueue(new Callback<CategoryInfo>() {
+            @Override
+            public void onResponse(Call<CategoryInfo> call, Response<CategoryInfo> response) {
+                if (response.isSuccessful()) {
+                    CategoryInfo info = response.body();
+                    if (("10200").equals(info.getStatus())) {
+                        for (int i = 0; i < info.getData().size(); i++) {
+                            spinnerValue2.add(info.getData().get(i).getValue() + "");
+                            spinnerCode2.add(info.getData().get(i).getCode() + "");
+                        }
+                        arrayAdapter2 = new ArrayAdapter<String>(OrderQueryActivity.this, R.layout.spinner_item, spinnerValue2);
+                        arrayAdapter2.setDropDownViewResource(R.layout.dropdown_stytle);
+                        spinner2.setAdapter(arrayAdapter2);
+                    } else {
+                        Toast.makeText(OrderQueryActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(OrderQueryActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CategoryInfo> call, Throwable t) {
+                Toast.makeText(OrderQueryActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
+            }
+
         });
     }
 
@@ -89,7 +189,8 @@ public class OrderQueryActivity extends BaseActivity {
 
     private void initView() {
         query = (Button) findViewById(R.id.query);
-        spinner = (Spinner) findViewById(R.id.spinner);
+        spinner2 = (Spinner) findViewById(R.id.spinner);
+        spinner1 = (Spinner) findViewById(R.id.spinner1);
         order_id = (EditText) findViewById(R.id.order_id);
         start_dataSelect = (LinearLayout) findViewById(R.id.start_dataSelect);
         start_dataTime = (TextView) findViewById(R.id.start_dataTime);

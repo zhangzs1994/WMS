@@ -10,6 +10,7 @@ import com.ycsx.www.wms.bean.AchiInfo;
 import com.ycsx.www.wms.common.API;
 import com.ycsx.www.wms.util.RetrofitUtil;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -72,12 +73,7 @@ public class AchiInfoActivity extends BaseActivity implements View.OnClickListen
                     if (("10200").equals(info.getStatus())) {
                         for (int i = 0; i < info.getData().size(); i++) {
                             order_num.setText(info.getData().get(i).getCount()+"");
-                            if(!(info.getData().get(i).getSum()+"").equals("0.0")){
-                                order_price.setText(info.getData().get(i).getSum()+"");
-                            }else{
-                                order_price.setText("0.00");
-                            }
-
+                            order_price.setText(new DecimalFormat("######0.00").format(info.getData().get(i).getSum()));
                         }
                     }else {
                         Toast.makeText(AchiInfoActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();

@@ -14,6 +14,7 @@ import com.ycsx.www.wms.holder.BottomViewHolder;
 import com.ycsx.www.wms.holder.HeaderViewHolder;
 import com.ycsx.www.wms.holder.OutStockRecyclerHolder;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -106,7 +107,7 @@ public class OutStockRecyclerAdapter extends RecyclerView.Adapter{
                     intent.putExtra("instockTime",list.get(position).get("instockTime").toString());
                     intent.putExtra("outstockTime",list.get(position).get("inventime").toString());
                     intent.putExtra("stock",list.get(position).get("stock").toString());
-                    intent.putExtra("price",list.get(position).get("price").toString());
+                    intent.putExtra("price",new DecimalFormat("######0.00").format(list.get(position).get("price")));
                     intent.putExtra("spec",list.get(position).get("spec").toString());
                     intent.putExtra("manufactureTime",list.get(position).get("manufactureTime").toString());
                     intent.putExtra("qualityTime",list.get(position).get("qualityTime").toString());

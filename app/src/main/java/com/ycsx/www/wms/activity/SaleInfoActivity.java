@@ -81,14 +81,17 @@ public class SaleInfoActivity extends BaseActivity implements PullBaseView.OnHea
                             map.put("oid", info.getData().get(i).getOid() + "");//订单id
                             map.put("usid", info.getData().get(i).getUsid() + "");//审核人
                             map.put("ostatus", info.getData().get(i).getOstatus() + "");//订单状态:0,待审核;1,已审核;2,未通过
+                            map.put("dvalue", info.getData().get(i).getDvalue() + "");//订单状态值
+                            map.put("value", info.getData().get(i).getValue() + "");//订单分类值
                             map.put("uid", info.getData().get(i).getUid() + "");//用户id
                             map.put("octime", info.getData().get(i).getOctime() + "");//创建时间
                             map.put("ouaddress", info.getData().get(i).getOuaddress() + "");//收货地址
                             map.put("uname", info.getData().get(i).getUname() + "");//用户姓名
-                            map.put("ocost", info.getData().get(i).getOcost() + "");//订单金额
+                            map.put("ocost", info.getData().get(i).getOcost());//订单金额
                             map.put("criteria", info.getData().get(i).getCriteria() + "");//审核原因
                             map.put("datechanged", info.getData().get(i).getDatechanged() + "");//最后修改日期
                             map.put("expressnumber", info.getData().get(i).getExpressnumber() + "");//快递单号
+                            map.put("classify", info.getData().get(i).getClassify() + "");//订单分类
                             map.put("title", title.getText()+"");//标题
                             list.add(map);
                         }

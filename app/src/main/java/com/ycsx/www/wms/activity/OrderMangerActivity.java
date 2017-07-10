@@ -8,8 +8,8 @@ import android.widget.LinearLayout;
 import com.ycsx.www.wms.R;
 import com.ycsx.www.wms.base.BaseActivity;
 
-public class OrderMangerActivity extends BaseActivity implements View.OnClickListener{
-    private LinearLayout order_query,order_audit,order_delivery;
+public class OrderMangerActivity extends BaseActivity implements View.OnClickListener {
+    private LinearLayout order_query, order_audit, order_delivery;
     private Intent intent;
     private SharedPreferences pref;
 
@@ -32,39 +32,41 @@ public class OrderMangerActivity extends BaseActivity implements View.OnClickLis
         order_audit.setOnClickListener(this);
         order_delivery.setOnClickListener(this);
         pref = getSharedPreferences("login", MODE_PRIVATE);
-        if(pref.getString("menuNode","").indexOf("301")>=0){
+        if (pref.getString("menuNode", "").indexOf("301") >= 0) {
             order_audit.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             order_audit.setVisibility(View.GONE);
         }
-        if(pref.getString("menuNode","").indexOf("303")>=0){
+        if (pref.getString("menuNode", "").indexOf("303") >= 0) {
             order_delivery.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             order_delivery.setVisibility(View.GONE);
         }
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.order_query:
                 intent = new Intent(this, OrderQueryActivity.class);
                 startActivity(intent);
                 break;
             case R.id.order_audit:
                 Intent intent = new Intent(this, OrderListActivity.class);
-                intent.putExtra("title", "订单审核");
+                intent.putExtra("title", "审核列表");
                 intent.putExtra("oid", "");
                 intent.putExtra("ostatus", "0");
+                intent.putExtra("classify", "");
                 intent.putExtra("starttime", "");
                 intent.putExtra("endtime", "");
                 startActivity(intent);
                 break;
             case R.id.order_delivery:
                 intent = new Intent(this, OrderListActivity.class);
-                intent.putExtra("title", "订单发货");
+                intent.putExtra("title", "发货列表");
                 intent.putExtra("oid", "");
                 intent.putExtra("ostatus", "1");
+                intent.putExtra("classify", "");
                 intent.putExtra("starttime", "");
                 intent.putExtra("endtime", "");
                 startActivity(intent);

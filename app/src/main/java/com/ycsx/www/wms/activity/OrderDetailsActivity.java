@@ -1,5 +1,6 @@
 package com.ycsx.www.wms.activity;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,11 +16,14 @@ import android.widget.Toast;
 import com.ycsx.www.wms.R;
 import com.ycsx.www.wms.adapter.OrderDetailsAdapter;
 import com.ycsx.www.wms.base.BaseActivity;
+import com.ycsx.www.wms.bean.Common;
 import com.ycsx.www.wms.bean.OrderDetailsInfo;
 import com.ycsx.www.wms.common.API;
 import com.ycsx.www.wms.util.RetrofitUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,12 +70,6 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-        btn_express.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 
     private void initData() {
@@ -91,11 +89,13 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
                             map.put("oid", info.getData().get(i).getOid() + "");//订单号
                             map.put("name", info.getData().get(i).getName() + "");//商品名称
                             map.put("ostatus", info.getData().get(i).getOstatus() + "");//订单状态
+                            map.put("dvalue", getIntent().getStringExtra("dvalue"));//订单状态值
+                            map.put("value", getIntent().getStringExtra("value"));//订单分类值
                             map.put("ouaddress", info.getData().get(i).getOuaddress() + "");//收货地址
-                            map.put("price", info.getData().get(i).getPrice() + "");//单价
+                            map.put("price", info.getData().get(i).getPrice());//单价
                             map.put("freightamount", info.getData().get(i).getFreightamount() + "");//商品数量
-                            map.put("iocost", info.getData().get(i).getIocost() + "");//商品总价
-                            map.put("ocost", info.getData().get(i).getOcost() + "");//总价
+                            map.put("iocost", info.getData().get(i).getIocost());//商品总价
+                            map.put("ocost", info.getData().get(i).getOcost());//总价
                             map.put("inventime", info.getData().get(i).getInventime() + "");//订单时间
                             list.add(map);
                         }
@@ -118,34 +118,97 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
         });
     }
 
+    private void updateOrder(int i) {
+        SharedPreferences pref = getSharedPreferences("login",MODE_PRIVATE);
+        Map<String, String> params = new HashMap<>();
+        params.put("oid", getIntent().getStringExtra("order_id"));
+        params.put("usid",pref.getInt("id",0)+"");
+        params.put("ostatus", i+"");
+        params.put("datechanged", getTimeByMinute(0));
+        params.put("criteria", audit_explain.getText()+"");
+        Call<Common> call = RetrofitUtil.getInstance(API.URL).updateOrder(params);
+        call.enqueue(new Callback<Common>() {
+            @Override
+            public void onResponse(Call<Common> call, Response<Common> response) {
+                if (response.isSuccessful()) {
+                    Common info = response.body();
+                    if (("10200").equals(info.getStatus())) {
+                        Toast.makeText(OrderDetailsActivity.this, "审核成功", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }else {
+                        Toast.makeText(OrderDetailsActivity.this, "审核失败1！", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Log.e("返回码===", response.code() + "");
+                    Toast.makeText(OrderDetailsActivity.this, "审核失败2！", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Common> call, Throwable t) {
+                Log.e("TAG", "==="+t.getMessage());
+                Toast.makeText(OrderDetailsActivity.this, "审核失败3！", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void deliverGoods() {
+        SharedPreferences pref = getSharedPreferences("login",MODE_PRIVATE);
+        Map<String, String> params = new HashMap<>();
+        params.put("oid", getIntent().getStringExtra("order_id"));
+        params.put("uid", getIntent().getStringExtra("uid"));
+        params.put("classify", getIntent().getStringExtra("classify"));
+        params.put("shipper",pref.getInt("id",0)+"");
+        params.put("inventime", getTimeByMinute(0));
+        params.put("expressnumber", express_id.getText()+"");
+        Call<Common> call = RetrofitUtil.getInstance(API.URL).deliverGoods(params);
+        call.enqueue(new Callback<Common>() {
+            @Override
+            public void onResponse(Call<Common> call, Response<Common> response) {
+                if (response.isSuccessful()) {
+                    Common info = response.body();
+                    if (("10200").equals(info.getStatus())) {
+                        Toast.makeText(OrderDetailsActivity.this, "发货成功", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }else {
+                        Toast.makeText(OrderDetailsActivity.this, "发货失败1！", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Log.e("返回码===", response.code() + "");
+                    Toast.makeText(OrderDetailsActivity.this, "发货失败2！", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Common> call, Throwable t) {
+                Log.e("TAG", "==="+t.getMessage());
+                Toast.makeText(OrderDetailsActivity.this, "发货失败3！", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void initView() {
         view=View.inflate(this,R.layout.order_details_header,null);
         order_shopInfo= (ListView) findViewById(R.id.order_shopInfo);
         layout_audit= (LinearLayout) findViewById(R.id.layout_audit);
         title= (TextView) findViewById(R.id.title);
-        if(getIntent().getStringExtra("title").equals("订单审核")){
-            title.setText("审核详情");
-            layout_audit.setVisibility(View.VISIBLE);
-        }else{
-            title.setText("订单详情");
-            layout_audit.setVisibility(View.GONE);
-        }
         audit_yes= (Button) findViewById(R.id.audit_yes);
         audit_no= (Button) findViewById(R.id.audit_no);
+        btn_express = (Button) findViewById(R.id.btn_express);
         audit_yes.setOnClickListener(this);
         audit_no.setOnClickListener(this);
-        btn_express = (Button) findViewById(R.id.btn_express);
+        btn_express.setOnClickListener(this);
         spinner = (Spinner) findViewById(R.id.spinner);
         express_id = (EditText) findViewById(R.id.express_id);
         audit_explain = (EditText) findViewById(R.id.audit_explain);
         layout_express = (LinearLayout) findViewById(R.id.layout_express);
         express = (LinearLayout) findViewById(R.id.express);
-        if(getIntent().getStringExtra("title").equals("订单审核")){
-            title.setText("审核详情");
+        if(getIntent().getStringExtra("title").equals("审核列表")){
+            title.setText("订单审核");
             layout_audit.setVisibility(View.VISIBLE);
             express.setVisibility(View.GONE);
-        }else if(getIntent().getStringExtra("title").equals("订单发货")){
-            title.setText("发货详情");
+        }else if(getIntent().getStringExtra("title").equals("发货列表")){
+            title.setText("订单发货");
             layout_audit.setVisibility(View.GONE);
             express.setVisibility(View.VISIBLE);
         }else{
@@ -163,9 +226,22 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.audit_yes:
+                updateOrder(1);
                 break;
             case R.id.audit_no:
+                updateOrder(2);
+                break;
+            case R.id.btn_express:
+                Log.e("111===", "111");
+                deliverGoods();
                 break;
         }
+    }
+
+    //返回当前时间-day
+    public static String getTimeByMinute(int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, day);
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(calendar.getTime());
     }
 }

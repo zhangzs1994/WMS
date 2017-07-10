@@ -14,6 +14,7 @@ import com.ycsx.www.wms.holder.BottomViewHolder;
 import com.ycsx.www.wms.holder.HeaderViewHolder;
 import com.ycsx.www.wms.holder.ShopRecyclerHolder;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -94,7 +95,7 @@ public class ShopRecyclerAdapter extends RecyclerView.Adapter{
         } else if (holder instanceof ShopRecyclerHolder) {
             //处理内容数据
             ((ShopRecyclerHolder)holder).shop_name.setText(list.get(position).get("name").toString());
-            ((ShopRecyclerHolder)holder).shop_price.setText("价格："+list.get(position).get("price").toString());
+            ((ShopRecyclerHolder)holder).shop_price.setText("价格："+new DecimalFormat("######0.00").format(list.get(position).get("price")));
             ((ShopRecyclerHolder)holder).shop_describ.setText(list.get(position).get("describ").toString());
             ((ShopRecyclerHolder)holder).shop_stock.setText("库存："+list.get(position).get("stock").toString());
             ((ShopRecyclerHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +107,7 @@ public class ShopRecyclerAdapter extends RecyclerView.Adapter{
                     intent.putExtra("instockTime",list.get(position).get("instockTime").toString());
                     intent.putExtra("outstockTime",list.get(position).get("outstockTime").toString());
                     intent.putExtra("stock",list.get(position).get("stock").toString());
-                    intent.putExtra("price",list.get(position).get("price").toString());
+                    intent.putExtra("price",new DecimalFormat("######0.00").format(list.get(position).get("price")));
                     intent.putExtra("spec",list.get(position).get("spec").toString());
                     intent.putExtra("manufactureTime",list.get(position).get("manufactureTime").toString());
                     intent.putExtra("qualityTime",list.get(position).get("qualityTime").toString());

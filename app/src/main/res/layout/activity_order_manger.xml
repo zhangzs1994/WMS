@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15px"
                 android:layout_weight="0.6"
-                android:background="@drawable/shop_query" />
+                android:background="@drawable/shenhe" />
 
             <TextView
                 android:layout_width="0px"
@@ -124,7 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15px"
                 android:layout_weight="0.6"
-                android:background="@drawable/shop_query" />
+                android:background="@drawable/fahuo" />
 
             <TextView
                 android:layout_width="0px"

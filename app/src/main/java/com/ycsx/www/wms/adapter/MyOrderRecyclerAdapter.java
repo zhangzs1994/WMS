@@ -14,13 +14,14 @@ import com.ycsx.www.wms.holder.BottomViewHolder;
 import com.ycsx.www.wms.holder.HeaderViewHolder;
 import com.ycsx.www.wms.holder.SubmitRecyclerHolder;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Created by ZZS_PC on 2017/5/11.
  */
-public class SubmitRecyclerAdapter extends RecyclerView.Adapter{
+public class MyOrderRecyclerAdapter extends RecyclerView.Adapter{
     private Context context;
     private List<Map<String,Object>> list;
     //item类型
@@ -30,7 +31,7 @@ public class SubmitRecyclerAdapter extends RecyclerView.Adapter{
     private int mHeaderCount=0;//头部View个数
     private int mBottomCount=0;//底部View个数
 
-    public SubmitRecyclerAdapter(Context context, List<Map<String,Object>> list) {
+    public MyOrderRecyclerAdapter(Context context, List<Map<String,Object>> list) {
         this.context = context;
         this.list = list;
     }
@@ -94,23 +95,19 @@ public class SubmitRecyclerAdapter extends RecyclerView.Adapter{
         } else if (holder instanceof SubmitRecyclerHolder) {
             //处理内容数据
             ((SubmitRecyclerHolder)holder).order_id.setText("订单号："+list.get(position).get("oid"));
-            ((SubmitRecyclerHolder)holder).order_price.setText("总额："+list.get(position).get("ocost"));
+            ((SubmitRecyclerHolder)holder).order_price.setText("总额："+new DecimalFormat("######0.00").format(list.get(position).get("ocost")));
             ((SubmitRecyclerHolder)holder).order_time.setText("时间："+list.get(position).get("octime"));
-            if(list.get(position).get("ostatus").toString().equals("0")){
-                ((SubmitRecyclerHolder)holder).order_status.setText("状态：待审核");
-            }else if(list.get(position).get("ostatus").toString().equals("1")){
-                ((SubmitRecyclerHolder)holder).order_status.setText("状态：审核不通过");
-            }else if(list.get(position).get("ostatus").toString().equals("2")){
-                ((SubmitRecyclerHolder)holder).order_status.setText("状态：审核通过");
-            }else if(list.get(position).get("ostatus").toString().equals("3")){
-                ((SubmitRecyclerHolder)holder).order_status.setText("状态：发货");
-            }
+            ((SubmitRecyclerHolder)holder).order_status.setText("订单状态："+list.get(position).get("dvalue"));
             ((SubmitRecyclerHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent=new Intent(context, OrderDetailsActivity.class);
                     intent.putExtra("order_id",list.get(position).get("oid").toString());
-                    intent.putExtra("title","提交记录");
+                    intent.putExtra("uid",list.get(position).get("uid").toString());
+                    intent.putExtra("dvalue",list.get(position).get("dvalue").toString());
+                    intent.putExtra("value",list.get(position).get("value").toString());
+                    intent.putExtra("title",list.get(position).get("title").toString());
+                    intent.putExtra("classify",list.get(position).get("classify").toString());
                     context.startActivity(intent);
                 }
             });

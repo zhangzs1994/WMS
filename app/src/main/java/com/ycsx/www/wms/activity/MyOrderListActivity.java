@@ -1,15 +1,19 @@
 package com.ycsx.www.wms.activity;
 
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ycsx.www.wms.R;
-import com.ycsx.www.wms.adapter.OrderRecyclerAdapter;
+import com.ycsx.www.wms.adapter.MyOrderRecyclerAdapter;
 import com.ycsx.www.wms.base.BaseActivity;
+import com.ycsx.www.wms.bean.CategoryInfo;
 import com.ycsx.www.wms.bean.OrderInfo;
 import com.ycsx.www.wms.common.API;
 import com.ycsx.www.wms.recycler.MyDecoration;
@@ -26,30 +30,91 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderListActivity extends BaseActivity implements PullBaseView.OnHeaderRefreshListener, PullBaseView.OnFooterRefreshListener {
+public class MyOrderListActivity extends BaseActivity implements PullBaseView.OnHeaderRefreshListener, PullBaseView.OnFooterRefreshListener {
     private PullRecyclerView recyclerView;
-    private OrderRecyclerAdapter adapter;
-    private List<Map<String, Object>> list;
+    private MyOrderRecyclerAdapter adapter;
+    private List<Map<String, Object>> list = new ArrayList();
     private int startRecord = 0;//开始条数
     private int pageRecords = 5;//显示条数
     private TextView title;
+    private Spinner spinner;
+    private List<String> spinnerValue = new ArrayList<>();
+    private List<String> spinnerCode = new ArrayList<>();
+    private ArrayAdapter<String> arrayAdapter;
+    private String status;
+    private int i=0;
 
     @Override
     public void init() {
         super.init();
-        setContentView(R.layout.activity_order_list);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        list = new ArrayList();
+        setContentView(R.layout.activity_submit_list);
+        initData(i);
         initView();
-        initData();
+        queryDropdown();
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (spinnerValue.get(position).toString().equals("全部")) {
+                    i=0;
+                    status = "";
+                } else {
+                    i=1;
+                    for (int i = 0; i < spinnerValue.size(); i++) {
+                        if (spinnerValue.get(i).toString().equals(spinnerValue.get(position).toString())) {
+                            status = spinnerCode.get(i - 1).toString();
+                        }
+                    }
+                }
+                startRecord = 0;
+                list = new ArrayList();
+                initData(i);
+                adapter = new MyOrderRecyclerAdapter(MyOrderListActivity.this, list);
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                status = "";
+            }
+        });
     }
 
     public void back(View view) {
         finish();
+    }
+
+    private void queryDropdown() {
+        spinnerValue.add("全部");
+        Map<String, String> params = new HashMap<>();
+        params.put("colName", "order2");
+        Call<CategoryInfo> call = RetrofitUtil.getInstance(API.URL).queryDropdown(params);
+        call.enqueue(new Callback<CategoryInfo>() {
+            @Override
+            public void onResponse(Call<CategoryInfo> call, Response<CategoryInfo> response) {
+                if (response.isSuccessful()) {
+                    CategoryInfo info = response.body();
+                    if (("10200").equals(info.getStatus())) {
+                        for (int i = 0; i < info.getData().size(); i++) {
+                            spinnerValue.add(info.getData().get(i).getValue() + "");
+                            spinnerCode.add(info.getData().get(i).getCode() + "");
+                        }
+                        arrayAdapter = new ArrayAdapter<String>(MyOrderListActivity.this, R.layout.spinner_item, spinnerValue);
+                        arrayAdapter.setDropDownViewResource(R.layout.dropdown_stytle);
+                        spinner.setAdapter(arrayAdapter);
+                    } else {
+                        Toast.makeText(MyOrderListActivity.this, "获取状态失败1！", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(MyOrderListActivity.this, "获取状态失败2！", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CategoryInfo> call, Throwable t) {
+                Toast.makeText(MyOrderListActivity.this, "获取状态失败3！", Toast.LENGTH_SHORT).show();
+            }
+
+        });
     }
 
     private void initView() {
@@ -63,23 +128,19 @@ public class OrderListActivity extends BaseActivity implements PullBaseView.OnHe
         //设置自定义分割线
         recyclerView.addItemDecoration(new MyDecoration(this, MyDecoration.VERTICAL_LIST));
         //适配器
-        adapter = new OrderRecyclerAdapter(this, list);
+        adapter = new MyOrderRecyclerAdapter(this, list);
         recyclerView.setAdapter(adapter);
-        title= (TextView) findViewById(R.id.title);
-        title.setText(getIntent().getStringExtra("title"));
+        title = (TextView) findViewById(R.id.title);
+        spinner = (Spinner) findViewById(R.id.spinner);
     }
 
-    private void initData() {
+    private void initData(int i) {
+        SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
         Map<String, String> params = new HashMap<>();
-        params.put("oid", getIntent().getStringExtra("oid"));
-        if (getIntent().getStringExtra("ostatus").equals("null")) {
-            params.put("ostatus", "");
-        } else {
-            params.put("ostatus", getIntent().getStringExtra("ostatus"));
+        params.put("uid", pref.getInt("id", 0) + "");
+        if (i == 1) {
+            params.put("ostatus", status + "");
         }
-        params.put("classify", getIntent().getStringExtra("classify"));
-        params.put("starttime", getIntent().getStringExtra("starttime"));
-        params.put("endtime", getIntent().getStringExtra("endtime"));
         params.put("startRecord", startRecord + "");
         params.put("pageRecords", pageRecords + "");
         Call<OrderInfo> call = RetrofitUtil.getInstance(API.URL).selectOrderh1(params);
@@ -105,25 +166,23 @@ public class OrderListActivity extends BaseActivity implements PullBaseView.OnHe
                             map.put("datechanged", info.getData().get(i).getDatechanged() + "");//最后修改日期
                             map.put("expressnumber", info.getData().get(i).getExpressnumber() + "");//快递单号
                             map.put("classify", info.getData().get(i).getClassify() + "");//订单分类
-                            map.put("title", title.getText()+"");//标题
+                            map.put("title", title.getText() + "");//标题
                             list.add(map);
                         }
                         adapter.notifyDataSetChanged();
-                    }else if(("10365").equals(info.getStatus())){
-                        Toast.makeText(OrderListActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
-                    }else {
-                        Toast.makeText(OrderListActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
+                    } else if (("10365").equals(info.getStatus())) {
+                        Toast.makeText(MyOrderListActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(MyOrderListActivity.this, "获取订单失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Log.e("返回码===", response.code() + "");
-                    Toast.makeText(OrderListActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyOrderListActivity.this, "获取订单失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<OrderInfo> call, Throwable t) {
-                Log.e("返回===", t.getMessage() + "");
-                Toast.makeText(OrderListActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyOrderListActivity.this, "获取订单失败3！", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -138,8 +197,8 @@ public class OrderListActivity extends BaseActivity implements PullBaseView.OnHe
                 //初始化加载数据
                 startRecord = 0;
                 list = new ArrayList();
-                initData();
-                adapter = new OrderRecyclerAdapter(OrderListActivity.this, list);
+                initData(i);
+                adapter = new MyOrderRecyclerAdapter(MyOrderListActivity.this, list);
                 recyclerView.setAdapter(adapter);
                 recyclerView.onHeaderRefreshComplete();
             }
@@ -153,10 +212,10 @@ public class OrderListActivity extends BaseActivity implements PullBaseView.OnHe
             @Override
             public void run() {
                 if (list.size() < 5) {
-                    Toast.makeText(OrderListActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyOrderListActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
                 } else {
                     startRecord = startRecord + pageRecords;
-                    initData();
+                    initData(i);
                 }
                 recyclerView.onFooterRefreshComplete();
             }

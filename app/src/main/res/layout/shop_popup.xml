@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="150px"
+    android:layout_height="160px"
     android:background="#80000000"
     android:gravity="center_vertical"
     android:orientation="horizontal">
@@ -23,6 +23,7 @@
             android:layout_height="match_parent"
             android:textColor="@color/colorWhite"
             android:textSize="15sp"
+            android:singleLine="true"
             android:background="@null"
             android:hint="请输入商品名、编号或条码"
             android:textColorHint="@color/colorWhite"/>
@@ -33,7 +34,7 @@
             android:layout_height="50px"
             android:layout_marginLeft="30px"
             android:layout_gravity="center"
-            android:background="@drawable/cil"/>
+            android:background="@drawable/zxing"/>
     </LinearLayout>
 
     <LinearLayout
@@ -41,7 +42,7 @@
         android:layout_width="0px"
         android:layout_weight="1.5"
         android:layout_margin="20px"
-        android:layout_height="match_parent"
+        android:layout_height="80px"
         android:background="@drawable/card_bg"
         android:gravity="center">
 

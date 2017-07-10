@@ -49,7 +49,7 @@ public class JuniorAchiAdapter extends BaseAdapter {
         }else {
             holder= (MyHolder) view.getTag();
         }
-        holder.junior_name.setText(list.get(position).get("name")+"的业绩");
+        holder.junior_name.setText(list.get(position).get("username")+"的业绩");
         return view;
     }
 

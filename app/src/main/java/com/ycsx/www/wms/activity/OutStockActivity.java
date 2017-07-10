@@ -191,7 +191,7 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
                                 map.put("instockTime", info.getData().get(i).getInstockTime() + "");//入库时间
                                 map.put("outstockTime", info.getData().get(i).getOutstockTime() + "");//出库时间
                                 map.put("stock", info.getData().get(i).getStock() + "");//库存
-                                map.put("price", info.getData().get(i).getPrice() + "");//价格
+                                map.put("price", info.getData().get(i).getPrice());//价格
                                 map.put("spec", info.getData().get(i).getSpec() + "");//规格
                                 map.put("manufactureTime", info.getData().get(i).getManufactureTime() + "");//生产日期
                                 map.put("qualityTime", info.getData().get(i).getQualityTime() + "");//保质期
@@ -200,7 +200,7 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
                                 map.put("goodsStatus", info.getData().get(i).getGoodsStatus() + "");//商品状态
                                 map.put("acceptedGoods", info.getData().get(i).getAcceptedGoods() + "");//检验商品
                                 map.put("freightamount", info.getData().get(i).getFreightamount() + "");//出库件数
-                                map.put("iocost", info.getData().get(i).getIocost() + "");//出库金额
+                                map.put("iocost", info.getData().get(i).getIocost());//出库金额
                                 Log.e("getInventime", info.getData().get(i).getInventime() );
                                 map.put("inventime", info.getData().get(i).getInventime() + "");//出库时间
                                 list.add(map);

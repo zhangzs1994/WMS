@@ -7,24 +7,23 @@ import java.util.List;
  */
 public class OrderInfo {
 
-
     /**
-     * data : [{"ostatus":1,"uid":24,"octime":1497407691000,"ouaddress":"苏州","uname":"发的","ocost":3654.36,"criteria":"订单没问题","datechanged":1497494110000,"oid":314876,"usid":11,"expressnumber":123245412333},{"ostatus":1,"uid":9,"octime":1496630153000,"ouaddress":"广西","uname":"爱啥啥","ocost":4836.25,"criteria":"审核通过,无需快递","datechanged":1497494180000,"oid":314877,"usid":12,"expressnumber":null},{"ostatus":1,"uid":12,"octime":1497593751000,"ouaddress":"汉阳","uname":"李增辉","ocost":4214.3,"criteria":"订单正常","datechanged":1497593775000,"oid":314882,"usid":24,"expressnumber":13245115445},{"ostatus":1,"uid":23,"octime":1497665480000,"ouaddress":"拉萨","uname":"卡尔","ocost":1242.23,"criteria":null,"datechanged":1497665500000,"oid":314883,"usid":22,"expressnumber":null},{"ostatus":1,"uid":12,"octime":1497665579000,"ouaddress":"青海","uname":"d速度","ocost":4536.35,"criteria":"订单没问题","datechanged":1497665596000,"oid":314884,"usid":11,"expressnumber":null}]
-     * page : null
+     * data : [{"ostatus":0,"classify":1,"shipper":0,"ouaddress":"dsfd","uname":"fangyang","usname":null,"criteria":null,"datechanged":null,"oid":314886,"usid":0,"uid":2,"receiving":"虞姬","octime":"2017-06-29 14:30:53","ocost":1242.3,"contact":"18542654212","shippername":null,"dvalue":"待审核","value":"销售订单","expressnumber":null}]
+     * page : {"currentPage":16,"pageRecords":1,"totalPages":24,"totalRecords":24,"startRecord":15,"nextPage":17,"previousPage":15,"hasNextPage":true,"hasPreviousPage":true}
      * status : 10200
      * message : 请求操作成功
      */
 
-    private Object page;
+    private PageBean page;
     private String status;
     private String message;
     private List<DataBean> data;
 
-    public Object getPage() {
+    public PageBean getPage() {
         return page;
     }
 
-    public void setPage(Object page) {
+    public void setPage(PageBean page) {
         this.page = page;
     }
 
@@ -52,31 +51,143 @@ public class OrderInfo {
         this.data = data;
     }
 
+    public static class PageBean {
+        /**
+         * currentPage : 16
+         * pageRecords : 1
+         * totalPages : 24
+         * totalRecords : 24
+         * startRecord : 15
+         * nextPage : 17
+         * previousPage : 15
+         * hasNextPage : true
+         * hasPreviousPage : true
+         */
+
+        private int currentPage;
+        private int pageRecords;
+        private int totalPages;
+        private int totalRecords;
+        private int startRecord;
+        private int nextPage;
+        private int previousPage;
+        private boolean hasNextPage;
+        private boolean hasPreviousPage;
+
+        public int getCurrentPage() {
+            return currentPage;
+        }
+
+        public void setCurrentPage(int currentPage) {
+            this.currentPage = currentPage;
+        }
+
+        public int getPageRecords() {
+            return pageRecords;
+        }
+
+        public void setPageRecords(int pageRecords) {
+            this.pageRecords = pageRecords;
+        }
+
+        public int getTotalPages() {
+            return totalPages;
+        }
+
+        public void setTotalPages(int totalPages) {
+            this.totalPages = totalPages;
+        }
+
+        public int getTotalRecords() {
+            return totalRecords;
+        }
+
+        public void setTotalRecords(int totalRecords) {
+            this.totalRecords = totalRecords;
+        }
+
+        public int getStartRecord() {
+            return startRecord;
+        }
+
+        public void setStartRecord(int startRecord) {
+            this.startRecord = startRecord;
+        }
+
+        public int getNextPage() {
+            return nextPage;
+        }
+
+        public void setNextPage(int nextPage) {
+            this.nextPage = nextPage;
+        }
+
+        public int getPreviousPage() {
+            return previousPage;
+        }
+
+        public void setPreviousPage(int previousPage) {
+            this.previousPage = previousPage;
+        }
+
+        public boolean isHasNextPage() {
+            return hasNextPage;
+        }
+
+        public void setHasNextPage(boolean hasNextPage) {
+            this.hasNextPage = hasNextPage;
+        }
+
+        public boolean isHasPreviousPage() {
+            return hasPreviousPage;
+        }
+
+        public void setHasPreviousPage(boolean hasPreviousPage) {
+            this.hasPreviousPage = hasPreviousPage;
+        }
+    }
+
     public static class DataBean {
         /**
-         * ostatus : 1
-         * uid : 24
-         * octime : 1497407691000
-         * ouaddress : 苏州
-         * uname : 发的
-         * ocost : 3654.36
-         * criteria : 订单没问题
-         * datechanged : 1497494110000
-         * oid : 314876
-         * usid : 11
-         * expressnumber : 123245412333
+         * ostatus : 0
+         * classify : 1
+         * shipper : 0
+         * ouaddress : dsfd
+         * uname : fangyang
+         * usname : null
+         * criteria : null
+         * datechanged : null
+         * oid : 314886
+         * usid : 0
+         * uid : 2
+         * receiving : 虞姬
+         * octime : 2017-06-29 14:30:53
+         * ocost : 1242.3
+         * contact : 18542654212
+         * shippername : null
+         * dvalue : 待审核
+         * value : 销售订单
+         * expressnumber : null
          */
 
         private int ostatus;
-        private int uid;
-        private String octime;
+        private int classify;
+        private int shipper;
         private String ouaddress;
         private String uname;
-        private double ocost;
+        private String usname;
         private String criteria;
         private String datechanged;
         private int oid;
         private int usid;
+        private int uid;
+        private String receiving;
+        private String octime;
+        private double ocost;
+        private String contact;
+        private String shippername;
+        private String dvalue;
+        private String value;
         private String expressnumber;
 
         public int getOstatus() {
@@ -87,20 +198,20 @@ public class OrderInfo {
             this.ostatus = ostatus;
         }
 
-        public int getUid() {
-            return uid;
+        public int getClassify() {
+            return classify;
         }
 
-        public void setUid(int uid) {
-            this.uid = uid;
+        public void setClassify(int classify) {
+            this.classify = classify;
         }
 
-        public String getOctime() {
-            return octime;
+        public int getShipper() {
+            return shipper;
         }
 
-        public void setOctime(String octime) {
-            this.octime = octime;
+        public void setShipper(int shipper) {
+            this.shipper = shipper;
         }
 
         public String getOuaddress() {
@@ -119,12 +230,12 @@ public class OrderInfo {
             this.uname = uname;
         }
 
-        public double getOcost() {
-            return ocost;
+        public String getUsname() {
+            return usname;
         }
 
-        public void setOcost(double ocost) {
-            this.ocost = ocost;
+        public void setUsname(String usname) {
+            this.usname = usname;
         }
 
         public String getCriteria() {
@@ -157,6 +268,70 @@ public class OrderInfo {
 
         public void setUsid(int usid) {
             this.usid = usid;
+        }
+
+        public int getUid() {
+            return uid;
+        }
+
+        public void setUid(int uid) {
+            this.uid = uid;
+        }
+
+        public String getReceiving() {
+            return receiving;
+        }
+
+        public void setReceiving(String receiving) {
+            this.receiving = receiving;
+        }
+
+        public String getOctime() {
+            return octime;
+        }
+
+        public void setOctime(String octime) {
+            this.octime = octime;
+        }
+
+        public double getOcost() {
+            return ocost;
+        }
+
+        public void setOcost(double ocost) {
+            this.ocost = ocost;
+        }
+
+        public String getContact() {
+            return contact;
+        }
+
+        public void setContact(String contact) {
+            this.contact = contact;
+        }
+
+        public String getShippername() {
+            return shippername;
+        }
+
+        public void setShippername(String shippername) {
+            this.shippername = shippername;
+        }
+
+        public String getDvalue() {
+            return dvalue;
+        }
+
+        public void setDvalue(String dvalue) {
+            this.dvalue = dvalue;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
         }
 
         public String getExpressnumber() {

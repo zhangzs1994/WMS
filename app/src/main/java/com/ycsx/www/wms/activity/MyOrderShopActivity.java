@@ -25,7 +25,7 @@ import retrofit2.Response;
 public class MyOrderShopActivity extends BaseActivity {
     private ListView listView;
     private MyOrderListAdapter adapter;
-    private List<Map<String,String>> list;
+    private List<Map<String,Object>> list;
 
     @Override
     public void init() {
@@ -61,10 +61,10 @@ public class MyOrderShopActivity extends BaseActivity {
                     OrderShop info = response.body();
                     if (("10200").equals(info.getStatus())) {
                         for (int i = 0; i < info.getData().size(); i++) {
-                            Map<String, String> map = new HashMap<String, String>();
+                            Map<String, Object> map = new HashMap<String, Object>();
                             map.put("uid", info.getData().get(i).getUid() + "");
                             map.put("pid", info.getData().get(i).getPid() + "");
-                            map.put("price", info.getData().get(i).getPrice() + "");
+                            map.put("price", info.getData().get(i).getPrice());
                             map.put("pname", info.getData().get(i).getPname() + "");
                             map.put("num", info.getData().get(i).getNum() + "");
                             list.add(map);
