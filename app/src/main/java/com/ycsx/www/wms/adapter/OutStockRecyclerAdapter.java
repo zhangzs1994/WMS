@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.ycsx.www.wms.R;
-import com.ycsx.www.wms.activity.ShopDetailsActivity;
+import com.ycsx.www.wms.activity.OrderDetailsActivity;
 import com.ycsx.www.wms.holder.BottomViewHolder;
 import com.ycsx.www.wms.holder.HeaderViewHolder;
 import com.ycsx.www.wms.holder.OutStockRecyclerHolder;
+import com.ycsx.www.wms.util.GlideUtils;
 
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +24,7 @@ import java.util.Map;
 public class OutStockRecyclerAdapter extends RecyclerView.Adapter{
     private Context context;
     private List<Map<String,Object>> list;
+    private String[] image = null;
     //item类型
     public static final int ITEM_TYPE_HEADER = 0;
     public static final int ITEM_TYPE_CONTENT = 1;
@@ -97,24 +98,18 @@ public class OutStockRecyclerAdapter extends RecyclerView.Adapter{
             ((OutStockRecyclerHolder)holder).shop_name.setText(list.get(position).get("name").toString());
             ((OutStockRecyclerHolder)holder).shop_describ.setText(list.get(position).get("describ").toString());
             ((OutStockRecyclerHolder)holder).shop_outstockTime.setText("出库时间："+list.get(position).get("inventime").toString());
-            //((InStockRecyclerHolder)holder).shop_stock.setText(list.get(position).get("stock").toString());
+            image = convertStrToArray(list.get(position).get("pictureUrl").toString());
+            GlideUtils.loadImage(context, image[0], ((OutStockRecyclerHolder) holder).shop_image);
             ((OutStockRecyclerHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(context, ShopDetailsActivity.class);
-                    intent.putExtra("name",list.get(position).get("name").toString());
-                    intent.putExtra("category",list.get(position).get("category").toString());
-                    intent.putExtra("instockTime",list.get(position).get("instockTime").toString());
-                    intent.putExtra("outstockTime",list.get(position).get("inventime").toString());
-                    intent.putExtra("stock",list.get(position).get("stock").toString());
-                    intent.putExtra("price",new DecimalFormat("######0.00").format(list.get(position).get("price")));
-                    intent.putExtra("spec",list.get(position).get("spec").toString());
-                    intent.putExtra("manufactureTime",list.get(position).get("manufactureTime").toString());
-                    intent.putExtra("qualityTime",list.get(position).get("qualityTime").toString());
-                    intent.putExtra("describ",list.get(position).get("describ").toString());
-                    intent.putExtra("transactor",list.get(position).get("transactor").toString());
-                    intent.putExtra("goodsStatus",list.get(position).get("goodsStatus").toString());
-                    intent.putExtra("acceptedGoods",list.get(position).get("acceptedGoods").toString());
+                    Intent intent=new Intent(context, OrderDetailsActivity.class);
+                    intent.putExtra("order_id",list.get(position).get("oid").toString());
+                    intent.putExtra("uid","");
+                    intent.putExtra("dvalue","发货");
+                    intent.putExtra("value",list.get(position).get("value").toString());
+                    intent.putExtra("title","出库记录");
+                    intent.putExtra("classify","");
                     context.startActivity(intent);
                 }
             });
@@ -127,6 +122,17 @@ public class OutStockRecyclerAdapter extends RecyclerView.Adapter{
                 }
             });
         }
+    }
+
+    public String[] convertStrToArray(String str) {
+        //Log.e("image", "" + strArray.length);
+        if (!str.contains(",")) {
+            image = new String[1];
+            image[0] = str;
+        } else {
+            image = str.split(","); //拆分字符为"," ,然后把结果交给数组strArray
+        }
+        return image;
     }
 
     //获取总条目数（包括头部和底部）

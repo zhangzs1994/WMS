@@ -2,15 +2,12 @@ package com.ycsx.www.wms.activity;
 
 import android.Manifest;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -49,9 +46,9 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
     private ShopRecyclerAdapter adapter;
     private List<Map<String, Object>> list = new ArrayList();
     private int startRecord = 0;//开始条数
-    private int pageRecords = 5;//显示条数
+    private int pageRecords = 10;//显示条数
     private ArrayAdapter<String> arrayAdapter;
-    private LinearLayout layout_query;
+    private LinearLayout shop_query,layout_query,layout_pop;
     private PopupWindow popupWindow;
     private int i = 0;//0：查询全部；1：按分类查询；2：按商品名查询
     private String category;//类别
@@ -79,7 +76,7 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
                 } else {
                     for (int i = 0; i < spinnerValue.size(); i++) {
                         if (spinnerValue.get(i).toString().equals(spinnerValue.get(position).toString())) {
-                            category = spinnerCode.get(i-1).toString();
+                            category = spinnerCode.get(i - 1).toString();
                         }
                     }
                     i = 1;
@@ -94,10 +91,10 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
 
             }
         });
-        layout_query.setOnClickListener(new View.OnClickListener() {
+        shop_query.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopupWindow(v);
+                showPopupWindow();
             }
         });
     }
@@ -144,8 +141,12 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
 
     private void initView() {
         spinner = (Spinner) findViewById(R.id.spinner);
-        recyclerView = (PullRecyclerView) findViewById(R.id.pullRecyclerView);
         layout_query = (LinearLayout) findViewById(R.id.layout_query);
+        layout_pop = (LinearLayout) findViewById(R.id.layout_pop);
+        shop_name = (EditText) findViewById(R.id.shop_name);
+        zxing = (ImageView) findViewById(R.id.zxing);
+        recyclerView = (PullRecyclerView) findViewById(R.id.pullRecyclerView);
+        shop_query = (LinearLayout) findViewById(R.id.shop_query);
         //设置水平布局
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //设置下拉刷新监听
@@ -159,23 +160,16 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
         recyclerView.setAdapter(adapter);
     }
 
-    private void showPopupWindow(View parent) {
-        popupWindow = new PopupWindow(this);
-        popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-        popupWindow.setHeight(parent.getHeight());
-        View view = LayoutInflater.from(this).inflate(R.layout.shop_popup, null);
-        layout_query = (LinearLayout) view.findViewById(R.id.layout_query);
-        shop_name = (EditText) view.findViewById(R.id.shop_name);
-        popupWindow.setContentView(view);
-        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
-        popupWindow.setOutsideTouchable(false);
-        popupWindow.setFocusable(true);
-        //popupWindow.showAtLocation(parent, Gravity.TOP,0,0);
-        popupWindow.showAsDropDown(parent, 0, 0);
+    private void showPopupWindow() {
+        if(layout_pop.getVisibility()==View.VISIBLE){
+            layout_pop.setVisibility(View.GONE);
+        }else{
+            layout_pop.setVisibility(View.VISIBLE);
+        }
         layout_query.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupWindow.dismiss();
+                layout_pop.setVisibility(View.GONE);
                 startRecord = 0;
                 list = new ArrayList();
                 i = 2;
@@ -184,7 +178,6 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
                 recyclerView.setAdapter(adapter);
             }
         });
-        zxing = (ImageView) view.findViewById(R.id.zxing);
         zxing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -239,12 +232,13 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
                     if (("10200").equals(user.getStatus())) {
                         for (int i = 0; i < user.getData().size(); i++) {
                             Map<String, Object> map = new HashMap<String, Object>();
+                            map.put("id", user.getData().get(i).getId() + "");//商品id
                             map.put("name", user.getData().get(i).getName() + "");//商品名称
                             map.put("category", user.getData().get(i).getCategory() + "");//商品类目
                             map.put("instockTime", user.getData().get(i).getInstockTime() + "");//入库时间
                             map.put("outstockTime", user.getData().get(i).getOutstockTime() + "");//出库时间
                             map.put("stock", user.getData().get(i).getStock() + "");//库存
-                            map.put("price", user.getData().get(i).getPrice());//价格
+                            map.put("price", user.getData().get(i).getRetailPrice() + "");//价格
                             map.put("spec", user.getData().get(i).getSpec() + "");//规格
                             map.put("manufactureTime", user.getData().get(i).getManufactureTime() + "");//生产日期
                             map.put("qualityTime", user.getData().get(i).getQualityTime() + "");//保质期
@@ -252,6 +246,7 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
                             map.put("transactor", user.getData().get(i).getTransactor() + "");//经办人
                             map.put("goodsStatus", user.getData().get(i).getGoodsStatus() + "");//商品状态
                             map.put("nondefectiveNum", user.getData().get(i).getNondefectiveNum() + "");//检验商品
+                            map.put("pictureUrl", user.getData().get(i).getPictureUrl() + "");//商品图片地址
                             list.add(map);
                         }
                         adapter.notifyDataSetChanged();
@@ -276,7 +271,6 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
         });
     }
 
-
     //下拉刷新数据
     @Override
     public void onHeaderRefresh(PullBaseView view) {
@@ -300,7 +294,7 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (list.size() < 5) {
+                if (list.size() < 10) {
                     Toast.makeText(ShopQueryActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
                 } else {
                     startRecord = startRecord + pageRecords;

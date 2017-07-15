@@ -9,7 +9,6 @@
         android:layout_height="180px"
         android:gravity="center"
         android:layout_margin="20px"
-        android:background="@drawable/shop_image"
         android:textSize="20sp" />
 
     <LinearLayout
@@ -28,6 +27,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:textColor="@color/colorWhite"
+                android:textSize="18sp"
                 android:text="商品名称"/>
         </LinearLayout>
 

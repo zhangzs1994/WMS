@@ -2,52 +2,88 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="150px"
-    android:background="#80000000"
+    android:background="#99000000"
     android:gravity="center_vertical"
     android:orientation="horizontal">
-    <LinearLayout
-        android:layout_width="0px"
-        android:layout_weight="1"
-        android:layout_height="match_parent">
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="0px"
-        android:layout_weight="4"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/startData"
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="1"
-            android:textColor="@color/colorWhite"
-            android:background="@drawable/card_bg"
-            android:hint="请选择开始日期"
-            android:layout_marginTop="10px"
-            android:gravity="center_vertical"
-            android:textColorHint="@color/colorWhite"/>
+        android:layout_weight="1"></LinearLayout>
 
-        <TextView
-            android:id="@+id/endData"
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/layout_startData"
             android:layout_width="match_parent"
             android:layout_height="0px"
-            android:layout_weight="1"
             android:layout_marginTop="10px"
-            android:layout_marginBottom="10px"
-            android:gravity="center_vertical"
-            android:textColor="@color/colorWhite"
+            android:layout_weight="1"
             android:background="@drawable/card_bg"
-            android:hint="请选择结束日期"
-            android:textColorHint="@color/colorWhite"/>
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/startData"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="10px"
+                android:gravity="center_vertical"
+                android:hint="请选择开始日期"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite" />
+
+            <ImageView
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_marginLeft="10px"
+                android:layout_marginRight="10px"
+                android:background="@drawable/start_date" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_endData"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_marginBottom="10px"
+            android:layout_marginTop="10px"
+            android:layout_weight="1"
+            android:background="@drawable/card_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/endData"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="10px"
+                android:hint="请选择结束日期"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite" />
+
+            <ImageView
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_marginLeft="10px"
+                android:layout_marginRight="10px"
+                android:background="@drawable/end_date" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layout_query"
         android:layout_width="0px"
-        android:layout_weight="1.5"
-        android:layout_margin="20px"
         android:layout_height="match_parent"
+        android:layout_margin="20px"
+        android:layout_weight="1.5"
         android:background="@drawable/card_bg"
         android:gravity="center">
 
@@ -55,7 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="查询"
-            android:textSize="20sp"
-            android:textColor="@color/colorWhite"/>
-        </LinearLayout>
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
+    </LinearLayout>
 </LinearLayout>

@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -42,7 +41,6 @@ import com.ycsx.www.wms.recycler.PullRecyclerView;
 import com.ycsx.www.wms.util.RetrofitUtil;
 import com.ycsx.www.wms.zxing.android.CaptureActivity;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,9 +58,9 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
     private ShopAddAdapter adapter;
     private List<Map<String, Object>> list = new ArrayList();
     private int startRecord = 0;//开始条数
-    private int pageRecords = 5;//显示条数
+    private int pageRecords = 10;//显示条数
     private ArrayAdapter<String> arrayAdapter;
-    private LinearLayout layout_query;
+    private LinearLayout shop_query,layout_query,layout_pop;
     private PopupWindow popupWindow;
     private int i = 0;//0：查询全部；1：按分类查询；2：按商品名查询
     private String category;//类别
@@ -117,10 +115,10 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
 
             }
         });
-        layout_query.setOnClickListener(new View.OnClickListener() {
+        shop_query.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopupWindow(v);
+                showPopupWindow();
             }
         });
     }
@@ -178,6 +176,11 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
 
     private void initView() {
         spinner = (Spinner) findViewById(R.id.spinner);
+        shop_query = (LinearLayout) findViewById(R.id.shop_query);
+        layout_query = (LinearLayout) findViewById(R.id.layout_query);
+        layout_pop = (LinearLayout) findViewById(R.id.layout_pop);
+        shop_name = (EditText) findViewById(R.id.shop_name);
+        zxing = (ImageView) findViewById(R.id.zxing);
         recyclerView = (PullRecyclerView) findViewById(R.id.pullRecyclerView);
         layout_query = (LinearLayout) findViewById(R.id.layout_query);
         //设置水平布局
@@ -236,12 +239,12 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
         final EditText num = (EditText) view.findViewById(R.id.num);
         num.setText("1");
         final TextView price = (TextView) view.findViewById(R.id.price);
-        price.setText(new DecimalFormat("######0.00").format(list.get(position).get("price")));
+        price.setText(list.get(position).get("price").toString());
         final TextView all_price = (TextView) view.findViewById(R.id.all_price);
         if (num.getText().toString().equals("")) {
             num.setText("1");
         }
-        all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")));
+        all_price.setText((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")+"");
         TextView lessen = (TextView) view.findViewById(R.id.lessen);
         TextView add = (TextView) view.findViewById(R.id.add);
         final Button cancel = (Button) view.findViewById(R.id.cancel);
@@ -258,7 +261,7 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!num.getText().toString().equals("")) {
                     if (Integer.parseInt(num.getText() + "") <= Integer.parseInt(stock.getText() + "")) {
-                        all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")));
+                        all_price.setText((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")+"");
                     } else {
                         Toast.makeText(ShopAddActivity.this, "输入数量大于库存数量，请重新输入！", Toast.LENGTH_SHORT).show();
                         num.setText(stock.getText() + "");
@@ -275,14 +278,14 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
             public void onClick(View v) {
                 if (num.getText().toString().equals("")) {
                     num.setText("1");
-                    all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")));
+                    all_price.setText((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")+"");
                 }
                 if (Integer.parseInt(num.getText() + "") > 1) {
                     num.setText((Integer.parseInt(num.getText() + "") - 1) + "");
-                    all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")));
+                    all_price.setText((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")+"");
                 } else {
                     num.setText("1");
-                    all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")));
+                    all_price.setText((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")+"");
                 }
             }
         });
@@ -291,14 +294,14 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
             public void onClick(View v) {
                 if (num.getText().toString().equals("")) {
                     num.setText("1");
-                    all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")));
+                    all_price.setText((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")+"");
                 }
                 if (Integer.parseInt(num.getText() + "") < Integer.parseInt(stock.getText() + "")) {
                     num.setText((Integer.parseInt(num.getText() + "") + 1) + "");
-                    all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")));
+                    all_price.setText((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")+"");
                 } else {
                     num.setText(Integer.parseInt(stock.getText() + "") + "");
-                    all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")));
+                    all_price.setText((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")+"");
                 }
             }
         });
@@ -395,23 +398,16 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
         });
     }
 
-    private void showPopupWindow(View parent) {
-        popupWindow = new PopupWindow(this);
-        popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-        popupWindow.setHeight(parent.getHeight());
-        View view = LayoutInflater.from(this).inflate(R.layout.shop_popup, null);
-        LinearLayout layout_query = (LinearLayout) view.findViewById(R.id.layout_query);
-        shop_name= (EditText) view.findViewById(R.id.shop_name);
-        popupWindow.setContentView(view);
-        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
-        popupWindow.setOutsideTouchable(false);
-        popupWindow.setFocusable(true);
-        //popupWindow.showAtLocation(parent, Gravity.TOP,0,0);
-        popupWindow.showAsDropDown(parent, 0, 0);
+    private void showPopupWindow() {
+        if(layout_pop.getVisibility()==View.VISIBLE){
+            layout_pop.setVisibility(View.GONE);
+        }else{
+            layout_pop.setVisibility(View.VISIBLE);
+        }
         layout_query.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupWindow.dismiss();
+                layout_pop.setVisibility(View.GONE);
                 startRecord = 0;
                 list = new ArrayList();
                 i = 2;
@@ -425,7 +421,6 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
                 recyclerView.setAdapter(adapter);
             }
         });
-        zxing = (ImageView) view.findViewById(R.id.zxing);
         zxing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -463,6 +458,7 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
         params.put("startRecord", startRecord + "");
         params.put("pageRecords", pageRecords + "");
         if (i == 1) {
+            Log.e("category", "==="+category);
             params.put("category", category);
             call = RetrofitUtil.getInstance(API.URL).getGoodsByCategory(params);
         } else if (i == 2) {
@@ -485,7 +481,7 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
                             map.put("instockTime", user.getData().get(i).getInstockTime() + "");//入库时间
                             map.put("outstockTime", user.getData().get(i).getOutstockTime() + "");//出库时间
                             map.put("stock", user.getData().get(i).getStock() + "");//库存
-                            map.put("price", user.getData().get(i).getPrice());//价格
+                            map.put("price", user.getData().get(i).getRetailPrice());//价格
                             map.put("spec", user.getData().get(i).getSpec() + "");//规格
                             map.put("manufactureTime", user.getData().get(i).getManufactureTime() + "");//生产日期
                             map.put("qualityTime", user.getData().get(i).getQualityTime() + "");//保质期
@@ -493,6 +489,7 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
                             map.put("transactor", user.getData().get(i).getTransactor() + "");//经办人
                             map.put("goodsStatus", user.getData().get(i).getGoodsStatus() + "");//商品状态
                             map.put("nondefectiveNum", user.getData().get(i).getNondefectiveNum() + "");//检验商品
+                            map.put("pictureUrl", user.getData().get(i).getPictureUrl() + "");//商品图片地址
                             list.add(map);
                         }
                         adapter.notifyDataSetChanged();
@@ -543,7 +540,7 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (list.size() < 5) {
+                if (list.size() < 10) {
                     Toast.makeText(ShopAddActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
                 } else {
                     startRecord = startRecord + pageRecords;

@@ -8,22 +8,22 @@ import java.util.List;
 public class OrderDetailsInfo {
 
     /**
-     * data : [{"ostatus":1,"freightamount":5,"ouaddress":"汉阳","iocost":12.5,"ocost":4214.3,"price":2.5,"inventime":"2017-06-04 15:32:16","name":"脉动","oid":314882},{"ostatus":1,"freightamount":9,"ouaddress":"汉阳","iocost":463.2,"ocost":4214.3,"price":2.5,"inventime":"2017-06-05 17:23:14","name":"可口可乐","oid":314882}]
+     * data : [{"ostatus":3,"receiving":"气氛","freightamount":2,"ouaddress":"中建广场","iocost":125,"ocost":2124.36,"price":"2.50","contact":"18542654212","inventime":"2017-07-08 08:18:04","name":"农夫山泉","oid":213684}]
      * page : null
      * status : 10200
      * message : 请求操作成功
      */
 
-    private String page;
+    private Object page;
     private String status;
     private String message;
     private List<DataBean> data;
 
-    public String getPage() {
+    public Object getPage() {
         return page;
     }
 
-    public void setPage(String page) {
+    public void setPage(Object page) {
         this.page = page;
     }
 
@@ -53,26 +53,32 @@ public class OrderDetailsInfo {
 
     public static class DataBean {
         /**
-         * ostatus : 1
-         * freightamount : 5
-         * ouaddress : 汉阳
-         * iocost : 12.5
-         * ocost : 4214.3
-         * price : 2.5
-         * inventime : 2017-06-04 15:32:16
-         * name : 脉动
-         * oid : 314882
+         * ostatus : 3
+         * receiving : 气氛
+         * freightamount : 2
+         * ouaddress : 中建广场
+         * iocost : 125
+         * ocost : 2124.36
+         * price : 2.50
+         * contact : 18542654212
+         * inventime : 2017-07-08 08:18:04
+         * name : 农夫山泉
+         * oid : 213684
+         * pictureUrl : null
          */
 
         private int ostatus;
+        private String receiving;
         private int freightamount;
         private String ouaddress;
         private double iocost;
         private double ocost;
         private double price;
+        private String contact;
         private String inventime;
         private String name;
         private int oid;
+        private String pictureUrl;
 
         public int getOstatus() {
             return ostatus;
@@ -80,6 +86,14 @@ public class OrderDetailsInfo {
 
         public void setOstatus(int ostatus) {
             this.ostatus = ostatus;
+        }
+
+        public String getReceiving() {
+            return receiving;
+        }
+
+        public void setReceiving(String receiving) {
+            this.receiving = receiving;
         }
 
         public int getFreightamount() {
@@ -122,6 +136,14 @@ public class OrderDetailsInfo {
             this.price = price;
         }
 
+        public String getContact() {
+            return contact;
+        }
+
+        public void setContact(String contact) {
+            this.contact = contact;
+        }
+
         public String getInventime() {
             return inventime;
         }
@@ -144,6 +166,14 @@ public class OrderDetailsInfo {
 
         public void setOid(int oid) {
             this.oid = oid;
+        }
+
+        public String getPictureUrl() {
+            return pictureUrl;
+        }
+
+        public void setPictureUrl(String pictureUrl) {
+            this.pictureUrl = pictureUrl;
         }
     }
 }

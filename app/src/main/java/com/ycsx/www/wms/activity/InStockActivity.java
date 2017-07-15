@@ -1,14 +1,11 @@
 package com.ycsx.www.wms.activity;
 
 import android.app.DatePickerDialog;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -43,12 +40,11 @@ public class InStockActivity extends BaseActivity implements PullBaseView.OnHead
     private InStockRecyclerAdapter adapter;
     private List<Map<String, Object>> list = new ArrayList();
     private int startRecord = 0;//开始条数
-    private int pageRecords = 5;//显示条数
-    private LinearLayout inStock_query;
+    private int pageRecords = 10;//显示条数
+    private LinearLayout inStock_query,layout_query,layout_startData,layout_endData,layout_pop;
     private PopupWindow popupWindow;
     private TextView startData, endData;
     private View view;
-    private LinearLayout layout_query;
     private int i = 0;
 
     @Override
@@ -60,7 +56,7 @@ public class InStockActivity extends BaseActivity implements PullBaseView.OnHead
         inStock_query.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopupWindow(v);
+                showPopupWindow();
             }
         });
     }
@@ -69,18 +65,14 @@ public class InStockActivity extends BaseActivity implements PullBaseView.OnHead
         finish();
     }
 
-    private void showPopupWindow(View parent) {
-        popupWindow = new PopupWindow(this);
-        popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-        popupWindow.setHeight(parent.getHeight());
-        popupWindow.setContentView(view);
-        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
-        popupWindow.setOutsideTouchable(false);
-        popupWindow.setFocusable(true);
-        //popupWindow.showAtLocation(parent, Gravity.TOP,0,0);
-        popupWindow.showAsDropDown(parent, 0, 0);
+    private void showPopupWindow() {
+        if(layout_pop.getVisibility()==View.VISIBLE){
+            layout_pop.setVisibility(View.GONE);
+        }else{
+            layout_pop.setVisibility(View.VISIBLE);
+        }
         final Calendar c = Calendar.getInstance();
-        startData.setOnClickListener(new View.OnClickListener() {
+        layout_startData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatePickerDialog dialog = new DatePickerDialog(InStockActivity.this, new DatePickerDialog.OnDateSetListener() {
@@ -105,7 +97,7 @@ public class InStockActivity extends BaseActivity implements PullBaseView.OnHead
                 dialog.show();
             }
         });
-        endData.setOnClickListener(new View.OnClickListener() {
+        layout_endData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatePickerDialog dialog = new DatePickerDialog(InStockActivity.this, new DatePickerDialog.OnDateSetListener() {
@@ -138,7 +130,7 @@ public class InStockActivity extends BaseActivity implements PullBaseView.OnHead
                 } else if (endData.getText().equals("")) {
                     Toast.makeText(InStockActivity.this, "请选择结束日期！", Toast.LENGTH_SHORT).show();
                 } else {
-                    popupWindow.dismiss();
+                    layout_pop.setVisibility(View.GONE);
                     i = 1;
                     startRecord = 0;
                     list = new ArrayList();
@@ -152,10 +144,12 @@ public class InStockActivity extends BaseActivity implements PullBaseView.OnHead
 
     private void initView() {
         inStock_query = (LinearLayout) findViewById(R.id.inStock_query);
-        view = LayoutInflater.from(this).inflate(R.layout.stock_popup, null);
-        layout_query = (LinearLayout) view.findViewById(R.id.layout_query);
-        startData = (TextView) view.findViewById(R.id.startData);
-        endData = (TextView) view.findViewById(R.id.endData);
+        layout_query = (LinearLayout) findViewById(R.id.layout_query);
+        layout_pop = (LinearLayout) findViewById(R.id.layout_pop);
+        layout_startData = (LinearLayout) findViewById(R.id.layout_startData);
+        layout_endData = (LinearLayout) findViewById(R.id.layout_endData);
+        startData = (TextView) findViewById(R.id.startData);
+        endData = (TextView) findViewById(R.id.endData);
         recyclerView = (PullRecyclerView) findViewById(R.id.pullRecyclerView);
         //设置水平布局
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -187,6 +181,7 @@ public class InStockActivity extends BaseActivity implements PullBaseView.OnHead
                     if (("10200").equals(user.getStatus())) {
                         for (int i = 0; i < user.getData().size(); i++) {
                             Map<String, Object> map = new HashMap<String, Object>();
+                            map.put("id", user.getData().get(i).getId() + "");//商品id
                             map.put("name", user.getData().get(i).getName() + "");//商品名称
                             map.put("category", user.getData().get(i).getCategory() + "");//商品类目
                             map.put("instockTime", user.getData().get(i).getInstockTime() + "");//入库时间
@@ -200,6 +195,7 @@ public class InStockActivity extends BaseActivity implements PullBaseView.OnHead
                             map.put("transactor", user.getData().get(i).getTransactor() + "");//经办人
                             map.put("goodsStatus", user.getData().get(i).getGoodsStatus() + "");//商品状态
                             map.put("nondefectiveNum", user.getData().get(i).getNondefectiveNum() + "");//良品商品数量
+                            map.put("pictureUrl", user.getData().get(i).getPictureUrl() + "");//商品图片地址
                             list.add(map);
                         }
                         adapter.notifyDataSetChanged();
@@ -245,7 +241,7 @@ public class InStockActivity extends BaseActivity implements PullBaseView.OnHead
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (list.size() < 5) {
+                if (list.size() < 10) {
                     Toast.makeText(InStockActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
                 } else {
                     startRecord = startRecord + pageRecords;

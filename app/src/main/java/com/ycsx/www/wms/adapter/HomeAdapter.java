@@ -24,7 +24,7 @@ public class HomeAdapter extends PagerAdapter {
     @Override
     public int getCount() {
         //告诉容器我们的数据长度为Integer.MAX_VALUE，这样就可以一直滚动
-        return Integer.MAX_VALUE;
+        return mDataList.size() == 1 ? mDataList.size() : Integer.MAX_VALUE;
     }
 
     @Override

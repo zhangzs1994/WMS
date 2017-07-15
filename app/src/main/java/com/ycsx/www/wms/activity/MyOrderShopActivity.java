@@ -25,15 +25,14 @@ import retrofit2.Response;
 public class MyOrderShopActivity extends BaseActivity {
     private ListView listView;
     private MyOrderListAdapter adapter;
-    private List<Map<String,Object>> list;
+    private List<Map<String,Object>> list=new ArrayList<>();
 
     @Override
     public void init() {
         super.init();
         setContentView(R.layout.activity_my_order_shop);
-        initView();
-        list=new ArrayList<>();
         initList();
+        initView();
         adapter=new MyOrderListAdapter(list,this);
         listView.setAdapter(adapter);
     }
@@ -69,6 +68,7 @@ public class MyOrderShopActivity extends BaseActivity {
                             map.put("num", info.getData().get(i).getNum() + "");
                             list.add(map);
                         }
+                        adapter.notifyDataSetChanged();
                     }else  if(("10365").equals(info.getStatus())) {
                         Toast.makeText(MyOrderShopActivity.this, "无已选商品！", Toast.LENGTH_SHORT).show();
                     } else{

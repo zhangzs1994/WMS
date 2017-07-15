@@ -60,12 +60,12 @@
         <LinearLayout
             android:id="@+id/userInfo"
             android:layout_width="match_parent"
-            android:layout_height="150px"
+            android:layout_height="120px"
             android:gravity="center_vertical"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="80px"
-                android:layout_height="80px"
+                android:layout_width="60px"
+                android:layout_height="60px"
                 android:layout_marginLeft="50px"
                 android:background="@drawable/mine_info"/>
 
@@ -93,12 +93,12 @@
         <LinearLayout
             android:id="@+id/updatePwd"
             android:layout_width="match_parent"
-            android:layout_height="150px"
+            android:layout_height="120px"
             android:gravity="center_vertical"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="80px"
-                android:layout_height="80px"
+                android:layout_width="60px"
+                android:layout_height="60px"
                 android:layout_marginLeft="50px"
                 android:background="@drawable/mine_updatepwd"/>
 
@@ -126,12 +126,12 @@
         <LinearLayout
             android:id="@+id/authority"
             android:layout_width="match_parent"
-            android:layout_height="150px"
+            android:layout_height="120px"
             android:gravity="center_vertical"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="80px"
-                android:layout_height="80px"
+                android:layout_width="60px"
+                android:layout_height="60px"
                 android:layout_marginLeft="50px"
                 android:background="@drawable/mine_authority"/>
 
@@ -159,12 +159,12 @@
         <LinearLayout
             android:id="@+id/checkUpdate"
             android:layout_width="match_parent"
-            android:layout_height="150px"
+            android:layout_height="120px"
             android:gravity="center_vertical"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="80px"
-                android:layout_height="80px"
+                android:layout_width="60px"
+                android:layout_height="60px"
                 android:layout_marginLeft="50px"
                 android:background="@drawable/mine_update"/>
 
@@ -198,12 +198,12 @@
         <LinearLayout
             android:id="@+id/quit"
             android:layout_width="match_parent"
-            android:layout_height="150px"
+            android:layout_height="120px"
             android:gravity="center_vertical"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="80px"
-                android:layout_height="80px"
+                android:layout_width="60px"
+                android:layout_height="60px"
                 android:layout_marginLeft="50px"
                 android:background="@drawable/mine_quit"/>
 

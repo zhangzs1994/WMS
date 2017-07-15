@@ -3,74 +3,72 @@ package com.ycsx.www.wms.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.Toast;
 
-import com.github.demono.AutoScrollViewPager;
 import com.ycsx.www.wms.R;
 import com.ycsx.www.wms.activity.AchievementActivity;
 import com.ycsx.www.wms.activity.ClassifyMangerActivity;
 import com.ycsx.www.wms.activity.OpLogActivity;
 import com.ycsx.www.wms.activity.OrderMangerActivity;
 import com.ycsx.www.wms.activity.StockMangerActivity;
-import com.ycsx.www.wms.activity.SubTreasuryActivity;
-import com.ycsx.www.wms.adapter.HomeAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.ycsx.www.wms.common.API;
+import com.ycsx.www.wms.util.GlideImageLoader;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.Transformer;
 
 /**
  * Created by ZZS_PC on 2017/6/6.
  */
 public class HomePageFragment extends Fragment implements View.OnClickListener {
-    private AutoScrollViewPager mViewPager;
-    private LinearLayout mLinearLayout, layout_order, layout_achievement, layout_stock,
-            layout_classify,layout_subTreasury,layout_opLog;
-    private View mView;
-    private List<ImageView> mDataList;
-    private int diatance;
+    private LinearLayout layout_order, layout_achievement, layout_stock,
+            layout_classify, layout_subTreasury, layout_opLog;
     private View view;
     private int[] image = new int[]{R.drawable.major_image, R.drawable.major_image,
-            R.drawable.major_image, R.drawable.major_image};
+            R.drawable.major_image, R.drawable.detail};
     private Intent intent;
+    private Banner banner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_homepage, container, false);
         initView();
-        initData();
-        initEvent();
+        //设置banner样式
+        banner.setBannerStyle(BannerConfig.NUM_INDICATOR);
+        //设置图片加载器
+        banner.setImageLoader(new GlideImageLoader());
+        //设置banner动画效果
+        banner.setBannerAnimation(Transformer.DepthPage);
+        //设置图片集合
+        banner.setImages(API.images);
+        //banner设置方法全部调用完毕时最后调用
+        banner.start();
         return view;
     }
 
     @Override
     public void onStart() {
-        //设置viewpager自动轮播并设置轮播方向
-        mViewPager.startAutoScroll();
-        mViewPager.setSlideInterval(2000);
-        mViewPager.setCycle(true);
         super.onStart();
+        //开始轮播
+        banner.startAutoPlay();
     }
 
     @Override
     public void onStop() {
-        //设置viewpager停止轮播
-        mViewPager.stopAutoScroll();
         super.onStop();
+        //结束轮播
+        banner.stopAutoPlay();
     }
 
     /**
      * 初始化控件
      */
     private void initView() {
-        mViewPager = (AutoScrollViewPager) view.findViewById(R.id.viewpager);
-        mLinearLayout = (LinearLayout) view.findViewById(R.id.layout_points);
+        banner = (Banner) view.findViewById(R.id.banner);
         layout_order = (LinearLayout) view.findViewById(R.id.layout_order);
         layout_achievement = (LinearLayout) view.findViewById(R.id.layout_achievement);
         layout_stock = (LinearLayout) view.findViewById(R.id.layout_stock);
@@ -83,69 +81,6 @@ public class HomePageFragment extends Fragment implements View.OnClickListener {
         layout_classify.setOnClickListener(this);
         layout_subTreasury.setOnClickListener(this);
         layout_opLog.setOnClickListener(this);
-        mView = view.findViewById(R.id.view_redpoint);
-    }
-
-    /**
-     * 初始化数据
-     */
-    private void initData() {
-        mDataList = new ArrayList<ImageView>();
-        for (int i = 0; i < image.length; i++) {
-            ImageView img = new ImageView(getContext());
-            img.setBackgroundResource(image[i]);
-            mDataList.add(img);
-            //添加底部灰点
-            View v = new View(getContext());
-            v.setBackgroundResource(R.drawable.gray_round);
-            //指定其大小
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(20, 20);
-            if (i != 0) {
-                params.leftMargin = 20;
-            }
-            v.setLayoutParams(params);
-            mLinearLayout.addView(v);
-        }
-        mViewPager.setAdapter(new HomeAdapter(mDataList, getActivity()));
-        //设置每次加载时第一页在MAX_VALUE / 2 - Extra 页，造成用户无限轮播的错觉
-        int startPage = Integer.MAX_VALUE / 2;
-        int extra = startPage % mDataList.size();
-        startPage = startPage - extra;
-        mViewPager.setCurrentItem(startPage);
-    }
-
-    private void initEvent() {
-        /**
-         * 当底部红色小圆点加载完成时测出两个小灰点的距离，便于计算后面小红点动态移动的距离
-         */
-        mView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                diatance = mLinearLayout.getChildAt(1).getLeft() - mLinearLayout.getChildAt(0).getLeft();
-            }
-        });
-
-        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                //测出页面滚动时小红点移动的距离，并通过setLayoutParams(params)不断更新其位置
-                position = position % mDataList.size();
-                float leftMargin = diatance * (position + positionOffset);
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mView.getLayoutParams();
-                params.leftMargin = Math.round(leftMargin);
-                mView.setLayoutParams(params);
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
     }
 
     @Override
@@ -168,8 +103,9 @@ public class HomePageFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.layout_subTreasury:
-                intent = new Intent(getActivity(), SubTreasuryActivity.class);
-                startActivity(intent);
+//                intent = new Intent(getActivity(), SubTreasuryActivity.class);
+//                startActivity(intent);
+                Toast.makeText(getActivity(), "该功能暂未开放，敬请期待！", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.layout_opLog:
                 intent = new Intent(getActivity(), OpLogActivity.class);

@@ -5,6 +5,8 @@ import com.ycsx.www.wms.bean.CategoryInfo;
 import com.ycsx.www.wms.bean.Common;
 import com.ycsx.www.wms.bean.FlagCountInfo;
 import com.ycsx.www.wms.bean.FlagInfo;
+import com.ycsx.www.wms.bean.InitInfo;
+import com.ycsx.www.wms.bean.LogInfo;
 import com.ycsx.www.wms.bean.LoginInfo;
 import com.ycsx.www.wms.bean.OrderDetailsInfo;
 import com.ycsx.www.wms.bean.OrderInfo;
@@ -91,6 +93,10 @@ public interface IRetrofit {
     Call<ShopInfo> getGoodsByCategory(@FieldMap Map<String, String> params);//根据商品类别获取商品信息
 
     @FormUrlEncoded
+    @POST("wms/getGoods")
+    Call<ShopInfo> getGoods(@FieldMap Map<String, String> params);//根据商品ID获取商品信息
+
+    @FormUrlEncoded
     @POST("wms/queryDropdown")
     Call<CategoryInfo> queryDropdown(@FieldMap Map<String, String> params);//根据商品分类信息
 
@@ -141,4 +147,28 @@ public interface IRetrofit {
     @FormUrlEncoded
     @POST("wms/deleteMyorde")
     Call<Common> deleteMyorde(@FieldMap Map<String, String> params);//删除订单商品
+
+    @FormUrlEncoded
+    @POST("wms/queryLogByName")
+    Call<LogInfo> queryLogByName(@FieldMap Map<String, Object> params);//根据用户名查询日志
+
+    @FormUrlEncoded
+    @POST("wms/likeByName")
+    Call<LoginInfo> likeByName(@FieldMap Map<String, String> params);//模糊查询用户信息
+
+    @FormUrlEncoded
+    @POST("wms/initInfo")
+    Call<InitInfo> initInfo(@FieldMap Map<String, String> params);//获取初始化信息
+
+    @FormUrlEncoded
+    @POST("wms/checkValue")
+    Call<Common> checkValue(@FieldMap Map<String, String> params);//查重
+
+    @FormUrlEncoded
+    @POST("wms/addDropdownValue")
+    Call<Common> addDropdownValue(@FieldMap Map<String, String> params);//获取商品分类信息
+
+    @FormUrlEncoded
+    @POST("wms/deleteDropdown")
+    Call<Common> deleteDropdown(@FieldMap Map<String, String> params);//获取商品分类信息
 }

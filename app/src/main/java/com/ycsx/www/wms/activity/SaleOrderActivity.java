@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,6 +18,7 @@ import com.ycsx.www.wms.R;
 import com.ycsx.www.wms.adapter.AddOrderListAdapter;
 import com.ycsx.www.wms.base.BaseActivity;
 import com.ycsx.www.wms.bean.AddOrderInfo;
+import com.ycsx.www.wms.bean.CategoryInfo;
 import com.ycsx.www.wms.bean.Common;
 import com.ycsx.www.wms.bean.OrderShop;
 import com.ycsx.www.wms.common.API;
@@ -38,57 +38,87 @@ import retrofit2.Response;
 
 public class SaleOrderActivity extends BaseActivity implements View.OnClickListener {
     private Button submit;
-    private AddOrderInfo order=new AddOrderInfo();
-    private List<AddOrderInfo.DataBean> datas=new ArrayList<>();
-    private List<Map<String,Object>> list;
+    private AddOrderInfo order = new AddOrderInfo();
+    private List<AddOrderInfo.DataBean> datas = new ArrayList<>();
+    private List<Map<String, Object>> list = new ArrayList<>();
     private String orderDetial;
     private GsonBuilder builder;
     private Gson gson;
-    private LinearLayout add_shop;
+    private Button add_shop;
     private Intent intent;
     private ListView listView;
     private AddOrderListAdapter adapter;
-    private Double price=0.00;
-    private TextView ocost,receiving,contact,ouaddress;
+    private Double price = 0.00;
+    private TextView ocost, receiving, contact, ouaddress;
     private Spinner spinner;
     private ArrayAdapter<String> arrayAdapter;
-    private String[] spinnerChild = {"正常", "非正常"};
-    private String status;
+    private List<String> spinnerValue = new ArrayList<>();
+    private List<String> spinnerCode = new ArrayList<>();
+    private String status = "1";//订单分类,1为销售订单;2为返厂订单;3销毁订单;内部领用
     private SharedPreferences pref;
 
     @Override
     public void init() {
         super.init();
         setContentView(R.layout.activity_add_order);
+        initList();
         initView();
-        builder=new GsonBuilder();
-        gson=builder.create();
-        arrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, spinnerChild);
-        arrayAdapter.setDropDownViewResource(R.layout.dropdown_stytle);
-        spinner.setAdapter(arrayAdapter);
+        builder = new GsonBuilder();
+        gson = builder.create();
+        queryDropdown();
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if ("正常".equals(spinnerChild[position])) {
-                    status = "1";
-                } else if ("非正常".equals(spinnerChild[position])) {
-                    status = "2";
+                for (int i = 0; i < spinnerValue.size(); i++) {
+                    if (spinnerValue.get(i).toString().equals(spinnerValue.get(position).toString())) {
+                        status = spinnerCode.get(i).toString();
+                    }
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 status = "1";
             }
         });
-        list=new ArrayList<>();
-        initList();
-        adapter=new AddOrderListAdapter(list,this);
-        listView.setAdapter(adapter);
+    }
+
+    private void queryDropdown() {
+        Map<String, String> params = new HashMap<>();
+        params.put("colName", "order1");
+        Call<CategoryInfo> call = RetrofitUtil.getInstance(API.URL).queryDropdown(params);
+        call.enqueue(new Callback<CategoryInfo>() {
+            @Override
+            public void onResponse(Call<CategoryInfo> call, Response<CategoryInfo> response) {
+                if (response.isSuccessful()) {
+                    CategoryInfo info = response.body();
+                    if (("10200").equals(info.getStatus())) {
+                        for (int i = 0; i < info.getData().size(); i++) {
+                            spinnerValue.add(info.getData().get(i).getValue() + "");
+                            spinnerCode.add(info.getData().get(i).getCode() + "");
+                        }
+                        arrayAdapter = new ArrayAdapter<String>(SaleOrderActivity.this, R.layout.spinner_item, spinnerValue);
+                        arrayAdapter.setDropDownViewResource(R.layout.dropdown_stytle);
+                        spinner.setAdapter(arrayAdapter);
+                    } else {
+                        Toast.makeText(SaleOrderActivity.this, "获取类别失败1！", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(SaleOrderActivity.this, "获取类别失败2！", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CategoryInfo> call, Throwable t) {
+                Toast.makeText(SaleOrderActivity.this, "获取类别失败3！", Toast.LENGTH_SHORT).show();
+            }
+
+        });
     }
 
     private void initView() {
         spinner = (Spinner) findViewById(R.id.spinner);
-        add_shop = (LinearLayout) findViewById(R.id.add_shop);
+        add_shop = (Button) findViewById(R.id.add_shop);
         submit = (Button) findViewById(R.id.submit);
         listView = (ListView) findViewById(R.id.listView);
         ocost = (TextView) findViewById(R.id.ocost);
@@ -97,11 +127,12 @@ public class SaleOrderActivity extends BaseActivity implements View.OnClickListe
         ouaddress = (TextView) findViewById(R.id.ouaddress);
         submit.setOnClickListener(this);
         add_shop.setOnClickListener(this);
-        ocost.setText(new DecimalFormat("######0.00").format(price));
+        adapter = new AddOrderListAdapter(list, this);
+        listView.setAdapter(adapter);
     }
 
     private void initData() {
-        orderDetial=gson.toJson(order, AddOrderInfo.class);
+        orderDetial = gson.toJson(order, AddOrderInfo.class);
         Log.e("orderDetial===", orderDetial);
         Map<String, String> params = new HashMap<>();
         params.put("orderDetial", orderDetial);
@@ -114,7 +145,7 @@ public class SaleOrderActivity extends BaseActivity implements View.OnClickListe
                     if (("10200").equals(info.getStatus())) {
                         finish();
                         Toast.makeText(SaleOrderActivity.this, "提交成功！", Toast.LENGTH_SHORT).show();
-                    }else {
+                    } else {
                         Toast.makeText(SaleOrderActivity.this, "提交失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -130,9 +161,9 @@ public class SaleOrderActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void initList() {
-        SharedPreferences pref = getSharedPreferences("login",MODE_PRIVATE);
+        SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
         Map<String, String> params = new HashMap<>();
-        params.put("uid", pref.getInt("id",0)+"");
+        params.put("uid", pref.getInt("id", 0) + "");
         Call<OrderShop> call = RetrofitUtil.getInstance(API.URL).selectMyorde(params);
         call.enqueue(new Callback<OrderShop>() {
             @Override
@@ -153,13 +184,14 @@ public class SaleOrderActivity extends BaseActivity implements View.OnClickListe
                             data.setNum(info.getData().get(i).getNum());
                             data.setPrice(info.getData().get(i).getPrice());
                             datas.add(data);
-                            price=price+Double.parseDouble(info.getData().get(i).getPrice()+"")*Double.parseDouble(info.getData().get(i).getNum()+"");
+                            price = price + Double.parseDouble(info.getData().get(i).getPrice() + "") * Double.parseDouble(info.getData().get(i).getNum() + "");
                         }
                         ocost.setText(new DecimalFormat("######0.00").format(price));
-                    }else  if(("10365").equals(info.getStatus())) {
+                        adapter.notifyDataSetChanged();
+                    } else if (("10365").equals(info.getStatus())) {
                         AddOrderInfo.DataBean data = new AddOrderInfo.DataBean();
                         datas.add(data);
-                    } else{
+                    } else {
                         Toast.makeText(SaleOrderActivity.this, "查询失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -169,7 +201,7 @@ public class SaleOrderActivity extends BaseActivity implements View.OnClickListe
 
             @Override
             public void onFailure(Call<OrderShop> call, Throwable t) {
-                Log.e("getMessage","==="+t.getMessage());
+                Log.e("getMessage", "===" + t.getMessage());
                 Toast.makeText(SaleOrderActivity.this, "查询失败3！", Toast.LENGTH_SHORT).show();
             }
         });
@@ -190,34 +222,34 @@ public class SaleOrderActivity extends BaseActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.submit:
-                SharedPreferences pref = getSharedPreferences("login",MODE_PRIVATE);
-                order.setId(pref.getInt("id",0));
-                order.setName(pref.getString("name",""));
+                SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
+                order.setId(pref.getInt("id", 0));
+                order.setName(pref.getString("name", ""));
                 order.setDateTime(getTimeByMinute(0));
                 order.setOuaddress(ouaddress.getText().toString());
                 order.setReceiving(receiving.getText().toString());
                 order.setContact(contact.getText().toString());
                 order.setClassify(status);
-                if(ocost.getText().toString().equals("")){
+                if (ocost.getText().toString().equals("")) {
                     order.setOcost(0.00);
-                }else{
+                } else {
                     order.setOcost(Double.parseDouble(ocost.getText().toString()));
                 }
-                if(list.size()==0){
+                if (list.size() == 0) {
                     Toast.makeText(SaleOrderActivity.this, "请添加商品！", Toast.LENGTH_SHORT).show();
-                }else if(order.getReceiving().equals("")){
+                } else if (order.getReceiving().equals("")) {
                     Toast.makeText(SaleOrderActivity.this, "请输入收货人！", Toast.LENGTH_SHORT).show();
-                }else if(order.getContact().equals("")){
+                } else if (order.getContact().equals("")) {
                     Toast.makeText(SaleOrderActivity.this, "请输入联系方式！", Toast.LENGTH_SHORT).show();
-                }else if(order.getOuaddress().equals("")){
+                } else if (order.getOuaddress().equals("")) {
                     Toast.makeText(SaleOrderActivity.this, "请输入收货地址！", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     order.setData(datas);
                     initData();
                 }
                 break;
             case R.id.add_shop:
-                intent=new Intent(this,ShopAddActivity.class);
+                intent = new Intent(this, ShopAddActivity.class);
                 startActivity(intent);
                 break;
         }

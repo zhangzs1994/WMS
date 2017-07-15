@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +19,7 @@ import com.ycsx.www.wms.bean.Common;
 import com.ycsx.www.wms.bean.OrderDetailsInfo;
 import com.ycsx.www.wms.common.API;
 import com.ycsx.www.wms.util.RetrofitUtil;
+import com.ycsx.www.wms.view.MyListView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class OrderDetailsActivity extends BaseActivity implements View.OnClickListener{
-    private ListView order_shopInfo;
+    private MyListView order_shopInfo;
     private OrderDetailsAdapter adapter;
     private List<Map<String,Object>> list=new ArrayList<>();
     private View view;
@@ -97,23 +97,24 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
                             map.put("iocost", info.getData().get(i).getIocost());//商品总价
                             map.put("ocost", info.getData().get(i).getOcost());//总价
                             map.put("inventime", info.getData().get(i).getInventime() + "");//订单时间
+                            map.put("inventime", info.getData().get(i).getInventime() + "");//订单时间
+                            map.put("contact", info.getData().get(i).getContact() + "");//联系方式
+                            map.put("receiving", info.getData().get(i).getReceiving() + "");//联系人
+                            map.put("pictureUrl", info.getData().get(i).getPictureUrl() + "");//联系人
                             list.add(map);
                         }
-
                         adapter.notifyDataSetChanged();
                     }else {
-                        Toast.makeText(OrderDetailsActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OrderDetailsActivity.this, "获取订单详情失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Log.e("返回码===", response.code() + "");
-                    Toast.makeText(OrderDetailsActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderDetailsActivity.this, "获取订单详情失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<OrderDetailsInfo> call, Throwable t) {
-                Log.e("TAG", "==="+t.getMessage());
-                Toast.makeText(OrderDetailsActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrderDetailsActivity.this, "获取订单详情失败3！", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -189,7 +190,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
 
     private void initView() {
         view=View.inflate(this,R.layout.order_details_header,null);
-        order_shopInfo= (ListView) findViewById(R.id.order_shopInfo);
+        order_shopInfo= (MyListView) findViewById(R.id.order_shopInfo);
         layout_audit= (LinearLayout) findViewById(R.id.layout_audit);
         title= (TextView) findViewById(R.id.title);
         audit_yes= (Button) findViewById(R.id.audit_yes);
@@ -211,6 +212,10 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
             title.setText("订单发货");
             layout_audit.setVisibility(View.GONE);
             express.setVisibility(View.VISIBLE);
+        }else if(getIntent().getStringExtra("title").equals("出库记录")){
+            title.setText("出库详情");
+            layout_audit.setVisibility(View.GONE);
+            express.setVisibility(View.GONE);
         }else{
             title.setText("订单详情");
             layout_audit.setVisibility(View.GONE);
@@ -232,7 +237,6 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
                 updateOrder(2);
                 break;
             case R.id.btn_express:
-                Log.e("111===", "111");
                 deliverGoods();
                 break;
         }

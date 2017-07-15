@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150px"
+        android:layout_height="120px"
         android:background="@drawable/top_bg"
         android:gravity="center">
 
@@ -36,16 +36,17 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="30px"
         android:layout_marginLeft="30px"
         android:layout_marginRight="30px"
+        android:layout_marginBottom="30px"
         android:background="#35000000">
         <LinearLayout
             android:id="@+id/update_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:orientation="vertical">
 
             <LinearLayout
@@ -56,7 +57,6 @@
                 android:gravity="center_vertical"
                 android:orientation="vertical">
                 <LinearLayout
-                    android:id="@+id/add_shop"
                     android:layout_width="match_parent"
                     android:gravity="center_vertical"
                     android:layout_height="80px">
@@ -65,20 +65,23 @@
                         android:layout_height="50px"
                         android:layout_marginLeft="20px"
                         android:background="@drawable/add_btn_bg"/>
-                    <TextView
+                    <Button
+                        android:id="@+id/add_shop"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="20px"
+                        android:layout_margin="10px"
                         android:gravity="center"
                         android:text="添加商品"
-                        android:textColor="#531a81"
+                        android:background="@color/login_btn"
+                        android:textColor="@color/colorWhite"
                         android:textSize="18sp" />
                 </LinearLayout>
-                <ListView
+
+                <com.ycsx.www.wms.view.MyListView
                     android:id="@+id/listView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                </ListView>
+                </com.ycsx.www.wms.view.MyListView>
             </LinearLayout>
 
             <LinearLayout
@@ -149,7 +152,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20px"
                     android:gravity="center"
-                    android:text="联系方式："
+                    android:text="联系电话："
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
 
@@ -206,7 +209,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20px"
                     android:gravity="center"
-                    android:text="状态："
+                    android:text="类型："
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
 
@@ -219,7 +222,7 @@
 
             <LinearLayout
                 android:layout_width="600px"
-                android:layout_height="wrap_content"
+                android:layout_height="80px"
                 android:layout_marginTop="30px"
                 android:layout_marginBottom="20px">
 
@@ -232,10 +235,7 @@
                     android:text="提交"
                     android:textColor="@color/colorWhite"
                     android:textSize="20sp" />
-
             </LinearLayout>
-
-
         </LinearLayout>
     </ScrollView>
 

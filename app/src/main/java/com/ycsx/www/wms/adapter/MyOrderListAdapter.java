@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +63,7 @@ public class MyOrderListAdapter extends BaseAdapter{
             holder.shop_num= (TextView) view.findViewById(R.id.shop_num);
             holder.shop_price= (TextView) view.findViewById(R.id.shop_price);
             holder.delete= (LinearLayout) view.findViewById(R.id.delete);
+            holder.shop_image= (ImageView) view.findViewById(R.id.shop_image);
             view.setTag(holder);
         }else{
             holder= (MyHolder) view.getTag();
@@ -108,5 +110,6 @@ public class MyOrderListAdapter extends BaseAdapter{
     class MyHolder{
         LinearLayout delete;
         TextView shop_name,shop_num,shop_price;
+        ImageView shop_image;
     }
 }

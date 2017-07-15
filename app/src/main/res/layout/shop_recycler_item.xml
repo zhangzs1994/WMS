@@ -9,7 +9,6 @@
         android:layout_height="180px"
         android:gravity="center"
         android:layout_margin="20px"
-        android:background="@drawable/shop_image"
         android:textSize="20sp" />
 
     <LinearLayout
@@ -26,6 +25,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
+                android:textSize="20sp"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:textColor="@color/colorWhite"
                 android:text="商品名称"/>
         </LinearLayout>
@@ -38,6 +40,8 @@
                 android:id="@+id/shop_describ"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:textColor="@color/colorWhite"
                 android:text="商品描述"/>

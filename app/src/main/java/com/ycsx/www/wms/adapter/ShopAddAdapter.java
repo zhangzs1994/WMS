@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.ycsx.www.wms.R;
@@ -14,6 +13,7 @@ import com.ycsx.www.wms.activity.ShopDetailsActivity;
 import com.ycsx.www.wms.holder.BottomViewHolder;
 import com.ycsx.www.wms.holder.HeaderViewHolder;
 import com.ycsx.www.wms.holder.ShopAddHolder;
+import com.ycsx.www.wms.util.GlideUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -24,7 +24,7 @@ import java.util.Map;
 public class ShopAddAdapter extends RecyclerView.Adapter {
     private Context context;
     private List<Map<String, Object>> list;
-    private PopupWindow popupWindow;
+    private String[] image = null;
     //item类型
     public static final int ITEM_TYPE_HEADER = 0;
     public static final int ITEM_TYPE_CONTENT = 1;
@@ -106,23 +106,13 @@ public class ShopAddAdapter extends RecyclerView.Adapter {
             ((ShopAddHolder) holder).shop_price.setText("价格：" + list.get(position).get("price").toString());
             ((ShopAddHolder) holder).shop_describ.setText(list.get(position).get("describ").toString());
             ((ShopAddHolder) holder).shop_stock.setText("库存：" + list.get(position).get("stock").toString());
+            image = convertStrToArray(list.get(position).get("pictureUrl").toString());
+            GlideUtils.loadImage(context, image[0], ((ShopAddHolder)holder).shop_image);
             ((ShopAddHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ShopDetailsActivity.class);
-                    intent.putExtra("name", list.get(position).get("name").toString());
-                    intent.putExtra("category", list.get(position).get("category").toString());
-                    intent.putExtra("instockTime", list.get(position).get("instockTime").toString());
-                    intent.putExtra("outstockTime", list.get(position).get("outstockTime").toString());
-                    intent.putExtra("stock", list.get(position).get("stock").toString());
-                    intent.putExtra("price", list.get(position).get("price").toString());
-                    intent.putExtra("spec", list.get(position).get("spec").toString());
-                    intent.putExtra("manufactureTime", list.get(position).get("manufactureTime").toString());
-                    intent.putExtra("qualityTime", list.get(position).get("qualityTime").toString());
-                    intent.putExtra("describ", list.get(position).get("describ").toString());
-                    intent.putExtra("transactor", list.get(position).get("transactor").toString());
-                    intent.putExtra("goodsStatus", list.get(position).get("goodsStatus").toString());
-                    intent.putExtra("nondefectiveNum", list.get(position).get("nondefectiveNum").toString());
+                    intent.putExtra("id", list.get(position).get("id").toString());
                     context.startActivity(intent);
                 }
             });
@@ -143,6 +133,17 @@ public class ShopAddAdapter extends RecyclerView.Adapter {
                 }
             });
         }
+    }
+
+    public String[] convertStrToArray(String str) {
+        //Log.e("image", "" + strArray.length);
+        if (!str.contains(",")) {
+            image = new String[1];
+            image[0] = str;
+        } else {
+            image = str.split(","); //拆分字符为"," ,然后把结果交给数组strArray
+        }
+        return image;
     }
 
     //获取总条目数（包括头部和底部）

@@ -35,7 +35,7 @@ public class MyOrderListActivity extends BaseActivity implements PullBaseView.On
     private MyOrderRecyclerAdapter adapter;
     private List<Map<String, Object>> list = new ArrayList();
     private int startRecord = 0;//开始条数
-    private int pageRecords = 5;//显示条数
+    private int pageRecords = 10;//显示条数
     private TextView title;
     private Spinner spinner;
     private List<String> spinnerValue = new ArrayList<>();
@@ -211,7 +211,7 @@ public class MyOrderListActivity extends BaseActivity implements PullBaseView.On
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (list.size() < 5) {
+                if (list.size() < 10) {
                     Toast.makeText(MyOrderListActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
                 } else {
                     startRecord = startRecord + pageRecords;

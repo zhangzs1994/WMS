@@ -29,13 +29,14 @@
                     android:gravity="center"
                     android:text="订单号："
                     android:textColor="@color/colorWhite"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/order_id"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
+                    android:textSize="18sp"
                     android:textColor="@color/colorWhite" />
             </LinearLayout>
 
@@ -53,13 +54,14 @@
                     android:gravity="center"
                     android:text="总额："
                     android:textColor="@color/colorWhite"
-                    android:textSize="20sp" />
+                    android:textSize="18sp"/>
 
                 <TextView
                     android:id="@+id/order_price"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
+                    android:textSize="18sp"
                     android:textColor="@color/colorWhite" />
             </LinearLayout>
 
@@ -77,13 +79,14 @@
                     android:gravity="center"
                     android:text="状态："
                     android:textColor="@color/colorWhite"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/order_status"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
+                    android:textSize="18sp"
                     android:textColor="@color/colorWhite" />
             </LinearLayout>
 
@@ -101,13 +104,64 @@
                     android:gravity="center"
                     android:text="订单日期："
                     android:textColor="@color/colorWhite"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/order_time"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="600px"
+                android:layout_height="80px"
+                android:background="@drawable/bg_line"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20px"
+                    android:gravity="center"
+                    android:text="联系人："
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/order_receiving"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="600px"
+                android:layout_height="80px"
+                android:background="@drawable/bg_line"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20px"
+                    android:gravity="center"
+                    android:text="联系电话："
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/order_contact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp"
                     android:textColor="@color/colorWhite" />
             </LinearLayout>
 
@@ -125,13 +179,14 @@
                     android:gravity="center"
                     android:text="收货地址："
                     android:textColor="@color/colorWhite"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/order_address"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
+                    android:textSize="18sp"
                     android:textColor="@color/colorWhite" />
             </LinearLayout>
 

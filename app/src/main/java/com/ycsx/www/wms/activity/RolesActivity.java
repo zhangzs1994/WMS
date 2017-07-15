@@ -24,8 +24,6 @@ import retrofit2.Response;
 
 public class RolesActivity extends BaseActivity {
     public List<String> group;
-    public String[][] listViewChild = {{"管理员1", "管理员2", "管理员3"}, {"主管1", "主管2", "主管3"},
-            {"经理1", "经理2", "经理3"}, {"员工1", "员工2", "员工3"}, {"其他1", "其他2"}};
     List<List<String>> list;
     List<String> listChild;
     ExpandableListView mExpandableListView;

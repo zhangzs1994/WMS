@@ -60,7 +60,7 @@ public class AchievementActivity extends BaseActivity implements View.OnClickLis
                 startActivity(intent);
                 break;
             case R.id.order_submit:
-                //创建订单
+                //销售订单
                 intent = new Intent(this, SaleOrderActivity.class);
                 startActivity(intent);
                 break;

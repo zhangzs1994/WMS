@@ -1,14 +1,11 @@
 package com.ycsx.www.wms.activity;
 
 import android.app.DatePickerDialog;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -25,6 +22,7 @@ import com.ycsx.www.wms.recycler.PullBaseView;
 import com.ycsx.www.wms.recycler.PullRecyclerView;
 import com.ycsx.www.wms.util.RetrofitUtil;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,18 +36,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OutStockActivity extends BaseActivity implements PullBaseView.OnHeaderRefreshListener, PullBaseView.OnFooterRefreshListener{
+public class OutStockActivity extends BaseActivity implements PullBaseView.OnHeaderRefreshListener, PullBaseView.OnFooterRefreshListener {
     private PullRecyclerView recyclerView;
     private OutStockRecyclerAdapter adapter;
     private List<Map<String, Object>> list = new ArrayList();
     private int startRecord = 0;//开始条数
-    private int pageRecords = 5;//显示条数
-    private LinearLayout outStock_query;
+    private int pageRecords = 10;//显示条数
+    private LinearLayout outStock_query,layout_query,layout_startData,layout_endData,layout_pop;
     private PopupWindow popupWindow;
     private TextView startData, endData;
-    private View view;
     private int i = 0;
-    private LinearLayout layout_query;
 
     @Override
     public void init() {
@@ -60,7 +56,7 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
         outStock_query.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopupWindow(v);
+                showPopupWindow();
             }
         });
     }
@@ -71,10 +67,12 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
 
     private void initView() {
         outStock_query = (LinearLayout) findViewById(R.id.outStock_query);
-        view = LayoutInflater.from(this).inflate(R.layout.stock_popup, null);
-        layout_query = (LinearLayout) view.findViewById(R.id.layout_query);
-        startData = (TextView) view.findViewById(R.id.startData);
-        endData = (TextView) view.findViewById(R.id.endData);
+        layout_query = (LinearLayout) findViewById(R.id.layout_query);
+        layout_pop = (LinearLayout) findViewById(R.id.layout_pop);
+        layout_startData = (LinearLayout) findViewById(R.id.layout_startData);
+        layout_endData = (LinearLayout) findViewById(R.id.layout_endData);
+        startData = (TextView) findViewById(R.id.startData);
+        endData = (TextView) findViewById(R.id.endData);
         recyclerView = (PullRecyclerView) findViewById(R.id.pullRecyclerView);
         //设置水平布局
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -89,18 +87,14 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
         recyclerView.setAdapter(adapter);
     }
 
-    private void showPopupWindow(View parent) {
-        popupWindow = new PopupWindow(this);
-        popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-        popupWindow.setHeight(parent.getHeight());
-        popupWindow.setContentView(view);
-        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
-        popupWindow.setOutsideTouchable(false);
-        popupWindow.setFocusable(true);
-        //popupWindow.showAtLocation(parent, Gravity.TOP,0,0);
-        popupWindow.showAsDropDown(parent, 0, 0);
+    private void showPopupWindow() {
+        if(layout_pop.getVisibility()==View.VISIBLE){
+            layout_pop.setVisibility(View.GONE);
+        }else{
+            layout_pop.setVisibility(View.VISIBLE);
+        }
         final Calendar c = Calendar.getInstance();
-        startData.setOnClickListener(new View.OnClickListener() {
+        layout_startData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatePickerDialog dialog = new DatePickerDialog(OutStockActivity.this, new DatePickerDialog.OnDateSetListener() {
@@ -110,7 +104,7 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
                         startData.setText(DateFormat.format("yyy-MM-dd", c));
                     }
                 }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-                if(!endData.getText().toString().equals("")){
+                if (!endData.getText().toString().equals("")) {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     try {
                         Date date = sdf.parse(endData.getText().toString());
@@ -118,13 +112,13 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                }else{
+                } else {
                     dialog.getDatePicker().setMaxDate((new Date()).getTime());
                 }
                 dialog.show();
             }
         });
-        endData.setOnClickListener(new View.OnClickListener() {
+        layout_endData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatePickerDialog dialog = new DatePickerDialog(OutStockActivity.this, new DatePickerDialog.OnDateSetListener() {
@@ -134,7 +128,7 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
                         endData.setText(DateFormat.format("yyy-MM-dd", c));
                     }
                 }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-                if(!startData.getText().toString().equals("")){
+                if (!startData.getText().toString().equals("")) {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     try {
                         Date date = sdf.parse(startData.getText().toString());
@@ -143,7 +137,7 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                }else{
+                } else {
                     dialog.getDatePicker().setMaxDate((new Date()).getTime());
                 }
                 dialog.show();
@@ -152,12 +146,12 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
         layout_query.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(startData.getText().equals("")){
+                if (startData.getText().equals("")) {
                     Toast.makeText(OutStockActivity.this, "请选择开始日期！", Toast.LENGTH_SHORT).show();
-                }else if(endData.getText().equals("")){
+                } else if (endData.getText().equals("")) {
                     Toast.makeText(OutStockActivity.this, "请选择结束日期！", Toast.LENGTH_SHORT).show();
-                }else {
-                    popupWindow.dismiss();
+                } else {
+                    layout_pop.setVisibility(View.GONE);
                     i = 1;
                     startRecord = 0;
                     list = new ArrayList();
@@ -171,7 +165,7 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
 
     private void initData(int i) {
         Map<String, String> params = new HashMap<>();
-        if(i==1){
+        if (i == 1) {
             params.put("starttime", startData.getText() + "");
             params.put("endtime", endData.getText() + "");
         }
@@ -184,31 +178,29 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
                 if (response.isSuccessful()) {
                     OutStockInfo info = response.body();
                     if (("10200").equals(info.getStatus())) {
-                            for (int i = 0; i < info.getData().size(); i++) {
-                                Map<String, Object> map = new HashMap<String, Object>();
-                                map.put("name", info.getData().get(i).getName() + "");//商品名称
-                                map.put("category", info.getData().get(i).getCategory() + "");//商品类目
-                                map.put("instockTime", info.getData().get(i).getInstockTime() + "");//入库时间
-                                map.put("outstockTime", info.getData().get(i).getOutstockTime() + "");//出库时间
-                                map.put("stock", info.getData().get(i).getStock() + "");//库存
-                                map.put("price", info.getData().get(i).getPrice());//价格
-                                map.put("spec", info.getData().get(i).getSpec() + "");//规格
-                                map.put("manufactureTime", info.getData().get(i).getManufactureTime() + "");//生产日期
-                                map.put("qualityTime", info.getData().get(i).getQualityTime() + "");//保质期
-                                map.put("describ", info.getData().get(i).getDescrib() + "");//商品描述
-                                map.put("transactor", info.getData().get(i).getTransactor() + "");//经办人
-                                map.put("goodsStatus", info.getData().get(i).getGoodsStatus() + "");//商品状态
-                                map.put("acceptedGoods", info.getData().get(i).getAcceptedGoods() + "");//检验商品
-                                map.put("freightamount", info.getData().get(i).getFreightamount() + "");//出库件数
-                                map.put("iocost", info.getData().get(i).getIocost());//出库金额
-                                Log.e("getInventime", info.getData().get(i).getInventime() );
-                                map.put("inventime", info.getData().get(i).getInventime() + "");//出库时间
-                                list.add(map);
-                            }
-                            adapter.notifyDataSetChanged();
-                    }else if(("10365").equals(info.getStatus())){
+                        for (int i = 0; i < info.getData().size(); i++) {
+                            Map<String, Object> map = new HashMap<String, Object>();
+                            map.put("oid", info.getData().get(i).getOid() + "");//订单id
+                            map.put("name", info.getData().get(i).getName() + "");//商品名称
+                            map.put("category", info.getData().get(i).getCategory() + "");//商品类目
+                            map.put("inventime", info.getData().get(i).getInventime() + "");//时间
+                            map.put("price", info.getData().get(i).getPrice() + "");//价格
+                            map.put("spec", info.getData().get(i).getSpec() + "");//规格
+                            map.put("manufactureTime", info.getData().get(i).getManufactureTime() + "");//生产日期
+                            map.put("qualityTime", info.getData().get(i).getQualityTime() + "");//保质期
+                            map.put("describ", info.getData().get(i).getDescrib() + "");//商品描述
+                            map.put("transactor", info.getData().get(i).getTransactor() + "");//经办人
+                            map.put("value", info.getData().get(i).getValue() + "");//订单状态
+                            map.put("freightamount", info.getData().get(i).getFreightamount() + "");//出库件数
+                            map.put("iocost", new DecimalFormat("######0.00").format(info.getData().get(i).getIocost()));//出库金额
+                            map.put("inventime", info.getData().get(i).getInventime() + "");//出库时间
+                            map.put("pictureUrl", info.getData().get(i).getPictureUrl() + "");//商品图片
+                            list.add(map);
+                        }
+                        adapter.notifyDataSetChanged();
+                    } else if (("10365").equals(info.getStatus())) {
                         Toast.makeText(OutStockActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
-                    }else {
+                    } else {
                         Toast.makeText(OutStockActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -218,6 +210,7 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
 
             @Override
             public void onFailure(Call<OutStockInfo> call, Throwable t) {
+                Log.e("message===", t.getMessage() + "");
                 Toast.makeText(OutStockActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
             }
         });
@@ -247,7 +240,7 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (list.size() < 5) {
+                if (list.size() < 10) {
                     Toast.makeText(OutStockActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
                 } else {
                     startRecord = startRecord + pageRecords;

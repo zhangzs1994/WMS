@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150px"
+        android:layout_height="120px"
         android:background="@drawable/top_bg"
         android:gravity="center">
 
@@ -35,45 +35,60 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layout_pop"
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:background="#50000000"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@drawable/card_bg"
+            android:layout_marginLeft="50px"
+            android:layout_marginRight="50px"
+            android:layout_height="80px"
+            android:orientation="horizontal">
+            <AutoCompleteTextView
+                android:id="@+id/user_name"
+                android:layout_width="400px"
+                android:layout_height="match_parent"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                android:completionThreshold="1"
+                android:background="@null"
+                android:hint="请输入用户关键词"
+                android:textColorHint="@color/colorWhite"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="30px"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px"
+        android:layout_marginTop="10px"
         android:background="#35000000"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/show_log"
-            android:layout_width="650px"
-            android:layout_height="100px"
-            android:layout_marginTop="60px"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
             android:background="@drawable/card_bg"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="0px"
-                android:layout_height="wrap_content"
-                android:layout_margin="15px"
-                android:layout_weight="0.6"
-                android:background="@drawable/shop_query" />
-
-            <TextView
-                android:layout_width="0px"
+            <com.ycsx.www.wms.recycler.PullRecyclerView
+                android:id="@+id/pullRecyclerView"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="20px"
-                android:layout_weight="4"
-                android:gravity="center_vertical"
-                android:text="查看日志"
-                android:textColor="@color/colorWhite"
-                android:textSize="20sp" />
-
-            <ImageView
-                android:layout_width="0px"
-                android:layout_height="50px"
-                android:layout_margin="20px"
-                android:layout_weight="0.3"
-                android:background="@drawable/mine_arrow" />
+                android:orientation="vertical"
+                android:scrollbars="none">
+            </com.ycsx.www.wms.recycler.PullRecyclerView>
         </LinearLayout>
 
     </LinearLayout>

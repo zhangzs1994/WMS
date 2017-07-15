@@ -8,22 +8,22 @@ import java.util.List;
 public class OutStockInfo {
 
     /**
-     * data : [{"freightamount":8,"iocost":125,"pid":6,"oid":3,"rid":5,"qualityTime":"1年","spec":"一打","transactor":"张三","describ":"OKKKKKK","manufactureTime":1485589120000,"price":2.5,"inventime":1495120484000,"name":"百事可乐","category":2,"acceptedGoods":2},{"freightamount":12,"iocost":125,"pid":9,"oid":3,"rid":6,"qualityTime":"2年","spec":"重量","transactor":null,"describ":"有点甜！！！","manufactureTime":1485589120000,"price":2.5,"inventime":1495514690000,"name":"农夫山泉","category":2,"acceptedGoods":3}]
-     * page : {"currentPage":1,"pageRecords":2,"totalPages":3,"totalRecords":5,"startRecord":0,"nextPage":2,"previousPage":1,"hasNextPage":true,"hasPreviousPage":false}
+     * data : [{"freightamount":2,"iocost":125,"pid":9,"oid":213684,"rid":6,"qualityTime":null,"spec":"重量","transactor":null,"describ":"有点甜！！！","manufactureTime":"2017-01-28 15:38:40","price":"2.50","inventime":"2017-07-08 08:18:04","name":"农夫山泉","category":2,"value":"饮料类"}]
+     * page : null
      * status : 10200
      * message : 请求操作成功
      */
 
-    private String page;
+    private Object page;
     private String status;
     private String message;
     private List<DataBean> data;
 
-    public String getPage() {
+    public Object getPage() {
         return page;
     }
 
-    public void setPage(String page) {
+    public void setPage(Object page) {
         this.page = page;
     }
 
@@ -53,21 +53,22 @@ public class OutStockInfo {
 
     public static class DataBean {
         /**
-         * freightamount : 8
-         * iocost : 125.0
-         * pid : 6
-         * oid : 3
-         * rid : 5
-         * qualityTime : 1年
-         * spec : 一打
-         * transactor : 张三
-         * describ : OKKKKKK
-         * manufactureTime : 1485589120000
-         * price : 2.5
-         * inventime : 1495120484000
-         * name : 百事可乐
+         * freightamount : 2
+         * iocost : 125
+         * pid : 9
+         * oid : 213684
+         * rid : 6
+         * qualityTime : null
+         * spec : 重量
+         * transactor : null
+         * describ : 有点甜！！！
+         * manufactureTime : 2017-01-28 15:38:40
+         * price : 2.50
+         * inventime : 2017-07-08 08:18:04
+         * name : 农夫山泉
          * category : 2
-         * acceptedGoods : 2
+         * value : 饮料类
+         * pictureUrl : null
          */
 
         private int freightamount;
@@ -80,15 +81,12 @@ public class OutStockInfo {
         private String transactor;
         private String describ;
         private String manufactureTime;
-        private double price;
+        private String price;
         private String inventime;
         private String name;
         private int category;
-        private int acceptedGoods;
-        private String instockTime;
-        private String outstockTime;
-        private String stock;
-        private String goodsStatus;
+        private String value;
+        private String pictureUrl;
 
         public int getFreightamount() {
             return freightamount;
@@ -170,11 +168,11 @@ public class OutStockInfo {
             this.manufactureTime = manufactureTime;
         }
 
-        public double getPrice() {
+        public String getPrice() {
             return price;
         }
 
-        public void setPrice(double price) {
+        public void setPrice(String price) {
             this.price = price;
         }
 
@@ -202,44 +200,20 @@ public class OutStockInfo {
             this.category = category;
         }
 
-        public int getAcceptedGoods() {
-            return acceptedGoods;
+        public String getValue() {
+            return value;
         }
 
-        public void setAcceptedGoods(int acceptedGoods) {
-            this.acceptedGoods = acceptedGoods;
+        public void setValue(String value) {
+            this.value = value;
         }
 
-        public String getInstockTime() {
-            return instockTime;
+        public String getPictureUrl() {
+            return pictureUrl;
         }
 
-        public void setInstockTime(String instockTime) {
-            this.instockTime = instockTime;
-        }
-
-        public String getOutstockTime() {
-            return outstockTime;
-        }
-
-        public void setOutstockTime(String outstockTime) {
-            this.outstockTime = outstockTime;
-        }
-
-        public String getStock() {
-            return stock;
-        }
-
-        public void setStock(String stock) {
-            this.stock = stock;
-        }
-
-        public String getGoodsStatus() {
-            return goodsStatus;
-        }
-
-        public void setGoodsStatus(String goodsStatus) {
-            this.goodsStatus = goodsStatus;
+        public void setPictureUrl(String pictureUrl) {
+            this.pictureUrl = pictureUrl;
         }
     }
 }

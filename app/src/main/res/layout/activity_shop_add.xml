@@ -8,8 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="1"
+        android:layout_height="120px"
         android:background="@drawable/top_bg"
         android:gravity="center">
 
@@ -30,7 +29,7 @@
             android:textSize="25sp" />
 
         <LinearLayout
-            android:id="@+id/layout_query"
+            android:id="@+id/shop_query"
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1.5"
@@ -44,11 +43,69 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layout_pop"
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:background="#50000000"
+        android:visibility="gone"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0px"
+            android:layout_weight="6"
+            android:background="@drawable/card_bg"
+            android:layout_height="80px"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/shop_name"
+                android:layout_width="400px"
+                android:layout_height="match_parent"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                android:singleLine="true"
+                android:background="@null"
+                android:hint="请输入商品名、编号或条码"
+                android:textColorHint="@color/colorWhite"/>
+
+            <ImageView
+                android:id="@+id/zxing"
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:layout_marginLeft="30px"
+                android:layout_gravity="center"
+                android:background="@drawable/zxing"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_query"
+            android:layout_width="0px"
+            android:layout_weight="1.5"
+            android:layout_margin="20px"
+            android:layout_height="80px"
+            android:background="@drawable/card_bg"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="查询"
+                android:textSize="20sp"
+                android:textColor="@color/colorWhite"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_marginLeft="30px"
         android:layout_marginRight="30px"
-        android:layout_marginTop="30px"
+        android:layout_marginTop="10px"
         android:layout_weight="8"
         android:background="#35000000"
         android:gravity="center_horizontal"

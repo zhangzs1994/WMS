@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ycsx.www.wms.R;
+import com.ycsx.www.wms.util.GlideUtils;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -20,6 +21,7 @@ public class OrderDetailsAdapter extends BaseAdapter {
     private List<Map<String, Object>> list;
     private Context context;
     private View viewHead;
+    private String[] image = null;
 
     public OrderDetailsAdapter(View viewHead, List<Map<String, Object>> list, Context context) {
         this.viewHead = viewHead;
@@ -58,25 +60,42 @@ public class OrderDetailsAdapter extends BaseAdapter {
             holder.order_status = (TextView) viewHead.findViewById(R.id.order_status);
             holder.order_time = (TextView) viewHead.findViewById(R.id.order_time);
             holder.order_address = (TextView) viewHead.findViewById(R.id.order_address);
+            holder.order_contact = (TextView) viewHead.findViewById(R.id.order_contact);
+            holder.order_receiving = (TextView) viewHead.findViewById(R.id.order_receiving);
             view.setTag(holder);
         } else {
             holder = (MyHolder) view.getTag();
         }
-        holder.shop_name.setText(list.get(position).get("name").toString());
-        holder.shop_price.setText("单价："+new DecimalFormat("######0.00").format(list.get(position).get("price")));
-        holder.shop_num.setText("数量："+list.get(position).get("freightamount").toString());
-        holder.shop_totalPrice.setText("总价："+new DecimalFormat("######0.00").format(list.get(position).get("iocost")));
         holder.order_id.setText(list.get(position).get("oid").toString());
         holder.order_price.setText(new DecimalFormat("######0.00").format(list.get(position).get("ocost")));
         holder.order_status.setText(list.get(position).get("dvalue").toString());
         holder.order_time.setText(list.get(position).get("inventime").toString());
         holder.order_address.setText(list.get(position).get("ouaddress").toString());
+        holder.order_contact.setText(list.get(position).get("contact")+"");
+        holder.order_receiving.setText(list.get(position).get("receiving")+"");
+        holder.shop_name.setText(list.get(position).get("name").toString());
+        holder.shop_price.setText("单价："+new DecimalFormat("######0.00").format(list.get(position).get("price")));
+        holder.shop_num.setText("数量："+list.get(position).get("freightamount").toString());
+        holder.shop_totalPrice.setText("总价："+new DecimalFormat("######0.00").format(list.get(position).get("iocost")));
+        image = convertStrToArray(list.get(position).get("pictureUrl").toString());
+        GlideUtils.loadImage(context, image[0], holder.shop_image);
         return view;
+    }
+
+    public String[] convertStrToArray(String str) {
+        //Log.e("image", "" + strArray.length);
+        if (!str.contains(",")) {
+            image = new String[1];
+            image[0] = str;
+        } else {
+            image = str.split(","); //拆分字符为"," ,然后把结果交给数组strArray
+        }
+        return image;
     }
 
     class MyHolder {
         TextView shop_name, shop_price, shop_num, shop_totalPrice, order_id,
-                order_price, order_status, order_time, order_address;
+                order_price, order_status, order_time, order_address,order_receiving,order_contact;
         ImageView shop_image;
     }
 }

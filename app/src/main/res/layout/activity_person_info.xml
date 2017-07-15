@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150px"
+        android:layout_height="120px"
         android:background="@drawable/top_bg"
         android:gravity="center">
 
@@ -74,7 +74,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="张三"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
 
@@ -108,7 +107,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="女"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -141,7 +139,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="23"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
 
@@ -175,7 +172,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="23"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
 
@@ -209,7 +205,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="15827011725"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
 
@@ -243,7 +238,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="1392842928@qq.com"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp" />
 

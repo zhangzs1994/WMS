@@ -95,9 +95,9 @@ public class OrderRecyclerAdapter extends RecyclerView.Adapter{
         } else if (holder instanceof OrderRecyclerHolder) {
             //处理内容数据
             ((OrderRecyclerHolder)holder).order_id.setText("订单号："+list.get(position).get("oid"));
-            //((OrderRecyclerHolder)holder).order_num.setText("订单数："+list.get(position).get("describ")+"");
             ((OrderRecyclerHolder)holder).order_price.setText("总额："+new DecimalFormat("######0.00").format(list.get(position).get("ocost")));
-            ((OrderRecyclerHolder)holder).order_status.setText("订单状态："+list.get(position).get("dvalue"));
+            ((OrderRecyclerHolder)holder).order_status.setText("状态："+list.get(position).get("dvalue"));
+            ((OrderRecyclerHolder)holder).order_time.setText("创建时间："+list.get(position).get("octime"));
             ((OrderRecyclerHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

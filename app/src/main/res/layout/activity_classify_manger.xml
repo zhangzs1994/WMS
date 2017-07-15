@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150px"
+        android:layout_height="120px"
         android:background="@drawable/top_bg"
         android:gravity="center">
 
@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:layout_weight="4"
             android:gravity="center"
-            android:text="分类管理"
+            android:text="资料管理"
             android:textColor="@color/colorWhite"
             android:textSize="25sp" />
 
@@ -43,7 +43,7 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/order_query"
+            android:id="@+id/shop_classify"
             android:layout_width="650px"
             android:layout_height="100px"
             android:layout_marginTop="60px"
@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15px"
                 android:layout_weight="0.6"
-                android:background="@drawable/shop_query" />
+                android:background="@drawable/shop_fenlei" />
 
             <TextView
                 android:layout_width="0px"
@@ -76,38 +76,38 @@
                 android:background="@drawable/mine_arrow" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/order_audit"
-            android:layout_width="650px"
-            android:layout_height="100px"
-            android:layout_marginTop="30px"
-            android:background="@drawable/card_bg"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/order_audit"-->
+            <!--android:layout_width="650px"-->
+            <!--android:layout_height="100px"-->
+            <!--android:layout_marginTop="30px"-->
+            <!--android:background="@drawable/card_bg"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:orientation="horizontal">-->
 
-            <ImageView
-                android:layout_width="0px"
-                android:layout_height="wrap_content"
-                android:layout_margin="15px"
-                android:layout_weight="0.6"
-                android:background="@drawable/shop_query" />
+            <!--<ImageView-->
+                <!--android:layout_width="0px"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="15px"-->
+                <!--android:layout_weight="0.6"-->
+                <!--android:background="@drawable/show_fenlei" />-->
 
-            <TextView
-                android:layout_width="0px"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="20px"
-                android:layout_weight="4"
-                android:gravity="center_vertical"
-                android:text="查看分类"
-                android:textColor="@color/colorWhite"
-                android:textSize="20sp" />
+            <!--<TextView-->
+                <!--android:layout_width="0px"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginLeft="20px"-->
+                <!--android:layout_weight="4"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:text="查看分类"-->
+                <!--android:textColor="@color/colorWhite"-->
+                <!--android:textSize="20sp" />-->
 
-            <ImageView
-                android:layout_width="0px"
-                android:layout_height="50px"
-                android:layout_margin="20px"
-                android:layout_weight="0.3"
-                android:background="@drawable/mine_arrow" />
-        </LinearLayout>
+            <!--<ImageView-->
+                <!--android:layout_width="0px"-->
+                <!--android:layout_height="50px"-->
+                <!--android:layout_margin="20px"-->
+                <!--android:layout_weight="0.3"-->
+                <!--android:background="@drawable/mine_arrow" />-->
+        <!--</LinearLayout>-->
     </LinearLayout>
 </LinearLayout>
