@@ -84,29 +84,6 @@ public class ShopDetailsActivity extends BaseActivity {
         return image;
     }
 
-    private void initImage() {
-        mDataList = new ArrayList<ImageView>();
-        for (int i = 0; i < image.length; i++) {
-            ImageView img = new ImageView(this);
-            img.setScaleType(ImageView.ScaleType.FIT_XY);
-            //img.setBackgroundResource(image[i]);
-            GlideUtils.loadImage(this, image[i], img);
-            mDataList.add(img);
-            //添加底部灰点
-            View v = new View(this);
-            v.setBackgroundResource(R.drawable.gray_round);
-            //指定其大小
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(19, 19);
-            if (i != 0) {
-                params.leftMargin = 20;
-            }
-            v.setLayoutParams(params);
-            mLinearLayout.addView(v);
-        }
-        mViewPager.setAdapter(new ShopViewPagerAdapter(mDataList, this));
-        mViewPager.setCurrentItem(0);
-    }
-
     private void initEvent() {
         /**
          * 当底部红色小圆点加载完成时测出两个小灰点的距离，便于计算后面小红点动态移动的距离
@@ -161,7 +138,7 @@ public class ShopDetailsActivity extends BaseActivity {
                             shop_barCode.setText(user.getData().get(i).getBarCode() + "");//商品条形码
                             shop_category.setText(user.getData().get(i).getCategory() + "");//商品类目
                             shop_instockTime.setText(user.getData().get(i).getInstockTime() + "");//入库时间
-                            shop_stock.setText(user.getData().get(i).getStock() + "");//库存
+                            shop_stock.setText(user.getData().get(i).getNondefectiveNum() + "");//库存
                             shop_tradePrice.setText(user.getData().get(i).getTradePrice() + "");//批发价
                             shop_price.setText(user.getData().get(i).getRetailPrice() + "");//零售价
                             shop_spec.setText(user.getData().get(i).getSpec() + "");//规格

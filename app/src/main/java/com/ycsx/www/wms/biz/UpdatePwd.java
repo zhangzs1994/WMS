@@ -28,6 +28,7 @@ public class UpdatePwd implements IUpdatePwd {
             params.put("id", userInfo.getId());
             params.put("oldpwd", userInfo.getUserPassword());
             params.put("newpwd", newPwd);
+            params.put("operator", userInfo.getUserName());
             Call<Common> call = RetrofitUtil.getInstance(API.URL).setUpdatePwd(params);
             call.enqueue(new Callback<Common>() {
                 @Override

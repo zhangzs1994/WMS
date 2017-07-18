@@ -32,6 +32,7 @@ public class UserInfoSub implements IUserInfoSub {
         params.put("id", userInfo.getId());
         params.put("flag", "1");
         params.put("superior", userInfo.getSuperior());
+        params.put("subordinate", userInfo.getSubordinate());
         //调用Retrofit网络请求
         Call<Common> call = RetrofitUtil.getInstance(API.URL).setPersonInfo(params);
         call.enqueue(new Callback<Common>() {

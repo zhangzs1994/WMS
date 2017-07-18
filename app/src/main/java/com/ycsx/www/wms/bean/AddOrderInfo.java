@@ -28,6 +28,9 @@ public class AddOrderInfo {
         private int pid;
         private int num;
         private double price;
+        private double iocost;
+        private String describe;
+
 
         public int getPid() {
             return pid;
@@ -51,6 +54,22 @@ public class AddOrderInfo {
 
         public void setPrice(double price) {
             this.price = price;
+        }
+
+        public double getIocost() {
+            return iocost;
+        }
+
+        public void setIocost(double iocost) {
+            this.iocost = iocost;
+        }
+
+        public String getDescribe() {
+            return describe;
+        }
+
+        public void setDescribe(String describe) {
+            this.describe = describe;
         }
     }
 

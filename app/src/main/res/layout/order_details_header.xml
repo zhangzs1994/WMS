@@ -135,6 +135,8 @@
                     android:id="@+id/order_receiving"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:singleLine="true"
+                    android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:textSize="18sp"
                     android:textColor="@color/colorWhite" />
@@ -167,7 +169,7 @@
 
             <LinearLayout
                 android:layout_width="600px"
-                android:layout_height="80px"
+                android:layout_height="wrap_content"
                 android:background="@drawable/bg_line"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -175,6 +177,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="15px"
+                    android:layout_marginBottom="15px"
                     android:layout_marginLeft="20px"
                     android:gravity="center"
                     android:text="收货地址："
@@ -185,6 +189,8 @@
                     android:id="@+id/order_address"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="15px"
+                    android:layout_marginBottom="15px"
                     android:gravity="center_vertical"
                     android:textSize="18sp"
                     android:textColor="@color/colorWhite" />

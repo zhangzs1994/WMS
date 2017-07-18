@@ -41,6 +41,7 @@ import com.ycsx.www.wms.recycler.PullRecyclerView;
 import com.ycsx.www.wms.util.RetrofitUtil;
 import com.ycsx.www.wms.zxing.android.CaptureActivity;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,7 +61,7 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
     private int startRecord = 0;//开始条数
     private int pageRecords = 10;//显示条数
     private ArrayAdapter<String> arrayAdapter;
-    private LinearLayout shop_query,layout_query,layout_pop;
+    private LinearLayout shop_query, layout_query, layout_pop;
     private PopupWindow popupWindow;
     private int i = 0;//0：查询全部；1：按分类查询；2：按商品名查询
     private String category;//类别
@@ -95,7 +96,7 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
                 } else {
                     for (int i = 0; i < spinnerValue.size(); i++) {
                         if (spinnerValue.get(i).toString().equals(spinnerValue.get(position).toString())) {
-                            category = spinnerCode.get(i-1).toString();
+                            category = spinnerCode.get(i - 1).toString();
                         }
                     }
                     i = 1;
@@ -104,9 +105,9 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
                 adapter = new ShopAddAdapter(new ShopAddAdapter.ImageInterface() {
                     @Override
                     public void onclick(View view, int position) {
-                        imageSetOnClick(view,position);
+                        imageSetOnClick(view, position);
                     }
-                },ShopAddActivity.this, list);
+                }, ShopAddActivity.this, list);
                 recyclerView.setAdapter(adapter);
             }
 
@@ -159,7 +160,7 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
     }
 
     public void back(View view) {
-        Intent intent=new Intent(this,SaleOrderActivity.class);
+        Intent intent = new Intent(this, SaleOrderActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//刷新
         startActivity(intent);
         finish();
@@ -168,7 +169,7 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent=new Intent(this,SaleOrderActivity.class);
+        Intent intent = new Intent(this, SaleOrderActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//刷新
         startActivity(intent);
         finish();
@@ -195,9 +196,9 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
         adapter = new ShopAddAdapter(new ShopAddAdapter.ImageInterface() {
             @Override
             public void onclick(View view, int position) {
-                imageSetOnClick(view,position);
+                imageSetOnClick(view, position);
             }
-        },this, list);
+        }, this, list);
         recyclerView.setAdapter(adapter);
 
         shop_card = (LinearLayout) findViewById(R.id.shop_card);
@@ -226,7 +227,7 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
         });
     }
 
-    private void imageSetOnClick(View v, final int position){
+    private void imageSetOnClick(View v, final int position) {
         popupWindow = new PopupWindow(ShopAddActivity.this);
         popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         popupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
@@ -235,16 +236,19 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
         TextView name = (TextView) view.findViewById(R.id.name);
         name.setText(list.get(position).get("name").toString());
         final TextView stock = (TextView) view.findViewById(R.id.stock);
-        stock.setText(list.get(position).get("stock").toString());
+        stock.setText(list.get(position).get("nondefectiveNum").toString());
         final EditText num = (EditText) view.findViewById(R.id.num);
         num.setText("1");
-        final TextView price = (TextView) view.findViewById(R.id.price);
+        num.setSelection(num.length());
+        final EditText price = (EditText) view.findViewById(R.id.price);
         price.setText(list.get(position).get("price").toString());
         final TextView all_price = (TextView) view.findViewById(R.id.all_price);
         if (num.getText().toString().equals("")) {
             num.setText("1");
         }
-        all_price.setText((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")+"");
+        all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + ""))
+                * Double.parseDouble(price.getText() + "")) + "");
+        final EditText describe = (EditText) view.findViewById(R.id.describe);
         TextView lessen = (TextView) view.findViewById(R.id.lessen);
         TextView add = (TextView) view.findViewById(R.id.add);
         final Button cancel = (Button) view.findViewById(R.id.cancel);
@@ -261,11 +265,31 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!num.getText().toString().equals("")) {
                     if (Integer.parseInt(num.getText() + "") <= Integer.parseInt(stock.getText() + "")) {
-                        all_price.setText((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")+"");
+                        all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + ""))
+                                * Double.parseDouble(price.getText() + "")) + "");
                     } else {
                         Toast.makeText(ShopAddActivity.this, "输入数量大于库存数量，请重新输入！", Toast.LENGTH_SHORT).show();
                         num.setText(stock.getText() + "");
                     }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+        price.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if((price.getText()+"").equals("")){
+                    all_price.setText("0.00");
+                }else{
+                    all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + ""))
+                            * Double.parseDouble(price.getText() + "")) + "");
                 }
             }
 
@@ -278,14 +302,17 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
             public void onClick(View v) {
                 if (num.getText().toString().equals("")) {
                     num.setText("1");
-                    all_price.setText((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")+"");
+                    all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + ""))
+                            * Double.parseDouble(price.getText() + "")) + "");
                 }
                 if (Integer.parseInt(num.getText() + "") > 1) {
                     num.setText((Integer.parseInt(num.getText() + "") - 1) + "");
-                    all_price.setText((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")+"");
+                    all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + ""))
+                            * Double.parseDouble(price.getText() + "")) + "");
                 } else {
                     num.setText("1");
-                    all_price.setText((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")+"");
+                    all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + ""))
+                            * Double.parseDouble(price.getText() + "")) + "");
                 }
             }
         });
@@ -294,14 +321,17 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
             public void onClick(View v) {
                 if (num.getText().toString().equals("")) {
                     num.setText("1");
-                    all_price.setText((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")+"");
+                    all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + ""))
+                            * Double.parseDouble(price.getText() + "")) + "");
                 }
                 if (Integer.parseInt(num.getText() + "") < Integer.parseInt(stock.getText() + "")) {
                     num.setText((Integer.parseInt(num.getText() + "") + 1) + "");
-                    all_price.setText((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")+"");
+                    all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + ""))
+                            * Double.parseDouble(price.getText() + "")) + "");
                 } else {
                     num.setText(Integer.parseInt(stock.getText() + "") + "");
-                    all_price.setText((Integer.parseInt(num.getText() + "")) * Double.parseDouble(price.getText() + "")+"");
+                    all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + ""))
+                            * Double.parseDouble(price.getText() + "")) + "");
                 }
             }
         });
@@ -314,8 +344,8 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (all_price.getText().toString().equals("") || all_price.getText().toString().equals("0.00")) {
-                    Toast.makeText(ShopAddActivity.this, "已移除商品！", Toast.LENGTH_SHORT).show();
+                if (price.getText().toString().equals("") || all_price.getText().toString().equals("0.00")) {
+                    Toast.makeText(ShopAddActivity.this, "请输入单价！", Toast.LENGTH_SHORT).show();
                 } else {
                     Log.e("name", list.get(position).get("name").toString());
                     Log.e("id", list.get(position).get("id").toString());
@@ -325,7 +355,9 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
                     params.put("pid", list.get(position).get("id").toString());
                     params.put("pname", list.get(position).get("name").toString());
                     params.put("num", num.getText() + "");
-                    params.put("price", price.getText() + "");
+                    params.put("price", new DecimalFormat("######0.00").format(Double.parseDouble(price.getText() + ""))+"");
+                    params.put("iocost", new DecimalFormat("######0.00").format(Double.parseDouble(all_price.getText() + ""))+"");
+                    params.put("describee", describe.getText()+"");
                     Call<Common> call = RetrofitUtil.getInstance(API.URL).addMyorder(params);
                     call.enqueue(new Callback<Common>() {
                         @Override
@@ -399,9 +431,9 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
     }
 
     private void showPopupWindow() {
-        if(layout_pop.getVisibility()==View.VISIBLE){
+        if (layout_pop.getVisibility() == View.VISIBLE) {
             layout_pop.setVisibility(View.GONE);
-        }else{
+        } else {
             layout_pop.setVisibility(View.VISIBLE);
         }
         layout_query.setOnClickListener(new View.OnClickListener() {
@@ -415,9 +447,9 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
                 adapter = new ShopAddAdapter(new ShopAddAdapter.ImageInterface() {
                     @Override
                     public void onclick(View view, int position) {
-                        imageSetOnClick(view,position);
+                        imageSetOnClick(view, position);
                     }
-                },ShopAddActivity.this, list);
+                }, ShopAddActivity.this, list);
                 recyclerView.setAdapter(adapter);
             }
         });
@@ -458,7 +490,7 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
         params.put("startRecord", startRecord + "");
         params.put("pageRecords", pageRecords + "");
         if (i == 1) {
-            Log.e("category", "==="+category);
+            Log.e("category", "===" + category);
             params.put("category", category);
             call = RetrofitUtil.getInstance(API.URL).getGoodsByCategory(params);
         } else if (i == 2) {
@@ -525,9 +557,9 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
                 adapter = new ShopAddAdapter(new ShopAddAdapter.ImageInterface() {
                     @Override
                     public void onclick(View view, int position) {
-                        imageSetOnClick(view,position);
+                        imageSetOnClick(view, position);
                     }
-                },ShopAddActivity.this, list);
+                }, ShopAddActivity.this, list);
                 recyclerView.setAdapter(adapter);
                 recyclerView.onHeaderRefreshComplete();
             }

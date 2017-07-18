@@ -65,6 +65,10 @@ public class OrderShop {
         private double price;
         private String pname;
         private int num;
+        private String pictureUrl;
+        private double iocost;
+        private String describee;
+        private String nondefectiveNum;
 
         public int getUid() {
             return uid;
@@ -104,6 +108,38 @@ public class OrderShop {
 
         public void setNum(int num) {
             this.num = num;
+        }
+
+        public String getPictureUrl() {
+            return pictureUrl;
+        }
+
+        public void setPictureUrl(String pictureUrl) {
+            this.pictureUrl = pictureUrl;
+        }
+
+        public double getIocost() {
+            return iocost;
+        }
+
+        public void setIocost(double iocost) {
+            this.iocost = iocost;
+        }
+
+        public String getDescribee() {
+            return describee;
+        }
+
+        public void setDescribee(String describee) {
+            this.describee = describee;
+        }
+
+        public String getNondefectiveNum() {
+            return nondefectiveNum;
+        }
+
+        public void setNondefectiveNum(String nondefectiveNum) {
+            this.nondefectiveNum = nondefectiveNum;
         }
     }
 }

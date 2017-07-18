@@ -204,6 +204,7 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
                         Toast.makeText(OutStockActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
+                    Log.e("code", "==="+response.code());
                     Toast.makeText(OutStockActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
                 }
             }

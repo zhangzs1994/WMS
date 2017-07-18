@@ -1,6 +1,7 @@
 package com.ycsx.www.wms.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -21,6 +22,9 @@ import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by ZZS_PC on 2017/6/6.
  */
@@ -32,6 +36,7 @@ public class HomePageFragment extends Fragment implements View.OnClickListener {
             R.drawable.major_image, R.drawable.detail};
     private Intent intent;
     private Banner banner;
+    private SharedPreferences pref;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,7 +49,13 @@ public class HomePageFragment extends Fragment implements View.OnClickListener {
         //设置banner动画效果
         banner.setBannerAnimation(Transformer.DepthPage);
         //设置图片集合
-        banner.setImages(API.images);
+        if (API.images.size() == 0) {
+            List<Integer> image = new ArrayList<>();
+            image.add(R.drawable.detail);
+            banner.setImages(image);
+        } else {
+            banner.setImages(API.images);
+        }
         //banner设置方法全部调用完毕时最后调用
         banner.start();
         return view;
@@ -99,8 +110,13 @@ public class HomePageFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.layout_classify:
-                intent = new Intent(getActivity(), ClassifyMangerActivity.class);
-                startActivity(intent);
+                pref = getActivity().getSharedPreferences("login", getActivity().MODE_PRIVATE);
+                if (pref.getString("menuNode", "").indexOf("401") >= 0) {
+                    intent = new Intent(getActivity(), ClassifyMangerActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getActivity(), "您的权限不足，如有疑问，请联系管理员！", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.layout_subTreasury:
 //                intent = new Intent(getActivity(), SubTreasuryActivity.class);
@@ -108,8 +124,13 @@ public class HomePageFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getActivity(), "该功能暂未开放，敬请期待！", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.layout_opLog:
-                intent = new Intent(getActivity(), OpLogActivity.class);
-                startActivity(intent);
+                pref = getActivity().getSharedPreferences("login", getActivity().MODE_PRIVATE);
+                if (pref.getString("menuNode", "").indexOf("801") >= 0 && pref.getString("menuNode", "").indexOf("802") >= 0) {
+                    intent = new Intent(getActivity(), OpLogActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getActivity(), "您的权限不足，如有疑问，请联系管理员！", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }

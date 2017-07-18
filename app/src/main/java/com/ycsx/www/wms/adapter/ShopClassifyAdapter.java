@@ -2,6 +2,7 @@ package com.ycsx.www.wms.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -76,6 +77,8 @@ public class ShopClassifyAdapter extends BaseAdapter {
                                 Map<String, String> params = new HashMap<>();
                                 params.put("colName", "goodsCategory");
                                 params.put("code", list.get(position).get("code")+"");
+                                SharedPreferences pref=context.getSharedPreferences("login",context.MODE_PRIVATE);
+                                params.put("operator", pref.getString("username",""));
                                 Call<Common> call = RetrofitUtil.getInstance(API.URL).deleteDropdown(params);
                                 call.enqueue(new Callback<Common>() {
                                     @Override

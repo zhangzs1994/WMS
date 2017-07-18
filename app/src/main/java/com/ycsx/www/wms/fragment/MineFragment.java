@@ -41,7 +41,6 @@ import retrofit2.Response;
 public class MineFragment extends Fragment implements View.OnClickListener {
     private LinearLayout layout_update, userInfo, updatePwd, authority, checkUpdate, quit, quit_user, quit_all;
     private BadgeView badgeView;
-    private int Version_no = 1;//新版本号
     private int Forced = 0;// 1：强制更新   0：不是
     private String url = "https://qd.myapp.com/myapp/qqteam/AndroidQQ/mobileqq_android.apk";//APK地址
     private String Version_name = "仓管1.1";//版本名称
@@ -60,7 +59,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             PackageInfo pi = pm.getPackageInfo(getActivity().getPackageName(), 0);
             //Log.e("TAG", "旧版本" + pi.versionCode);
             //如果新版本大于旧版本，就显示更新小红点
-            if (Version_no > pi.versionCode) {
+            if (API.Version_no > pi.versionCode) {
                 initBadgeView();
             }
         } catch (PackageManager.NameNotFoundException e) {
@@ -129,7 +128,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     badgeView.hide();
                     state = false;
                 }
-                UpdateAppUtils.UpdateApp(getActivity(), Version_no, Version_name, info,
+                UpdateAppUtils.UpdateApp(getActivity(), API.Version_no, Version_name, info,
                         url, Forced == 1 ? true : false, true);
                 break;
             case R.id.quit:

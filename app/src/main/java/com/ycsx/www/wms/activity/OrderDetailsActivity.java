@@ -96,8 +96,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
                             map.put("freightamount", info.getData().get(i).getFreightamount() + "");//商品数量
                             map.put("iocost", info.getData().get(i).getIocost());//商品总价
                             map.put("ocost", info.getData().get(i).getOcost());//总价
-                            map.put("inventime", info.getData().get(i).getInventime() + "");//订单时间
-                            map.put("inventime", info.getData().get(i).getInventime() + "");//订单时间
+                            map.put("inventime", info.getData().get(i).getOctime() + "");//订单时间
                             map.put("contact", info.getData().get(i).getContact() + "");//联系方式
                             map.put("receiving", info.getData().get(i).getReceiving() + "");//联系人
                             map.put("pictureUrl", info.getData().get(i).getPictureUrl() + "");//联系人

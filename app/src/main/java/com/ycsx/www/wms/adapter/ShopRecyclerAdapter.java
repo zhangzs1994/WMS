@@ -99,7 +99,7 @@ public class ShopRecyclerAdapter extends RecyclerView.Adapter {
             ((ShopRecyclerHolder) holder).shop_name.setText(list.get(position).get("name").toString());
             ((ShopRecyclerHolder) holder).shop_price.setText("价格：" + list.get(position).get("price").toString());
             ((ShopRecyclerHolder) holder).shop_describ.setText(list.get(position).get("describ").toString());
-            ((ShopRecyclerHolder) holder).shop_stock.setText("库存：" + list.get(position).get("stock").toString());
+            ((ShopRecyclerHolder) holder).shop_stock.setText("库存：" + list.get(position).get("nondefectiveNum").toString());
             image = convertStrToArray(list.get(position).get("pictureUrl").toString());
             GlideUtils.loadImage(context, image[0], ((ShopRecyclerHolder) holder).shop_image);
             ((ShopRecyclerHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {

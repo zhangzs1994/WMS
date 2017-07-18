@@ -25,13 +25,14 @@ public class UserInfo {
         this.userPassword = userPassword;
     }
 
-    public UserInfo(int id, String userPassword) {
+    public UserInfo(int id, String userPassword,String userName) {
         this.id = id;
         this.userPassword = userPassword;
+        this.userName = userName;
     }
 
     public UserInfo(String userName, String userPassword, int flag, String name, String age,
-                    String phone, String email, String sex, int status, int id, String superior) {
+                    String phone, String email, String sex, int status, int id, String superior,String subordinate) {
         this.userName = userName;
         this.userPassword = userPassword;
         this.flag = flag;
@@ -42,6 +43,7 @@ public class UserInfo {
         this.sex = sex;
         this.status = status;
         this.superior = superior;
+        this.subordinate = subordinate;
         this.id = id;
     }
 

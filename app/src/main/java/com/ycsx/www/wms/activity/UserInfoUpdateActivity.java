@@ -84,7 +84,8 @@ public class UserInfoUpdateActivity extends BaseActivity implements IPsersonInfo
         return new UserInfo(pref.getString("username", ""), pref.getString("userpwd", ""),
                 pref.getInt("flag", 0), userName.getText().toString(), userAge.getText().toString(),
                 userPhone.getText().toString(), userEmail.getText().toString(), getUserSex(),
-                Integer.parseInt(status), pref.getInt("id", 0), pref.getString("superior", ""));
+                Integer.parseInt(status), pref.getInt("id", 0), pref.getString("superior", ""),
+                pref.getString("subordinate",""));
     }
 
     @Override

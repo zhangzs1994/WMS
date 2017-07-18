@@ -26,12 +26,6 @@ public class AchievementActivity extends BaseActivity implements View.OnClickLis
     private void initView() {
         mine_query = (LinearLayout) findViewById(R.id.mine_query);
         junior_query = (LinearLayout) findViewById(R.id.junior_query);
-        SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
-        if(pref.getString("subordinate","0").equals("1")){
-            junior_query.setVisibility(View.VISIBLE);
-        }else{
-            junior_query.setVisibility(View.GONE);
-        }
         order_submit = (LinearLayout) findViewById(R.id.order_submit);
         submit_query = (LinearLayout) findViewById(R.id.submit_query);
         logistics_query = (LinearLayout) findViewById(R.id.logistics_query);
@@ -40,6 +34,22 @@ public class AchievementActivity extends BaseActivity implements View.OnClickLis
         order_submit.setOnClickListener(this);
         submit_query.setOnClickListener(this);
         logistics_query.setOnClickListener(this);
+        SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
+        if(pref.getString("subordinate","0").equals("1")){
+            junior_query.setVisibility(View.VISIBLE);
+        }else{
+            junior_query.setVisibility(View.GONE);
+        }
+        if (pref.getString("menuNode", "").indexOf("501") >= 0) {
+            order_submit.setVisibility(View.VISIBLE);
+        } else {
+            order_submit.setVisibility(View.GONE);
+        }
+        if (pref.getString("menuNode", "").indexOf("502") >= 0) {
+            submit_query.setVisibility(View.VISIBLE);
+        } else {
+            submit_query.setVisibility(View.GONE);
+        }
     }
 
     @Override

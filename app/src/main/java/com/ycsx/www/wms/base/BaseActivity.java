@@ -3,7 +3,6 @@ package com.ycsx.www.wms.base;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -45,7 +44,7 @@ public class BaseActivity extends AutoLayoutActivity {
     private void initData() {
         Map<String, String> params = new HashMap<>();
         params.put("authorizationCode", API.authorizationCode);
-        Call<InitInfo> call = RetrofitUtil.getInstance(API.URL1).initInfo(params);
+        Call<InitInfo> call = RetrofitUtil.getInstance(API.URL).initInfo(params);
         call.enqueue(new Callback<InitInfo>() {
             @Override
             public void onResponse(Call<InitInfo> call, Response<InitInfo> response) {
@@ -55,6 +54,7 @@ public class BaseActivity extends AutoLayoutActivity {
                         for (int i = 0; i < info.getData().size(); i++) {
                             API.image = convertStrToArray(info.getData().get(i).getAppAdvert() + "");
                             API.images = convertStrToArray1(info.getData().get(i).getAppAdvert() + "");
+                            API.Version_no = info.getData().get(i).getVersion();
                         }
                     } else {
                         Toast.makeText(BaseActivity.this, "获取初始化信息失败1！", Toast.LENGTH_SHORT).show();
@@ -107,15 +107,15 @@ public class BaseActivity extends AutoLayoutActivity {
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case 1:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                }
-        }
-    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        switch (requestCode) {
+//            case 1:
+//                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                }
+//        }
+//    }
 
     //将Activity添加到list中
     public void addActivity(Activity activity) {

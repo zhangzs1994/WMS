@@ -53,7 +53,7 @@ public class UpdatePwdActivity extends BaseActivity implements IUpdatePwdView {
     @Override
     public UserInfo getUserInfo() {
         SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
-        return new UserInfo(pref.getInt("id", 0), oldPwd.getText().toString());
+        return new UserInfo(pref.getInt("id", 0), oldPwd.getText().toString(),pref.getString("username",""));
     }
 
     @Override

@@ -68,6 +68,7 @@ public class JuniorAchiActivity extends BaseActivity {
                             map.put("name",info.getData().get(i).getName()+"");
                             list.add(map);
                         }
+                        achiAdapter.notifyDataSetChanged();
                     }else if(("10666").equals(info.getStatus())){
                         Toast.makeText(JuniorAchiActivity.this, "无下属信息！", Toast.LENGTH_SHORT).show();
                     }else {

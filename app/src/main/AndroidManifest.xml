@@ -65,7 +65,9 @@
             android:name=".activity.SaleOrderActivity"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity android:name=".activity.MyOrderListActivity" />
-        <activity android:name=".activity.ShopAddActivity" />
+        <activity
+            android:name=".activity.ShopAddActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activity.MyOrderShopActivity" />
         <activity android:name=".activity.LogisticsActivity" />
         <activity
@@ -73,7 +75,8 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity android:name=".activity.LogDetailsActivity" />
-        <activity android:name=".activity.ShopClassifyActivity"></activity>
+        <activity android:name=".activity.ShopClassifyActivity" />
+        <activity android:name=".activity.MyShopDetaisActivity"></activity>
     </application>
 
 </manifest>

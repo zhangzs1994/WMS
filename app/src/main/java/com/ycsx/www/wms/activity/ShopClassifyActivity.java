@@ -1,6 +1,7 @@
 package com.ycsx.www.wms.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -34,16 +35,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ShopClassifyActivity extends BaseActivity{
+public class ShopClassifyActivity extends BaseActivity {
     private ListView listView;
     private Intent intent;
-    private List<Map<String,Object>> list;
+    private List<Map<String, Object>> list;
     private ShopClassifyAdapter adapter;
     private LinearLayout classify_add;
     private PopupWindow popupWindow;
     private TextView cnki_info;
     private EditText name;
-    private Button cnki,cancel,confirm;
+    private Button cnki, cancel, confirm;
 
     @Override
     public void init() {
@@ -62,11 +63,11 @@ public class ShopClassifyActivity extends BaseActivity{
                 popupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
                 popupWindow.setFocusable(true);
                 View view = LayoutInflater.from(ShopClassifyActivity.this).inflate(R.layout.classify_add_popup, null);
-                name= (EditText) view.findViewById(R.id.name);
-                cnki_info= (TextView) view.findViewById(R.id.cnki_info);
-                cnki= (Button) view.findViewById(R.id.cnki);
-                cancel= (Button) view.findViewById(R.id.cancel);
-                confirm= (Button) view.findViewById(R.id.confirm);
+                name = (EditText) view.findViewById(R.id.name);
+                cnki_info = (TextView) view.findViewById(R.id.cnki_info);
+                cnki = (Button) view.findViewById(R.id.cnki);
+                cancel = (Button) view.findViewById(R.id.cancel);
+                confirm = (Button) view.findViewById(R.id.confirm);
                 popupWindow.setContentView(view);
                 popupWindow.setBackgroundDrawable(new BitmapDrawable());
                 popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
@@ -74,10 +75,12 @@ public class ShopClassifyActivity extends BaseActivity{
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                     }
+
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         cnki_info.setText("");
                     }
+
                     @Override
                     public void afterTextChanged(Editable s) {
                     }
@@ -97,11 +100,11 @@ public class ShopClassifyActivity extends BaseActivity{
                 confirm.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(cnki_info.getText().toString().equals("该名称可用")){
+                        if (cnki_info.getText().toString().equals("该名称可用")) {
                             addDropdownValue();
-                        }else if(cnki_info.getText().toString().equals("分类已存在")){
+                        } else if (cnki_info.getText().toString().equals("分类已存在")) {
                             Toast.makeText(ShopClassifyActivity.this, "该名称不可用，请重新输入！", Toast.LENGTH_SHORT).show();
-                        }else{
+                        } else {
                             Toast.makeText(ShopClassifyActivity.this, "请先查重！", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -121,9 +124,9 @@ public class ShopClassifyActivity extends BaseActivity{
                     CategoryInfo info = response.body();
                     if (("10200").equals(info.getStatus())) {
                         for (int i = 0; i < info.getData().size(); i++) {
-                            Map<String,Object> map=new HashMap<String, Object>();
-                            map.put("value",info.getData().get(i).getValue() + "");
-                            map.put("code",info.getData().get(i).getCode() + "");
+                            Map<String, Object> map = new HashMap<String, Object>();
+                            map.put("value", info.getData().get(i).getValue() + "");
+                            map.put("code", info.getData().get(i).getCode() + "");
                             list.add(map);
                         }
                         adapter.notifyDataSetChanged();
@@ -145,9 +148,9 @@ public class ShopClassifyActivity extends BaseActivity{
     }
 
     private void checkValue() {
-        if(name.getText().toString().equals("")){
+        if (name.getText().toString().equals("")) {
             Toast.makeText(ShopClassifyActivity.this, "请输入名称！", Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
             Map<String, String> params = new HashMap<>();
             params.put("colName", "goodsCategory");
             params.put("value", name.getText().toString());
@@ -183,6 +186,8 @@ public class ShopClassifyActivity extends BaseActivity{
         Map<String, String> params = new HashMap<>();
         params.put("colName", "goodsCategory");
         params.put("value", name.getText().toString());
+        SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
+        params.put("operator", pref.getString("username", ""));
         Call<Common> call = RetrofitUtil.getInstance(API.URL).addDropdownValue(params);
         call.enqueue(new Callback<Common>() {
             @Override
@@ -196,7 +201,7 @@ public class ShopClassifyActivity extends BaseActivity{
                         adapter = new ShopClassifyAdapter(list, ShopClassifyActivity.this);
                         listView.setAdapter(adapter);
                         popupWindow.dismiss();
-                    }else {
+                    } else {
                         Log.e("getStatus==", info.getStatus());
                         Toast.makeText(ShopClassifyActivity.this, "添加失败1！", Toast.LENGTH_SHORT).show();
                     }
@@ -218,7 +223,7 @@ public class ShopClassifyActivity extends BaseActivity{
     }
 
     private void initView() {
-        listView= (ListView) findViewById(R.id.listView);
-        classify_add= (LinearLayout) findViewById(R.id.classify_add);
+        listView = (ListView) findViewById(R.id.listView);
+        classify_add = (LinearLayout) findViewById(R.id.classify_add);
     }
 }

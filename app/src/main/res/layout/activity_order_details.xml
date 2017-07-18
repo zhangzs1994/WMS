@@ -92,7 +92,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20px"
                             android:background="@null"
-                            android:inputType="number"
                             android:textSize="15sp"
                             android:textColor="@color/colorWhite" />
                     </LinearLayout>

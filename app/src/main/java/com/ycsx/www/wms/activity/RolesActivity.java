@@ -70,6 +70,7 @@ public class RolesActivity extends BaseActivity {
                             listChild.add(info.getData().get(i).getUsername());
                         }
                         list.add(listChild);
+                        mRolesListViewAdapter.notifyDataSetChanged();
                     } else {
                         Toast.makeText(RolesActivity.this, "请求数据失败！", Toast.LENGTH_SHORT).show();
                     }
@@ -102,11 +103,12 @@ public class RolesActivity extends BaseActivity {
                             group.add(info.getData().get(i).getValue());
                             Log.e("group", info.getData().get(i).getCode()+"");
                             try {
-                                Thread.sleep(30);
+                                Thread.sleep(50);
                                 getFlagName(info.getData().get(i).getCode());
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
+                            mRolesListViewAdapter.notifyDataSetChanged();
                         }
                     } else {
                         Toast.makeText(RolesActivity.this, "请求数据失败！", Toast.LENGTH_SHORT).show();

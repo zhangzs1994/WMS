@@ -28,6 +28,8 @@
                 android:gravity="center_vertical"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:text="商品名称"/>
         </LinearLayout>
 
@@ -65,18 +67,36 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/delete"
         android:layout_width="0px"
         android:layout_weight="1"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#531a81"
+        <Button
+            android:id="@+id/update"
+            android:layout_width="120px"
+            android:layout_height="60px"
+            android:text="编辑"
+            android:background="@color/login_btn"
+            android:gravity="center"
             android:textSize="18sp"
-            android:layout_marginRight="20px"
+            android:focusable="false"
+            android:clickable="false"
+            android:focusableInTouchMode="false"
+            android:layout_marginBottom="40px"
+            android:textColor="@color/colorWhite"/>
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="120px"
+            android:layout_height="60px"
+            android:textColor="@color/colorWhite"
+            android:background="@color/login_btn"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:focusable="false"
+            android:clickable="false"
+            android:focusableInTouchMode="false"
             android:text="删除"/>
         </LinearLayout>
 </LinearLayout>

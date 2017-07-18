@@ -38,13 +38,14 @@ public class OpLogActivity extends BaseActivity implements PullBaseView.OnHeader
     private LogRecyclerAdapter adapter;
     private List<Map<String, Object>> list = new ArrayList();
     private List<UserInfo> listName = new ArrayList();
-    private int startRecord = 1;//开始条数
+    private int startRecord = 0;//开始条数
     private int pageRecords = 10;//显示条数
     private LinearLayout shop_query, layout_query, layout_pop;
     private int i = 0;//0：查询全部；1：按分类查询；2：按商品名查询
     private AutoCompleteTextView user_name;
     private AutoTextViewAdapter autoTextViewAdapter;
     private String username;
+    private SharedPreferences pref;
 
     @Override
     public void init() {
@@ -63,9 +64,12 @@ public class OpLogActivity extends BaseActivity implements PullBaseView.OnHeader
                 TextView likeName = (TextView) view;
                 user_name.setText(likeName.getText());
                 user_name.setSelection(user_name.getText().length());
-                startRecord = 1;
                 username = user_name.getText().toString();
+                startRecord = 0;
+                list = new ArrayList();
                 initData();
+                adapter = new LogRecyclerAdapter(OpLogActivity.this, list);
+                recyclerView.setAdapter(adapter);
             }
         });
     }
@@ -90,13 +94,19 @@ public class OpLogActivity extends BaseActivity implements PullBaseView.OnHeader
         //适配器
         adapter = new LogRecyclerAdapter(this, list);
         recyclerView.setAdapter(adapter);
+        pref = getSharedPreferences("login", MODE_PRIVATE);
+        if(pref.getString("menuNode","").indexOf("802")>=0){
+            layout_pop.setVisibility(View.VISIBLE);
+        }else {
+            layout_pop.setVisibility(View.GONE);
+        }
     }
 
     private void likeByName() {
         Map<String, String> params = new HashMap<>();
         params.put("authorizationCode", API.authorizationCode);
         params.put("str", "");
-        Call<LoginInfo> call = RetrofitUtil.getInstance(API.URL1).likeByName(params);
+        Call<LoginInfo> call = RetrofitUtil.getInstance(API.URL).likeByName(params);
         call.enqueue(new Callback<LoginInfo>() {
             @Override
             public void onResponse(Call<LoginInfo> call, Response<LoginInfo> response) {
@@ -131,17 +141,19 @@ public class OpLogActivity extends BaseActivity implements PullBaseView.OnHeader
         Map<String, Object> params = new HashMap<>();
         params.put("authorizationCode", API.authorizationCode);
         params.put("username", username);
-        Log.e("username", "=== "+username);
-        params.put("currentPage", Integer.parseInt(startRecord+""));
-        Log.e("startRecord", "=== "+startRecord);
-        params.put("pageRecords", Integer.parseInt(pageRecords+""));
-        Log.e("pageRecords", "=== "+pageRecords);
-        Call<LogInfo> call = RetrofitUtil.getInstance(API.URL1).queryLogByName(params);
+        Log.e("username", "=== " + username);
+        params.put("currentPage", Integer.parseInt(startRecord + ""));
+        Log.e("startRecord", "=== " + startRecord);
+        params.put("pageRecords", Integer.parseInt(pageRecords + ""));
+        Log.e("pageRecords", "=== " + pageRecords);
+        Call<LogInfo> call = RetrofitUtil.getInstance(API.URL).queryLogByName(params);
         call.enqueue(new Callback<LogInfo>() {
             @Override
             public void onResponse(Call<LogInfo> call, Response<LogInfo> response) {
                 if (response.isSuccessful()) {
                     LogInfo user = response.body();
+                    Log.e("getStatus", "===" + user.getStatus());
+                    Log.e("isHasNextPage", "===" + user.getPage().isHasNextPage());
                     if (("10200").equals(user.getStatus())) {
                         for (int i = 0; i < user.getData().size(); i++) {
                             Map<String, Object> map = new HashMap<String, Object>();
@@ -160,6 +172,7 @@ public class OpLogActivity extends BaseActivity implements PullBaseView.OnHeader
                         Log.e("getMessage==", user.getMessage());
                         Toast.makeText(OpLogActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
                     }
+
                 } else {
                     Log.e("code", "==" + response.code());
                     Toast.makeText(OpLogActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
@@ -181,7 +194,7 @@ public class OpLogActivity extends BaseActivity implements PullBaseView.OnHeader
             @Override
             public void run() {
                 //初始化加载数据
-                startRecord = 1;
+                startRecord = 0;
                 list = new ArrayList();
                 initData();
                 adapter = new LogRecyclerAdapter(OpLogActivity.this, list);

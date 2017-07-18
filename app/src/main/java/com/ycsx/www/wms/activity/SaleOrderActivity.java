@@ -178,11 +178,16 @@ public class SaleOrderActivity extends BaseActivity implements View.OnClickListe
                             map.put("price", info.getData().get(i).getPrice());
                             map.put("pname", info.getData().get(i).getPname() + "");
                             map.put("num", info.getData().get(i).getNum() + "");
+                            map.put("shop_allPrice", info.getData().get(i).getIocost() + "");
+                            map.put("describe", info.getData().get(i).getDescribee() + "");
+                            map.put("pictureUrl", info.getData().get(i).getPictureUrl() + "");
                             list.add(map);
                             AddOrderInfo.DataBean data = new AddOrderInfo.DataBean();
                             data.setPid(info.getData().get(i).getPid());
                             data.setNum(info.getData().get(i).getNum());
                             data.setPrice(info.getData().get(i).getPrice());
+                            data.setIocost(info.getData().get(i).getIocost());
+                            data.setDescribe(info.getData().get(i).getDescribee());
                             datas.add(data);
                             price = price + Double.parseDouble(info.getData().get(i).getPrice() + "") * Double.parseDouble(info.getData().get(i).getNum() + "");
                         }
