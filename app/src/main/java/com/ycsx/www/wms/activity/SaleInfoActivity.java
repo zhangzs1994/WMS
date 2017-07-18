@@ -2,7 +2,6 @@ package com.ycsx.www.wms.activity;
 
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +14,7 @@ import com.ycsx.www.wms.common.API;
 import com.ycsx.www.wms.recycler.MyDecoration;
 import com.ycsx.www.wms.recycler.PullBaseView;
 import com.ycsx.www.wms.recycler.PullRecyclerView;
+import com.ycsx.www.wms.util.LoadingDialog;
 import com.ycsx.www.wms.util.RetrofitUtil;
 
 import java.util.ArrayList;
@@ -33,11 +33,13 @@ public class SaleInfoActivity extends BaseActivity implements PullBaseView.OnHea
     private int startRecord = 0;//开始条数
     private int pageRecords = 10;//显示条数
     private TextView title;
+    private LoadingDialog dialog;
 
     @Override
     public void init() {
         super.init();
         setContentView(R.layout.activity_order_list);
+        dialog = new LoadingDialog(this, R.style.CustomDialog);
         initData();
         initView();
     }
@@ -64,6 +66,7 @@ public class SaleInfoActivity extends BaseActivity implements PullBaseView.OnHea
     }
 
     private void initData() {
+        dialog.show();
         Map<String, String> params = new HashMap<>();
         params.put("uid",getIntent().getStringExtra("uid"));
         params.put("ostatus", "1");
@@ -75,6 +78,7 @@ public class SaleInfoActivity extends BaseActivity implements PullBaseView.OnHea
             public void onResponse(Call<OrderInfo> call, Response<OrderInfo> response) {
                 if (response.isSuccessful()) {
                     OrderInfo info = response.body();
+                    dialog.dismiss();
                     if (("10200").equals(info.getStatus())) {
                         for (int i = 0; i < info.getData().size(); i++) {
                             Map<String, Object> map = new HashMap<String, Object>();
@@ -102,14 +106,12 @@ public class SaleInfoActivity extends BaseActivity implements PullBaseView.OnHea
                         Toast.makeText(SaleInfoActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Log.e("返回码===", response.code() + "");
                     Toast.makeText(SaleInfoActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<OrderInfo> call, Throwable t) {
-                Log.e("返回===", t.getMessage() + "");
                 Toast.makeText(SaleInfoActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
             }
         });

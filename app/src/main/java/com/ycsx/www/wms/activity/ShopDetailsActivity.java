@@ -1,7 +1,6 @@
 package com.ycsx.www.wms.activity;
 
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
@@ -16,6 +15,7 @@ import com.ycsx.www.wms.base.BaseActivity;
 import com.ycsx.www.wms.bean.ShopInfo;
 import com.ycsx.www.wms.common.API;
 import com.ycsx.www.wms.util.GlideUtils;
+import com.ycsx.www.wms.util.LoadingDialog;
 import com.ycsx.www.wms.util.RetrofitUtil;
 
 import java.util.ArrayList;
@@ -40,6 +40,7 @@ public class ShopDetailsActivity extends BaseActivity {
     private int[] images = new int[]{R.drawable.major_image, R.drawable.major_image};
     private String shop_pictureUrl;
     private int currentItem;
+    private LoadingDialog dialog;
 
     @Override
     public void init() {
@@ -71,6 +72,7 @@ public class ShopDetailsActivity extends BaseActivity {
         shop_qualityTime = (TextView) findViewById(R.id.shop_qualityTime);
         shop_describ = (TextView) findViewById(R.id.shop_describ);
         shop_thePool = (TextView) findViewById(R.id.shop_thePool);
+        dialog = new LoadingDialog(this, R.style.CustomDialog);
     }
 
     public String[] convertStrToArray(String str) {
@@ -120,6 +122,7 @@ public class ShopDetailsActivity extends BaseActivity {
     }
 
     private void initData() {
+        dialog.show();
         final Map<String, String> params = new HashMap<>();
         params.put("id", getIntent().getStringExtra("id"));
         Call<ShopInfo> call = RetrofitUtil.getInstance(API.URL).getGoods(params);
@@ -128,11 +131,9 @@ public class ShopDetailsActivity extends BaseActivity {
             public void onResponse(Call<ShopInfo> call, Response<ShopInfo> response) {
                 if (response.isSuccessful()) {
                     ShopInfo user = response.body();
+                    dialog.dismiss();
                     if (("10200").equals(user.getStatus())) {
                         for (int i = 0; i < user.getData().size(); i++) {
-                            Map<String, Object> map = new HashMap<String, Object>();
-                            map.put("id", user.getData().get(i).getId() + "");//商品id
-                            map.put("pictureUrl", user.getData().get(i).getPictureUrl() + "");//商品图片URL
                             shop_name.setText(user.getData().get(i).getName() + "");//商品名称
                             shop_goodsNum.setText(user.getData().get(i).getGoodsNum() + "");//商品编号
                             shop_barCode.setText(user.getData().get(i).getBarCode() + "");//商品条形码
@@ -149,7 +150,6 @@ public class ShopDetailsActivity extends BaseActivity {
                             shop_thePool.setText(user.getData().get(i).getThePool() + "");//所属分库
                             shop_pictureUrl = user.getData().get(i).getPictureUrl() + "";
                         }
-                        Log.e("shop_pictureUrl", "11==" + shop_pictureUrl);
                         image = convertStrToArray(shop_pictureUrl);
                         mDataList = new ArrayList<ImageView>();
                         for (int i = 0; i < image.length; i++) {

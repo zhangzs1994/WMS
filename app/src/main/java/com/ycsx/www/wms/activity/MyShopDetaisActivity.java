@@ -16,6 +16,7 @@ import com.ycsx.www.wms.base.BaseActivity;
 import com.ycsx.www.wms.bean.OrderShop;
 import com.ycsx.www.wms.common.API;
 import com.ycsx.www.wms.util.GlideUtils;
+import com.ycsx.www.wms.util.LoadingDialog;
 import com.ycsx.www.wms.util.RetrofitUtil;
 
 import java.util.ArrayList;
@@ -36,11 +37,13 @@ public class MyShopDetaisActivity extends BaseActivity {
     private int diatance;
     private String[] image = null;
     private String shop_pictureUrl;
+    private LoadingDialog dialog;
 
     @Override
     public void init() {
         super.init();
         setContentView(R.layout.activity_my_shop_detais);
+        dialog = new LoadingDialog(this, R.style.CustomDialog);
         initView();
         initData();
     }
@@ -101,9 +104,8 @@ public class MyShopDetaisActivity extends BaseActivity {
     }
 
     private void initData() {
+        dialog.show();
         Map<String, String> params = new HashMap<>();
-        Log.e("uid", "===="+getIntent().getStringExtra("uid"));
-        Log.e("pid", "===="+getIntent().getStringExtra("pid"));
         params.put("uid", getIntent().getStringExtra("uid"));
         params.put("pid", getIntent().getStringExtra("pid"));
         Call<OrderShop> call = RetrofitUtil.getInstance(API.URL).selectOneMyorde(params);
@@ -112,6 +114,7 @@ public class MyShopDetaisActivity extends BaseActivity {
             public void onResponse(Call<OrderShop> call, Response<OrderShop> response) {
                 if (response.isSuccessful()) {
                     OrderShop info = response.body();
+                    dialog.dismiss();
                     if (("10200").equals(info.getStatus())) {
                         for (int i = 0; i < info.getData().size(); i++) {
                             shop_name.setText(info.getData().get(i).getPname() + "");//商品名称

@@ -22,6 +22,7 @@ import com.ycsx.www.wms.common.API;
 import com.ycsx.www.wms.recycler.MyDecoration;
 import com.ycsx.www.wms.recycler.PullBaseView;
 import com.ycsx.www.wms.recycler.PullRecyclerView;
+import com.ycsx.www.wms.util.LoadingDialog;
 import com.ycsx.www.wms.util.RetrofitUtil;
 
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ public class OpLogActivity extends BaseActivity implements PullBaseView.OnHeader
     private AutoTextViewAdapter autoTextViewAdapter;
     private String username;
     private SharedPreferences pref;
+    private LoadingDialog dialog;
 
     @Override
     public void init() {
@@ -53,6 +55,7 @@ public class OpLogActivity extends BaseActivity implements PullBaseView.OnHeader
         setContentView(R.layout.activity_op_log);
         SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
         username = pref.getString("username", "");
+        dialog = new LoadingDialog(this, R.style.CustomDialog);
         initData();
         initView();
         likeByName();
@@ -138,6 +141,7 @@ public class OpLogActivity extends BaseActivity implements PullBaseView.OnHeader
     }
 
     private void initData() {
+        dialog.show();
         Map<String, Object> params = new HashMap<>();
         params.put("authorizationCode", API.authorizationCode);
         params.put("username", username);
@@ -152,8 +156,7 @@ public class OpLogActivity extends BaseActivity implements PullBaseView.OnHeader
             public void onResponse(Call<LogInfo> call, Response<LogInfo> response) {
                 if (response.isSuccessful()) {
                     LogInfo user = response.body();
-                    Log.e("getStatus", "===" + user.getStatus());
-                    Log.e("isHasNextPage", "===" + user.getPage().isHasNextPage());
+                    dialog.dismiss();
                     if (("10200").equals(user.getStatus())) {
                         for (int i = 0; i < user.getData().size(); i++) {
                             Map<String, Object> map = new HashMap<String, Object>();

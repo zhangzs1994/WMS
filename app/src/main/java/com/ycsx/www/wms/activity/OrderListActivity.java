@@ -15,6 +15,7 @@ import com.ycsx.www.wms.common.API;
 import com.ycsx.www.wms.recycler.MyDecoration;
 import com.ycsx.www.wms.recycler.PullBaseView;
 import com.ycsx.www.wms.recycler.PullRecyclerView;
+import com.ycsx.www.wms.util.LoadingDialog;
 import com.ycsx.www.wms.util.RetrofitUtil;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class OrderListActivity extends BaseActivity implements PullBaseView.OnHe
     private int startRecord = 0;//开始条数
     private int pageRecords = 10;//显示条数
     private TextView title;
+    private LoadingDialog dialog;
 
     @Override
     public void init() {
@@ -67,6 +69,7 @@ public class OrderListActivity extends BaseActivity implements PullBaseView.OnHe
         recyclerView.setAdapter(adapter);
         title= (TextView) findViewById(R.id.title);
         title.setText(getIntent().getStringExtra("title"));
+        dialog = new LoadingDialog(this, R.style.CustomDialog);
     }
 
     private void initData() {
@@ -82,12 +85,14 @@ public class OrderListActivity extends BaseActivity implements PullBaseView.OnHe
         params.put("endtime", getIntent().getStringExtra("endtime"));
         params.put("startRecord", startRecord + "");
         params.put("pageRecords", pageRecords + "");
+        dialog.show();
         Call<OrderInfo> call = RetrofitUtil.getInstance(API.URL).selectOrderh1(params);
         call.enqueue(new Callback<OrderInfo>() {
             @Override
             public void onResponse(Call<OrderInfo> call, Response<OrderInfo> response) {
                 if (response.isSuccessful()) {
                     OrderInfo info = response.body();
+                    dialog.dismiss();
                     if (("10200").equals(info.getStatus())) {
                         for (int i = 0; i < info.getData().size(); i++) {
                             Map<String, Object> map = new HashMap<String, Object>();

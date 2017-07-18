@@ -19,6 +19,7 @@ import com.ycsx.www.wms.common.API;
 import com.ycsx.www.wms.recycler.MyDecoration;
 import com.ycsx.www.wms.recycler.PullBaseView;
 import com.ycsx.www.wms.recycler.PullRecyclerView;
+import com.ycsx.www.wms.util.LoadingDialog;
 import com.ycsx.www.wms.util.RetrofitUtil;
 
 import java.util.ArrayList;
@@ -43,11 +44,13 @@ public class MyOrderListActivity extends BaseActivity implements PullBaseView.On
     private ArrayAdapter<String> arrayAdapter;
     private String status;
     private int i=0;
+    private LoadingDialog dialog;
 
     @Override
     public void init() {
         super.init();
         setContentView(R.layout.activity_submit_list);
+        dialog = new LoadingDialog(this, R.style.CustomDialog);
         initData(i);
         initView();
         queryDropdown();
@@ -135,6 +138,7 @@ public class MyOrderListActivity extends BaseActivity implements PullBaseView.On
     }
 
     private void initData(int i) {
+        dialog.show();
         SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
         Map<String, String> params = new HashMap<>();
         params.put("uid", pref.getInt("id", 0) + "");
@@ -149,6 +153,7 @@ public class MyOrderListActivity extends BaseActivity implements PullBaseView.On
             public void onResponse(Call<OrderInfo> call, Response<OrderInfo> response) {
                 if (response.isSuccessful()) {
                     OrderInfo info = response.body();
+                    dialog.dismiss();
                     if (("10200").equals(info.getStatus())) {
                         for (int i = 0; i < info.getData().size(); i++) {
                             Map<String, Object> map = new HashMap<String, Object>();

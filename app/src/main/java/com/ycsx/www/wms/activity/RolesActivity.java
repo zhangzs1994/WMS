@@ -24,10 +24,10 @@ import retrofit2.Response;
 
 public class RolesActivity extends BaseActivity {
     public List<String> group;
-    List<List<String>> list;
-    List<String> listChild;
-    ExpandableListView mExpandableListView;
-    RolesListViewAdapter mRolesListViewAdapter;
+    public List<List<String>> list;
+    public List<String> listChild;
+    public ExpandableListView mExpandableListView;
+    public RolesListViewAdapter mRolesListViewAdapter;
 
     @Override
     public void init() {

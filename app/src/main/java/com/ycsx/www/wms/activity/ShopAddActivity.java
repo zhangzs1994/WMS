@@ -38,6 +38,7 @@ import com.ycsx.www.wms.common.API;
 import com.ycsx.www.wms.recycler.MyDecoration;
 import com.ycsx.www.wms.recycler.PullBaseView;
 import com.ycsx.www.wms.recycler.PullRecyclerView;
+import com.ycsx.www.wms.util.LoadingDialog;
 import com.ycsx.www.wms.util.RetrofitUtil;
 import com.ycsx.www.wms.zxing.android.CaptureActivity;
 
@@ -70,18 +71,19 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
     public final static int SCANNING_REQUEST_CODE = 1;
     private ImageView zxing;
     private String[] permissions = {Manifest.permission.CAMERA};
-
     private SharedPreferences pref;
     private int count = 0;
     private BadgeView badgeView;
     private TextView text_finish;
     private Button btn_finish;
     private LinearLayout shop_card;
+    private LoadingDialog dialog;
 
     @Override
     public void init() {
         super.init();
         setContentView(R.layout.activity_shop_add);
+        dialog = new LoadingDialog(this, R.style.CustomDialog);
         initData(i);
         initView();
         queryDropdown();
@@ -200,7 +202,6 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
             }
         }, this, list);
         recyclerView.setAdapter(adapter);
-
         shop_card = (LinearLayout) findViewById(R.id.shop_card);
         badgeView = new BadgeView(this, shop_card);
         badgeView.setBackgroundResource(R.drawable.update_round);
@@ -486,6 +487,7 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
     }
 
     private void initData(int i) {
+        dialog.show();
         final Map<String, String> params = new HashMap<>();
         params.put("startRecord", startRecord + "");
         params.put("pageRecords", pageRecords + "");
@@ -504,6 +506,7 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
             public void onResponse(Call<ShopInfo> call, Response<ShopInfo> response) {
                 if (response.isSuccessful()) {
                     ShopInfo user = response.body();
+                    dialog.dismiss();
                     if (("10200").equals(user.getStatus())) {
                         for (int i = 0; i < user.getData().size(); i++) {
                             Map<String, Object> map = new HashMap<String, Object>();
@@ -537,7 +540,6 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
 
             @Override
             public void onFailure(Call<ShopInfo> call, Throwable t) {
-                Log.e("getMessage", t.getMessage());
                 Toast.makeText(ShopAddActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
             }
         });

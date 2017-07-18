@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
@@ -20,6 +19,7 @@ import com.ycsx.www.wms.common.API;
 import com.ycsx.www.wms.recycler.MyDecoration;
 import com.ycsx.www.wms.recycler.PullBaseView;
 import com.ycsx.www.wms.recycler.PullRecyclerView;
+import com.ycsx.www.wms.util.LoadingDialog;
 import com.ycsx.www.wms.util.RetrofitUtil;
 
 import java.text.ParseException;
@@ -46,11 +46,13 @@ public class InStockActivity extends BaseActivity implements PullBaseView.OnHead
     private TextView startData, endData;
     private View view;
     private int i = 0;
+    private LoadingDialog dialog;
 
     @Override
     public void init() {
         super.init();
         setContentView(R.layout.activity_in_stock);
+        dialog = new LoadingDialog(this, R.style.CustomDialog);
         initData(i);
         initView();
         inStock_query.setOnClickListener(new View.OnClickListener() {
@@ -165,6 +167,7 @@ public class InStockActivity extends BaseActivity implements PullBaseView.OnHead
     }
 
     private void initData(int i) {
+        dialog.show();
         Map<String, String> params = new HashMap<>();
         if (i == 1) {
             params.put("satrtTime", startData.getText() + " 00:00:00");
@@ -178,6 +181,7 @@ public class InStockActivity extends BaseActivity implements PullBaseView.OnHead
             public void onResponse(Call<ShopInfo> call, Response<ShopInfo> response) {
                 if (response.isSuccessful()) {
                     ShopInfo user = response.body();
+                    dialog.dismiss();
                     if (("10200").equals(user.getStatus())) {
                         for (int i = 0; i < user.getData().size(); i++) {
                             Map<String, Object> map = new HashMap<String, Object>();
@@ -205,7 +209,6 @@ public class InStockActivity extends BaseActivity implements PullBaseView.OnHead
                         Toast.makeText(InStockActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Log.e("返回码===", response.code() + "");
                     Toast.makeText(InStockActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
                 }
             }

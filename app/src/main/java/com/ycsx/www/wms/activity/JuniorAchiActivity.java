@@ -13,6 +13,7 @@ import com.ycsx.www.wms.adapter.JuniorAchiAdapter;
 import com.ycsx.www.wms.base.BaseActivity;
 import com.ycsx.www.wms.bean.SuperiorInfo;
 import com.ycsx.www.wms.common.API;
+import com.ycsx.www.wms.util.LoadingDialog;
 import com.ycsx.www.wms.util.RetrofitUtil;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class JuniorAchiActivity extends BaseActivity {
     private Intent intent;
     private List<Map<String,String>> list = new ArrayList();
     private JuniorAchiAdapter achiAdapter;
+    private LoadingDialog dialog;
 
     @Override
     public void init() {
@@ -50,6 +52,7 @@ public class JuniorAchiActivity extends BaseActivity {
     }
 
     private void initData() {
+        dialog.show();
         SharedPreferences pref = getSharedPreferences("login",MODE_PRIVATE);
         Map<String, String> params = new HashMap<>();
         params.put("authorizationCode", API.authorizationCode);
@@ -60,6 +63,7 @@ public class JuniorAchiActivity extends BaseActivity {
             public void onResponse(Call<SuperiorInfo> call, Response<SuperiorInfo> response) {
                 if (response.isSuccessful()) {
                     SuperiorInfo info = response.body();
+                    dialog.dismiss();
                     if (("10200").equals(info.getStatus())) {
                         for (int i = 0; i < info.getData().size(); i++) {
                             Map<String,String> map=new HashMap<String, String>();
@@ -93,5 +97,6 @@ public class JuniorAchiActivity extends BaseActivity {
 
     private void initView() {
         junior_list = (ListView) findViewById(R.id.junior_list);
+        dialog = new LoadingDialog(this, R.style.CustomDialog);
     }
 }

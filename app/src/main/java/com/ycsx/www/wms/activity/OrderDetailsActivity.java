@@ -18,6 +18,7 @@ import com.ycsx.www.wms.base.BaseActivity;
 import com.ycsx.www.wms.bean.Common;
 import com.ycsx.www.wms.bean.OrderDetailsInfo;
 import com.ycsx.www.wms.common.API;
+import com.ycsx.www.wms.util.LoadingDialog;
 import com.ycsx.www.wms.util.RetrofitUtil;
 import com.ycsx.www.wms.view.MyListView;
 
@@ -44,6 +45,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
     private String[] spinnerChild = {"一般发货", "快递发货"};
     private ArrayAdapter<String> arrayAdapter;
     private EditText audit_explain,express_id;
+    private LoadingDialog dialog;
 
     @Override
     public void init() {
@@ -76,13 +78,14 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
         Map<String, String> params = new HashMap<>();
         Log.e("order_id===", getIntent().getStringExtra("order_id"));
         params.put("oid", getIntent().getStringExtra("order_id"));
+        dialog.show();
         Call<OrderDetailsInfo> call = RetrofitUtil.getInstance(API.URL).getOrderinven(params);
         call.enqueue(new Callback<OrderDetailsInfo>() {
             @Override
             public void onResponse(Call<OrderDetailsInfo> call, Response<OrderDetailsInfo> response) {
                 if (response.isSuccessful()) {
                     OrderDetailsInfo info = response.body();
-                    Log.e("Status===", info.getStatus());
+                    dialog.dismiss();
                     if (("10200").equals(info.getStatus())) {
                         for (int i = 0; i < info.getData().size(); i++) {
                             Map<String, Object> map = new HashMap<String, Object>();
@@ -139,14 +142,12 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
                         Toast.makeText(OrderDetailsActivity.this, "审核失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Log.e("返回码===", response.code() + "");
                     Toast.makeText(OrderDetailsActivity.this, "审核失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Common> call, Throwable t) {
-                Log.e("TAG", "==="+t.getMessage());
                 Toast.makeText(OrderDetailsActivity.this, "审核失败3！", Toast.LENGTH_SHORT).show();
             }
         });
@@ -174,14 +175,12 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
                         Toast.makeText(OrderDetailsActivity.this, "发货失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Log.e("返回码===", response.code() + "");
                     Toast.makeText(OrderDetailsActivity.this, "发货失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Common> call, Throwable t) {
-                Log.e("TAG", "==="+t.getMessage());
                 Toast.makeText(OrderDetailsActivity.this, "发货失败3！", Toast.LENGTH_SHORT).show();
             }
         });
@@ -203,6 +202,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
         audit_explain = (EditText) findViewById(R.id.audit_explain);
         layout_express = (LinearLayout) findViewById(R.id.layout_express);
         express = (LinearLayout) findViewById(R.id.express);
+        dialog = new LoadingDialog(this, R.style.CustomDialog);
         if(getIntent().getStringExtra("title").equals("审核列表")){
             title.setText("订单审核");
             layout_audit.setVisibility(View.VISIBLE);

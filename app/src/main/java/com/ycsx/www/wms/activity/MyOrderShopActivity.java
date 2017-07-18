@@ -24,6 +24,7 @@ import com.ycsx.www.wms.base.BaseActivity;
 import com.ycsx.www.wms.bean.Common;
 import com.ycsx.www.wms.bean.OrderShop;
 import com.ycsx.www.wms.common.API;
+import com.ycsx.www.wms.util.LoadingDialog;
 import com.ycsx.www.wms.util.RetrofitUtil;
 
 import java.text.DecimalFormat;
@@ -42,11 +43,13 @@ public class MyOrderShopActivity extends BaseActivity {
     private List<Map<String, Object>> list = new ArrayList<>();
     private PopupWindow popupWindow;
     private SharedPreferences pref;
+    private LoadingDialog dialog;
 
     @Override
     public void init() {
         super.init();
         setContentView(R.layout.activity_my_order_shop);
+        dialog = new LoadingDialog(this, R.style.CustomDialog);
         initList();
         initView();
         adapter = new MyOrderListAdapter(list, this, new MyOrderListAdapter.UpdateMyShop() {
@@ -240,6 +243,7 @@ public class MyOrderShopActivity extends BaseActivity {
     }
 
     private void initList() {
+        dialog.show();
         SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
         Map<String, String> params = new HashMap<>();
         params.put("uid", pref.getInt("id", 0) + "");
@@ -249,6 +253,7 @@ public class MyOrderShopActivity extends BaseActivity {
             public void onResponse(Call<OrderShop> call, Response<OrderShop> response) {
                 if (response.isSuccessful()) {
                     OrderShop info = response.body();
+                    dialog.dismiss();
                     if (("10200").equals(info.getStatus())) {
                         for (int i = 0; i < info.getData().size(); i++) {
                             Map<String, Object> map = new HashMap<String, Object>();

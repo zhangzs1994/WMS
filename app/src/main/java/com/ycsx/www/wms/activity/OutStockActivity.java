@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
@@ -20,6 +19,7 @@ import com.ycsx.www.wms.common.API;
 import com.ycsx.www.wms.recycler.MyDecoration;
 import com.ycsx.www.wms.recycler.PullBaseView;
 import com.ycsx.www.wms.recycler.PullRecyclerView;
+import com.ycsx.www.wms.util.LoadingDialog;
 import com.ycsx.www.wms.util.RetrofitUtil;
 
 import java.text.DecimalFormat;
@@ -46,11 +46,13 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
     private PopupWindow popupWindow;
     private TextView startData, endData;
     private int i = 0;
+    private LoadingDialog dialog;
 
     @Override
     public void init() {
         super.init();
         setContentView(R.layout.activity_out_stock);
+        dialog = new LoadingDialog(this, R.style.CustomDialog);
         initData(i);
         initView();
         outStock_query.setOnClickListener(new View.OnClickListener() {
@@ -164,6 +166,7 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
     }
 
     private void initData(int i) {
+        dialog.show();
         Map<String, String> params = new HashMap<>();
         if (i == 1) {
             params.put("starttime", startData.getText() + "");
@@ -177,6 +180,7 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
             public void onResponse(Call<OutStockInfo> call, Response<OutStockInfo> response) {
                 if (response.isSuccessful()) {
                     OutStockInfo info = response.body();
+                    dialog.dismiss();
                     if (("10200").equals(info.getStatus())) {
                         for (int i = 0; i < info.getData().size(); i++) {
                             Map<String, Object> map = new HashMap<String, Object>();
@@ -204,14 +208,12 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
                         Toast.makeText(OutStockActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Log.e("code", "==="+response.code());
                     Toast.makeText(OutStockActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<OutStockInfo> call, Throwable t) {
-                Log.e("message===", t.getMessage() + "");
                 Toast.makeText(OutStockActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
             }
         });

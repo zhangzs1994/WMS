@@ -106,8 +106,15 @@ public class HomePageFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.layout_stock:
-                intent = new Intent(getActivity(), StockMangerActivity.class);
-                startActivity(intent);
+                pref = getActivity().getSharedPreferences("login", getActivity().MODE_PRIVATE);
+                if (pref.getString("menuNode", "").indexOf("30001") >= 0 &&
+                        pref.getString("menuNode", "").indexOf("10002") >= 0 &&
+                        pref.getString("menuNode", "").indexOf("20002") >= 0) {
+                    intent = new Intent(getActivity(), StockMangerActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getActivity(), "您的权限不足，如有疑问，请联系管理员！", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.layout_classify:
                 pref = getActivity().getSharedPreferences("login", getActivity().MODE_PRIVATE);
