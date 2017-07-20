@@ -112,9 +112,9 @@ public class MyShopDetaisActivity extends BaseActivity {
         call.enqueue(new Callback<OrderShop>() {
             @Override
             public void onResponse(Call<OrderShop> call, Response<OrderShop> response) {
+                dialog.dismiss();
                 if (response.isSuccessful()) {
                     OrderShop info = response.body();
-                    dialog.dismiss();
                     if (("10200").equals(info.getStatus())) {
                         for (int i = 0; i < info.getData().size(); i++) {
                             shop_name.setText(info.getData().get(i).getPname() + "");//商品名称
@@ -162,6 +162,7 @@ public class MyShopDetaisActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<OrderShop> call, Throwable t) {
+                dialog.dismiss();
                 Toast.makeText(MyShopDetaisActivity.this, "获取商品详情失败3！", Toast.LENGTH_SHORT).show();
             }
         });

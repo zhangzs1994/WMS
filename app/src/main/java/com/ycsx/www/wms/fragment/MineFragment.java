@@ -8,13 +8,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.readystatesoftware.viewbadger.BadgeView;
 import com.ycsx.www.wms.R;
@@ -23,17 +21,8 @@ import com.ycsx.www.wms.activity.RolesActivity;
 import com.ycsx.www.wms.activity.UpdatePwdActivity;
 import com.ycsx.www.wms.activity.UserInfoActivity;
 import com.ycsx.www.wms.base.BaseActivity;
-import com.ycsx.www.wms.bean.FlagInfo;
 import com.ycsx.www.wms.common.API;
-import com.ycsx.www.wms.util.RetrofitUtil;
 import com.ycsx.www.wms.util.UpdateAppUtils;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by ZZS_PC on 2017/6/6.
@@ -79,20 +68,13 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         userName = (TextView) view.findViewById(R.id.userName);
         userLevel = (TextView) view.findViewById(R.id.userLevel);
         userName.setText("账号："+pref.getString("username", ""));
+        userLevel.setText("级别："+pref.getString("flagValue", ""));
         quit = (LinearLayout) view.findViewById(R.id.quit);
         userInfo.setOnClickListener(this);
         updatePwd.setOnClickListener(this);
         authority.setOnClickListener(this);
         checkUpdate.setOnClickListener(this);
         quit.setOnClickListener(this);
-    }
-
-    @Override
-    public void onStart() {
-        pref = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
-        String flagCode = pref.getInt("flag", 0)+"";
-        getFlag(flagCode);
-        super.onStart();
     }
 
     public void initBadgeView() {
@@ -154,42 +136,10 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     public void onClick(View v) {
                         alertDialog.dismiss();
                         new BaseActivity().removeAllActivity();
+                        android.os.Process.killProcess(android.os.Process.myPid());
                     }
                 });
                 break;
         }
-    }
-
-    public void getFlag(String flagCode) {
-        Map<String, String> params = new HashMap<>();
-        params.put("authorizationCode", API.authorizationCode);
-        params.put("colName", "flag");
-        params.put("code", flagCode);
-        //调用Retrofit网络请求
-        Call<FlagInfo> call = RetrofitUtil.getInstance(API.URL).getFlag(params);
-        call.enqueue(new Callback<FlagInfo>() {
-            //请求成功
-            @Override
-            public void onResponse(Call<FlagInfo> call, Response<FlagInfo> response) {
-                //返回成功
-                if (response.isSuccessful()) {
-                    FlagInfo data = response.body();
-                    Log.e("TAG===", data.getStatus());
-                    if (("10200").equals(data.getStatus())) {
-                        userLevel.setText("级别："+data.getData().get(0).getValue());
-                    } else {
-                        Toast.makeText(getActivity(), "获取信息失败1", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(getActivity(), "获取信息失败2", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            //请求失败
-            @Override
-            public void onFailure(Call<FlagInfo> call, Throwable t) {
-                Toast.makeText(getActivity(), "获取信息失败3", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }

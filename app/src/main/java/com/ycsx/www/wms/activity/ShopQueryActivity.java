@@ -231,9 +231,9 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
         call.enqueue(new Callback<ShopInfo>() {
             @Override
             public void onResponse(Call<ShopInfo> call, Response<ShopInfo> response) {
+                dialog.dismiss();
                 if (response.isSuccessful()) {
                     ShopInfo user = response.body();
-                    dialog.dismiss();
                     if (("10200").equals(user.getStatus())) {
                         for (int i = 0; i < user.getData().size(); i++) {
                             Map<String, Object> map = new HashMap<String, Object>();
@@ -270,6 +270,7 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
 
             @Override
             public void onFailure(Call<ShopInfo> call, Throwable t) {
+                dialog.dismiss();
                 Log.e("getMessage", "==" + t.getMessage());
                 Toast.makeText(ShopQueryActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
             }

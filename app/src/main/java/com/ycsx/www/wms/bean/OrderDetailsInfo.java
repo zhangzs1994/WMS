@@ -93,6 +93,9 @@ public class OrderDetailsInfo {
         private String dvalue;
         private String describee;
         private String goodsNum;
+        private String uname;
+        private String expressnumber;
+        private String criteria;
 
         public int getOstatus() {
             return ostatus;
@@ -244,6 +247,30 @@ public class OrderDetailsInfo {
 
         public void setGoodsNum(String goodsNum) {
             this.goodsNum = goodsNum;
+        }
+
+        public String getUname() {
+            return uname;
+        }
+
+        public void setUname(String uname) {
+            this.uname = uname;
+        }
+
+        public String getExpressnumber() {
+            return expressnumber;
+        }
+
+        public void setExpressnumber(String expressnumber) {
+            this.expressnumber = expressnumber;
+        }
+
+        public String getCriteria() {
+            return criteria;
+        }
+
+        public void setCriteria(String criteria) {
+            this.criteria = criteria;
         }
     }
 }

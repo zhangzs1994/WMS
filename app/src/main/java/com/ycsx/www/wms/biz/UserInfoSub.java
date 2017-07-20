@@ -30,7 +30,7 @@ public class UserInfoSub implements IUserInfoSub {
         params.put("sex", userInfo.getSex());
         params.put("status", userInfo.getStatus());
         params.put("id", userInfo.getId());
-        params.put("flag", "1");
+        params.put("flag", userInfo.getFlag());
         params.put("superior", userInfo.getSuperior());
         params.put("subordinate", userInfo.getSubordinate());
         //调用Retrofit网络请求

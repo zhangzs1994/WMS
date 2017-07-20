@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
+import com.ycsx.www.wms.R;
 import com.youth.banner.loader.ImageLoader;
 
 public class GlideImageLoader extends ImageLoader {
@@ -22,6 +23,6 @@ public class GlideImageLoader extends ImageLoader {
         //Glide.with(context).load(path).crossFade().placeholder(R.drawable.detail).error(R.drawable.detail).into(imageView);
 
         //Picasso 加载图片简单用法
-        Picasso.with(context).load(path.toString()).into(imageView);
+        Picasso.with(context).load(path+"").placeholder(R.drawable.detail).error(R.drawable.detail).into(imageView);
     }
 }

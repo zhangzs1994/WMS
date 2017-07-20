@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ycsx.www.wms.R;
@@ -62,6 +63,11 @@ public class OrderDetailsAdapter extends BaseAdapter {
             holder.order_address = (TextView) viewHead.findViewById(R.id.order_address);
             holder.order_contact = (TextView) viewHead.findViewById(R.id.order_contact);
             holder.order_receiving = (TextView) viewHead.findViewById(R.id.order_receiving);
+            holder.order_creater = (TextView) viewHead.findViewById(R.id.order_creater);
+            holder.audit_explain = (TextView) viewHead.findViewById(R.id.audit_explain);
+            holder.order_express = (TextView) viewHead.findViewById(R.id.order_express);
+            holder.layout_audit_explain = (LinearLayout) viewHead.findViewById(R.id.layout_audit_explain);
+            holder.layout_order_express = (LinearLayout) viewHead.findViewById(R.id.layout_order_express);
             view.setTag(holder);
         } else {
             holder = (MyHolder) view.getTag();
@@ -73,12 +79,25 @@ public class OrderDetailsAdapter extends BaseAdapter {
         holder.order_address.setText(list.get(position).get("ouaddress").toString());
         holder.order_contact.setText(list.get(position).get("contact")+"");
         holder.order_receiving.setText(list.get(position).get("receiving")+"");
+        holder.order_creater.setText(list.get(position).get("uname")+"");
+        holder.audit_explain.setText(list.get(position).get("criteria")+"");
+        holder.order_express.setText(list.get(position).get("expressnumber")+"");
         holder.shop_name.setText(list.get(position).get("name").toString());
         holder.shop_price.setText("单价："+new DecimalFormat("######0.00").format(list.get(position).get("price")));
         holder.shop_num.setText("数量："+list.get(position).get("freightamount").toString());
         holder.shop_totalPrice.setText("总价："+new DecimalFormat("######0.00").format(list.get(position).get("iocost")));
         image = convertStrToArray(list.get(position).get("pictureUrl").toString());
         GlideUtils.loadImage(context, image[0], holder.shop_image);
+        if(Integer.parseInt(list.get(position).get("ostatus")+"")==0){
+            holder.layout_audit_explain.setVisibility(View.GONE);
+            holder.layout_order_express.setVisibility(View.GONE);
+        }else if(Integer.parseInt(list.get(position).get("ostatus")+"")==3){
+            holder.layout_audit_explain.setVisibility(View.VISIBLE);
+            holder.layout_order_express.setVisibility(View.VISIBLE);
+        }else{
+            holder.layout_audit_explain.setVisibility(View.VISIBLE);
+            holder.layout_order_express.setVisibility(View.GONE);
+        }
         return view;
     }
 
@@ -95,7 +114,9 @@ public class OrderDetailsAdapter extends BaseAdapter {
 
     class MyHolder {
         TextView shop_name, shop_price, shop_num, shop_totalPrice, order_id,
-                order_price, order_status, order_time, order_address,order_receiving,order_contact;
+                order_price, order_status, order_time, order_address,order_receiving,
+                order_contact,order_creater,audit_explain,order_express;
         ImageView shop_image;
+        LinearLayout layout_audit_explain,layout_order_express;
     }
 }

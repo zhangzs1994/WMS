@@ -34,14 +34,13 @@ public class UserLogin implements IUserLogin{
             public void onResponse(Call<LoginInfo> call, Response<LoginInfo> response) {
                 if (response.isSuccessful()) {
                     LoginInfo login = response.body();
-                    Log.e("TAG", login.getStatus() );
                     if (("10200").equals(login.getStatus())) {
                         UserInfo user = new UserInfo();
                         user.setUserName(userInfo.getUserName());
                         user.setUserPassword(userInfo.getUserPassword());
                         user.setName(login.getData().get(0).getName());
                         user.setFlag(login.getData().get(0).getFlag());
-                        Log.e("TAG==", login.getData().get(0).getFlag()+"");
+                        user.setFlagValue(login.getData().get(0).getFlagValue());
                         user.setId(login.getData().get(0).getId());
                         user.setStatus(login.getData().get(0).getStatus());
                         user.setSuperior(login.getData().get(0).getSuperior());

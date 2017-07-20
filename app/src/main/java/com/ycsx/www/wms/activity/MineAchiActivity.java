@@ -10,6 +10,7 @@ import com.ycsx.www.wms.R;
 import com.ycsx.www.wms.base.BaseActivity;
 import com.ycsx.www.wms.bean.AchiInfo;
 import com.ycsx.www.wms.common.API;
+import com.ycsx.www.wms.util.LoadingDialog;
 import com.ycsx.www.wms.util.RetrofitUtil;
 
 import java.text.DecimalFormat;
@@ -26,11 +27,13 @@ public class MineAchiActivity extends BaseActivity implements View.OnClickListen
     private LinearLayout saleInfo;
     private TextView achi_title, show_more, today, yesterday, order, order_num, order_price;
     private Intent intent;
+    private LoadingDialog dialog;
 
     @Override
     public void init() {
         super.init();
         setContentView(R.layout.activity_mine_achi);
+        dialog = new LoadingDialog(this, R.style.CustomDialog);
         initView();
         initData(0,1);
     }
@@ -59,6 +62,7 @@ public class MineAchiActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void initData(int satrt,int end) {
+        dialog.show();
         Map<String, String> params = new HashMap<>();
         params.put("uid", getIntent().getStringExtra("id"));
         params.put("starttime", getTimeByMinute(satrt));
@@ -67,6 +71,7 @@ public class MineAchiActivity extends BaseActivity implements View.OnClickListen
         call.enqueue(new Callback<AchiInfo>() {
             @Override
             public void onResponse(Call<AchiInfo> call, Response<AchiInfo> response) {
+                dialog.dismiss();
                 if (response.isSuccessful()) {
                     AchiInfo info = response.body();
                     if (("10200").equals(info.getStatus())) {
@@ -84,6 +89,7 @@ public class MineAchiActivity extends BaseActivity implements View.OnClickListen
 
             @Override
             public void onFailure(Call<AchiInfo> call, Throwable t) {
+                dialog.dismiss();
                 Toast.makeText(MineAchiActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
             }
         });

@@ -31,13 +31,11 @@ public class UserInfo implements IUserInfo {
             public void onResponse(Call<LoginInfo> call, Response<LoginInfo> response) {
                 if (response.isSuccessful()) {
                     LoginInfo login = response.body();
-                    Log.e("TAG", login.getStatus());
                     if (("10200").equals(login.getStatus())) {
                         com.ycsx.www.wms.bean.UserInfo user = new com.ycsx.www.wms.bean.UserInfo();
                         user.setUserName(userInfo.getUserName());
                         user.setUserPassword(userInfo.getUserPassword());
                         user.setName(login.getData().get(0).getName());
-                        Log.e("Sex===", login.getData().get(0).getSex());
                         if(login.getData().get(0).getSex().equals("1")){
                             user.setSex("男");
                         }else{

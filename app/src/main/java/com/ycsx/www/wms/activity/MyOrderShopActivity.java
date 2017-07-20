@@ -251,9 +251,9 @@ public class MyOrderShopActivity extends BaseActivity {
         call.enqueue(new Callback<OrderShop>() {
             @Override
             public void onResponse(Call<OrderShop> call, Response<OrderShop> response) {
+                dialog.dismiss();
                 if (response.isSuccessful()) {
                     OrderShop info = response.body();
-                    dialog.dismiss();
                     if (("10200").equals(info.getStatus())) {
                         for (int i = 0; i < info.getData().size(); i++) {
                             Map<String, Object> map = new HashMap<String, Object>();
@@ -280,6 +280,7 @@ public class MyOrderShopActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<OrderShop> call, Throwable t) {
+                dialog.dismiss();
                 Toast.makeText(MyOrderShopActivity.this, "查询失败3！", Toast.LENGTH_SHORT).show();
             }
         });

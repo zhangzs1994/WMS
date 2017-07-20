@@ -83,15 +83,15 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
         call.enqueue(new Callback<OrderDetailsInfo>() {
             @Override
             public void onResponse(Call<OrderDetailsInfo> call, Response<OrderDetailsInfo> response) {
+                dialog.dismiss();
                 if (response.isSuccessful()) {
                     OrderDetailsInfo info = response.body();
-                    dialog.dismiss();
                     if (("10200").equals(info.getStatus())) {
                         for (int i = 0; i < info.getData().size(); i++) {
                             Map<String, Object> map = new HashMap<String, Object>();
                             map.put("oid", info.getData().get(i).getOid() + "");//订单号
                             map.put("name", info.getData().get(i).getName() + "");//商品名称
-                            map.put("ostatus", info.getData().get(i).getOstatus() + "");//订单状态
+                            map.put("ostatus", info.getData().get(i).getOstatus());//订单状态
                             map.put("dvalue", getIntent().getStringExtra("dvalue"));//订单状态值
                             map.put("value", getIntent().getStringExtra("value"));//订单分类值
                             map.put("ouaddress", info.getData().get(i).getOuaddress() + "");//收货地址
@@ -102,7 +102,11 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
                             map.put("inventime", info.getData().get(i).getOctime() + "");//订单时间
                             map.put("contact", info.getData().get(i).getContact() + "");//联系方式
                             map.put("receiving", info.getData().get(i).getReceiving() + "");//联系人
-                            map.put("pictureUrl", info.getData().get(i).getPictureUrl() + "");//联系人
+                            map.put("pictureUrl", info.getData().get(i).getPictureUrl() + "");//图片地址
+                            map.put("uname", info.getData().get(i).getUname() + "");//创建者
+                            map.put("describee", info.getData().get(i).getDescribee() + "");//商品备注
+                            map.put("expressnumber", info.getData().get(i).getExpressnumber() + "");//快递单号
+                            map.put("criteria", info.getData().get(i).getCriteria() + "");//审核说明
                             list.add(map);
                         }
                         adapter.notifyDataSetChanged();
@@ -116,12 +120,14 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void onFailure(Call<OrderDetailsInfo> call, Throwable t) {
+                dialog.dismiss();
                 Toast.makeText(OrderDetailsActivity.this, "获取订单详情失败3！", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void updateOrder(int i) {
+        dialog.show();
         SharedPreferences pref = getSharedPreferences("login",MODE_PRIVATE);
         Map<String, String> params = new HashMap<>();
         params.put("oid", getIntent().getStringExtra("order_id"));
@@ -133,13 +139,15 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
         call.enqueue(new Callback<Common>() {
             @Override
             public void onResponse(Call<Common> call, Response<Common> response) {
+                dialog.dismiss();
                 if (response.isSuccessful()) {
                     Common info = response.body();
                     if (("10200").equals(info.getStatus())) {
                         Toast.makeText(OrderDetailsActivity.this, "审核成功", Toast.LENGTH_SHORT).show();
                         finish();
                     }else {
-                        Toast.makeText(OrderDetailsActivity.this, "审核失败1！", Toast.LENGTH_SHORT).show();
+                        Log.e("getStatus", "==="+info.getStatus());
+                        Toast.makeText(OrderDetailsActivity.this, info.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(OrderDetailsActivity.this, "审核失败2！", Toast.LENGTH_SHORT).show();
@@ -148,12 +156,14 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void onFailure(Call<Common> call, Throwable t) {
+                dialog.dismiss();
                 Toast.makeText(OrderDetailsActivity.this, "审核失败3！", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void deliverGoods() {
+        dialog.show();
         SharedPreferences pref = getSharedPreferences("login",MODE_PRIVATE);
         Map<String, String> params = new HashMap<>();
         params.put("oid", getIntent().getStringExtra("order_id"));
@@ -166,6 +176,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
         call.enqueue(new Callback<Common>() {
             @Override
             public void onResponse(Call<Common> call, Response<Common> response) {
+                dialog.dismiss();
                 if (response.isSuccessful()) {
                     Common info = response.body();
                     if (("10200").equals(info.getStatus())) {
@@ -181,6 +192,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void onFailure(Call<Common> call, Throwable t) {
+                dialog.dismiss();
                 Toast.makeText(OrderDetailsActivity.this, "发货失败3！", Toast.LENGTH_SHORT).show();
             }
         });

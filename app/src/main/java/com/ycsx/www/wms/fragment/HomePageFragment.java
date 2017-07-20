@@ -22,9 +22,6 @@ import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by ZZS_PC on 2017/6/6.
  */
@@ -49,13 +46,7 @@ public class HomePageFragment extends Fragment implements View.OnClickListener {
         //设置banner动画效果
         banner.setBannerAnimation(Transformer.DepthPage);
         //设置图片集合
-        if (API.images.size() == 0) {
-            List<Integer> image = new ArrayList<>();
-            image.add(R.drawable.detail);
-            banner.setImages(image);
-        } else {
-            banner.setImages(API.images);
-        }
+        banner.setImages(API.images);
         //banner设置方法全部调用完毕时最后调用
         banner.start();
         return view;

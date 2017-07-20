@@ -7,11 +7,13 @@ public class UserInfo {
     private String userName; //用户名
     private String userPassword; //用户密码
     private int flag; //用户等级
+    private String flagValue; //用户等级
     private String name;  //姓名
     private String age;   //年龄
     private String phone; //手机
     private String email;  //邮箱
     private String sex;   //性别
+    private String sexValue;   //性别
     private int status; //用户状态
     private String superior; //上级
     private String subordinate; //是否有下属员工，1：有；2：没有
@@ -25,14 +27,15 @@ public class UserInfo {
         this.userPassword = userPassword;
     }
 
-    public UserInfo(int id, String userPassword,String userName) {
+    public UserInfo(int id, String userPassword, String userName) {
         this.id = id;
         this.userPassword = userPassword;
         this.userName = userName;
     }
 
     public UserInfo(String userName, String userPassword, int flag, String name, String age,
-                    String phone, String email, String sex, int status, int id, String superior,String subordinate) {
+                    String phone, String email, String sex, int status, int id, String superior,
+                    String subordinate, String flagValue) {
         this.userName = userName;
         this.userPassword = userPassword;
         this.flag = flag;
@@ -45,6 +48,7 @@ public class UserInfo {
         this.superior = superior;
         this.subordinate = subordinate;
         this.id = id;
+        this.flagValue = flagValue;
     }
 
     public String getUserName() {
@@ -141,5 +145,21 @@ public class UserInfo {
 
     public void setSubordinate(String subordinate) {
         this.subordinate = subordinate;
+    }
+
+    public String getFlagValue() {
+        return flagValue;
+    }
+
+    public void setFlagValue(String flagValue) {
+        this.flagValue = flagValue;
+    }
+
+    public String getSexValue() {
+        return sexValue;
+    }
+
+    public void setSexValue(String sexValue) {
+        this.sexValue = sexValue;
     }
 }

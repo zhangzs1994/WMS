@@ -129,9 +129,9 @@ public class ShopDetailsActivity extends BaseActivity {
         call.enqueue(new Callback<ShopInfo>() {
             @Override
             public void onResponse(Call<ShopInfo> call, Response<ShopInfo> response) {
+                dialog.dismiss();
                 if (response.isSuccessful()) {
                     ShopInfo user = response.body();
-                    dialog.dismiss();
                     if (("10200").equals(user.getStatus())) {
                         for (int i = 0; i < user.getData().size(); i++) {
                             shop_name.setText(user.getData().get(i).getName() + "");//商品名称
@@ -186,6 +186,7 @@ public class ShopDetailsActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<ShopInfo> call, Throwable t) {
+                dialog.dismiss();
                 Toast.makeText(ShopDetailsActivity.this, "获取商品详情失败3！", Toast.LENGTH_SHORT).show();
             }
         });

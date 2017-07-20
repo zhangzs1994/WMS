@@ -15,9 +15,10 @@
         android:gravity="center">
 
         <ImageView
-            android:layout_width="250px"
-            android:layout_height="250px"
-            android:background="@drawable/login_img"/>
+            android:layout_width="220px"
+            android:layout_height="220px"
+            android:layout_marginBottom="20px"
+            android:background="@drawable/login"/>
 
     </LinearLayout>
 

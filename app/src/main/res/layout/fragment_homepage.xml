@@ -3,256 +3,267 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/major_bg"
     android:orientation="vertical">
-
-    <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/banner"
-        android:layout_width="match_parent"
-        android:layout_height="350px" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="1100px">
+        android:layout_height="1050px">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/major_bg"
             android:orientation="vertical">
 
-            <LinearLayout
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
                 android:layout_width="match_parent"
-                android:layout_height="400px"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0px"
-                    android:layout_height="match_parent"
-                    android:layout_margin="50px"
-                    android:layout_weight="1"
-                    android:background="@drawable/card_bg">
-
-                    <LinearLayout
-                        android:id="@+id/layout_order"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="120px"
-                            android:layout_height="120px"
-                            android:background="@drawable/major_order" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="订单管理"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="1px"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="50px"
-                    android:background="@color/colorWhite"></View>
-
-                <LinearLayout
-                    android:layout_width="0px"
-                    android:layout_height="match_parent"
-                    android:layout_margin="50px"
-                    android:layout_weight="1"
-                    android:background="@drawable/card_bg">
-
-                    <LinearLayout
-                        android:id="@+id/layout_stock"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="120px"
-                            android:layout_height="120px"
-                            android:background="@drawable/major_stock" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="库存管理"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_gravity="center"
-                android:layout_marginLeft="50px"
-                android:layout_marginRight="50px"
-                android:background="@color/colorWhite"></View>
+                android:layout_height="350px"
+                android:layout_marginTop="20px"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="400px"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="0px"
-                    android:layout_height="match_parent"
-                    android:layout_margin="50px"
-                    android:layout_weight="1"
-                    android:background="@drawable/card_bg">
+                    android:layout_width="match_parent"
+                    android:layout_height="400px"
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:id="@+id/layout_achievement"
-                        android:layout_width="match_parent"
+                        android:layout_width="0px"
                         android:layout_height="match_parent"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:layout_margin="50px"
+                        android:layout_weight="1"
+                        android:background="@drawable/card_bg">
 
-                        <ImageView
-                            android:layout_width="120px"
-                            android:layout_height="120px"
-                            android:background="@drawable/major_achievement" />
+                        <LinearLayout
+                            android:id="@+id/layout_order"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="员工操作"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="18sp" />
+                            <ImageView
+                                android:layout_width="120px"
+                                android:layout_height="120px"
+                                android:background="@drawable/major_order" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="订单管理"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="18sp" />
+                        </LinearLayout>
+
                     </LinearLayout>
 
+                    <View
+                        android:layout_width="1px"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="50px"
+                        android:background="@color/colorWhite"></View>
+
+                    <LinearLayout
+                        android:layout_width="0px"
+                        android:layout_height="match_parent"
+                        android:layout_margin="50px"
+                        android:layout_weight="1"
+                        android:background="@drawable/card_bg">
+
+                        <LinearLayout
+                            android:id="@+id/layout_stock"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="120px"
+                                android:layout_height="120px"
+                                android:background="@drawable/major_stock" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="库存管理"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="18sp" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
 
                 <View
-                    android:layout_width="1px"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="50px"
+                    android:layout_marginRight="50px"
                     android:background="@color/colorWhite"></View>
 
                 <LinearLayout
-                    android:layout_width="0px"
-                    android:layout_height="match_parent"
-                    android:layout_margin="50px"
-                    android:layout_weight="1"
-                    android:background="@drawable/card_bg">
+                    android:layout_width="match_parent"
+                    android:layout_height="400px"
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:id="@+id/layout_subTreasury"
-                        android:layout_width="match_parent"
+                        android:layout_width="0px"
                         android:layout_height="match_parent"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:layout_margin="50px"
+                        android:layout_weight="1"
+                        android:background="@drawable/card_bg">
 
-                        <ImageView
-                            android:layout_width="120px"
-                            android:layout_height="120px"
-                            android:background="@drawable/subtreasury" />
+                        <LinearLayout
+                            android:id="@+id/layout_achievement"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="分库管理"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="18sp" />
+                            <ImageView
+                                android:layout_width="120px"
+                                android:layout_height="120px"
+                                android:background="@drawable/major_achievement" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="员工操作"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="18sp" />
+                        </LinearLayout>
+
                     </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_gravity="center"
-                android:layout_marginLeft="50px"
-                android:layout_marginRight="50px"
-                android:background="@color/colorWhite"></View>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="400px"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0px"
-                    android:layout_height="match_parent"
-                    android:layout_margin="50px"
-                    android:layout_weight="1"
-                    android:background="@drawable/card_bg">
+                    <View
+                        android:layout_width="1px"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@color/colorWhite"></View>
 
                     <LinearLayout
-                        android:id="@+id/layout_classify"
-                        android:layout_width="match_parent"
+                        android:layout_width="0px"
                         android:layout_height="match_parent"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:layout_margin="50px"
+                        android:layout_weight="1"
+                        android:background="@drawable/card_bg">
 
-                        <ImageView
-                            android:layout_width="120px"
-                            android:layout_height="120px"
-                            android:background="@drawable/fenlei_mgr" />
+                        <LinearLayout
+                            android:id="@+id/layout_subTreasury"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="资料管理"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="18sp" />
+                            <ImageView
+                                android:layout_width="120px"
+                                android:layout_height="120px"
+                                android:background="@drawable/subtreasury" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="分库管理"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="18sp" />
+                        </LinearLayout>
                     </LinearLayout>
-
                 </LinearLayout>
 
                 <View
-                    android:layout_width="1px"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="50px"
+                    android:layout_marginLeft="50px"
+                    android:layout_marginRight="50px"
                     android:background="@color/colorWhite"></View>
 
                 <LinearLayout
-                    android:layout_width="0px"
-                    android:layout_height="match_parent"
-                    android:layout_margin="50px"
-                    android:layout_weight="1"
-                    android:background="@drawable/card_bg">
+                    android:layout_width="match_parent"
+                    android:layout_height="400px"
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:id="@+id/layout_opLog"
-                        android:layout_width="match_parent"
+                        android:layout_width="0px"
                         android:layout_height="match_parent"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:layout_margin="50px"
+                        android:layout_weight="1"
+                        android:background="@drawable/card_bg">
 
-                        <ImageView
-                            android:layout_width="120px"
-                            android:layout_height="120px"
-                            android:background="@drawable/log" />
+                        <LinearLayout
+                            android:id="@+id/layout_classify"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="操作日志"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="18sp" />
+                            <ImageView
+                                android:layout_width="120px"
+                                android:layout_height="120px"
+                                android:background="@drawable/fenlei_mgr" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="资料管理"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="18sp" />
+                        </LinearLayout>
+
                     </LinearLayout>
 
+                    <View
+                        android:layout_width="1px"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="50px"
+                        android:background="@color/colorWhite"></View>
+
+                    <LinearLayout
+                        android:layout_width="0px"
+                        android:layout_height="match_parent"
+                        android:layout_margin="50px"
+                        android:layout_weight="1"
+                        android:background="@drawable/card_bg">
+
+                        <LinearLayout
+                            android:id="@+id/layout_opLog"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="120px"
+                                android:layout_height="120px"
+                                android:background="@drawable/log" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="操作日志"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="18sp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
                 </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>
+
     </ScrollView>
 
 </LinearLayout>

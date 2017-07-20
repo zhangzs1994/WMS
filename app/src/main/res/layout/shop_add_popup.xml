@@ -3,212 +3,241 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_weight="1.3"
-        android:layout_height="0px"
-        android:background="#80000000">
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:background="@color/colorWhite"
+        android:layout_height="0px"
+        android:layout_weight="1.3"
+        android:background="#80000000"></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
+        android:background="@color/colorWhite"
         android:orientation="vertical">
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/fontColor"/>
+            android:background="@color/fontColor" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:textColor="@color/bottomColor"
-                android:text="商品名称"/>
+                android:text="商品名称"
+                android:textColor="@color/bottomColor" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/fontColor"/>
+            android:background="@color/fontColor" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="0px"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:text="库存数量"/>
+                android:text="库存数量" />
+
             <TextView
                 android:layout_width="0px"
-                android:layout_weight="0.5"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_weight="0.5" />
+
             <TextView
                 android:id="@+id/stock"
                 android:layout_width="0px"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="20sp"
                 android:textColor="@color/fontColor"
-                android:layout_height="match_parent" />
+                android:textSize="20sp" />
+
             <TextView
                 android:layout_width="0px"
-                android:layout_weight="0.5"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_weight="0.5" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/fontColor"/>
+            android:background="@color/fontColor" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="0px"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:text="销售数量"/>
-            <TextView
+                android:text="销售数量" />
+
+            <LinearLayout
                 android:id="@+id/lessen"
                 android:layout_width="0px"
+                android:layout_height="match_parent"
                 android:layout_weight="0.5"
-                android:text="--"
-                android:textSize="30sp"
-                android:gravity="center"
-                android:layout_height="match_parent" />
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="50px"
+                    android:layout_height="50px"
+                    android:background="@drawable/lessen_shop" />
+            </LinearLayout>
+
             <EditText
                 android:id="@+id/num"
                 android:layout_width="0px"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:textSize="20sp"
-                android:textColor="@color/fontColor"
                 android:background="@null"
                 android:focusableInTouchMode="true"
+                android:gravity="center"
                 android:inputType="number"
-                android:layout_height="match_parent" />
-            <TextView
+                android:textColor="@color/fontColor"
+                android:textSize="20sp" />
+
+            <LinearLayout
                 android:id="@+id/add"
                 android:layout_width="0px"
+                android:layout_height="match_parent"
                 android:layout_weight="0.5"
-                android:textSize="30sp"
-                android:text="+"
-                android:gravity="center"
-                android:layout_height="match_parent" />
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="50px"
+                    android:layout_height="50px"
+                    android:background="@drawable/add_shop" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/fontColor"/>
+            android:background="@color/fontColor" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="0px"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:text="单价"/>
+                android:text="单价" />
+
             <TextView
                 android:layout_width="0px"
-                android:layout_weight="0.5"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_weight="0.5" />
+
             <EditText
                 android:id="@+id/price"
                 android:layout_width="0px"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
                 android:background="@null"
-                android:textSize="20sp"
+                android:gravity="center"
                 android:inputType="numberDecimal"
                 android:textColor="@color/fontColor"
-                android:layout_height="match_parent" />
+                android:textSize="20sp" />
+
             <TextView
                 android:layout_width="0px"
-                android:layout_weight="0.5"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_weight="0.5" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/fontColor"/>
+            android:background="@color/fontColor" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="0px"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:text="总金额"/>
+                android:text="总金额" />
+
             <TextView
                 android:layout_width="0px"
-                android:layout_weight="0.5"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_weight="0.5" />
+
             <TextView
                 android:id="@+id/all_price"
                 android:layout_width="0px"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="20sp"
                 android:textColor="@color/fontColor"
-                android:layout_height="match_parent" />
+                android:textSize="20sp" />
+
             <TextView
                 android:layout_width="0px"
-                android:layout_weight="0.5"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_weight="0.5" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/fontColor"/>
+            android:background="@color/fontColor" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="0px"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:text="备注"/>
+                android:text="备注" />
+
             <EditText
                 android:id="@+id/describe"
                 android:layout_width="0px"
+                android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:gravity="center"
                 android:background="@null"
-                android:textSize="20sp"
+                android:gravity="center"
                 android:textColor="@color/fontColor"
-                android:layout_height="match_parent" />
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -216,25 +245,26 @@
             android:layout_height="0px"
             android:layout_weight="1"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/cancel"
                 android:layout_width="0px"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/colorGray"
-                android:layout_height="match_parent"
-                android:textColor="@color/colorWhite"
                 android:gravity="center"
-                android:text="取消"/>
+                android:text="取消"
+                android:textColor="@color/colorWhite" />
 
             <Button
                 android:id="@+id/confirm"
                 android:layout_width="0px"
-                android:layout_weight="1"
-                android:textColor="@color/colorWhite"
-                android:background="@color/login_btn"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/login_btn"
                 android:gravity="center"
-                android:text="确认"/>
+                android:text="确认"
+                android:textColor="@color/colorWhite" />
         </LinearLayout>
     </LinearLayout>
 

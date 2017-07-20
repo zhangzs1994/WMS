@@ -15,20 +15,20 @@ import java.io.File;
 public class GlideUtils {
 
     public static void loadImage(Context context, String url, ImageView iv) {
-        Glide.with(context).load(url).crossFade().placeholder(R.drawable.detail).error(R.drawable.detail).into(iv);
+        Glide.with(context).load(url).crossFade().placeholder(R.drawable.detail1).error(R.drawable.detail1).into(iv);
     }
 
     public static void loadGifImage(Context context, String url, ImageView iv) {
-        Glide.with(context).load(url).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).placeholder(R.drawable.detail).error(R.drawable.detail).into(iv);
+        Glide.with(context).load(url).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).placeholder(R.drawable.detail1).error(R.drawable.detail1).into(iv);
     }
 
 
     public static void loadCircleImage(Context context, String url, ImageView iv) {
-        Glide.with(context).load(url).placeholder(R.drawable.detail).error(R.drawable.detail).transform(new GlideCircleTransform(context)).into(iv);
+        Glide.with(context).load(url).placeholder(R.drawable.detail1).error(R.drawable.detail1).transform(new GlideCircleTransform(context)).into(iv);
     }
 
     public static void loadRoundCornerImage(Context context, String url, ImageView iv) {
-        Glide.with(context).load(url).placeholder(R.drawable.detail).error(R.drawable.detail).transform(new GlideRoundTransform(context,10)).into(iv);
+        Glide.with(context).load(url).placeholder(R.drawable.detail1).error(R.drawable.detail1).transform(new GlideRoundTransform(context,10)).into(iv);
     }
 
 

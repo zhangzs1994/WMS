@@ -28,7 +28,7 @@ import retrofit2.Response;
 public class LoginActivity extends BaseActivity implements IUserLoginView {
     private EditText userName, userPassword;
     private Button login, clear;
-    private CheckBox remember_pwd, automatic_login;
+    private CheckBox remember_pwd;
     private UserLoginPresenter userLoginPresenter = new UserLoginPresenter(this);
     private LoadingDialog dialog;
     private SharedPreferences pref;
@@ -56,15 +56,11 @@ public class LoginActivity extends BaseActivity implements IUserLoginView {
 
     public void initCheckBox() {
         remember_pwd.setChecked(pref.getBoolean("remember_pwd", false));
-//        automatic_login.setChecked(pref.getBoolean("automatic_login", false));
         if (remember_pwd.isChecked()) {
             userName.setText(pref.getString("username", ""));
+            userName.setSelection(userName.getText().length());
             userPassword.setText(pref.getString("userpwd", ""));
         }
-//        自动登陆
-//        if (automatic_login.isChecked()) {
-//            userLoginPresenter.login();
-//        }
     }
 
     public void initView() {
@@ -73,7 +69,6 @@ public class LoginActivity extends BaseActivity implements IUserLoginView {
         login = (Button) findViewById(R.id.login);
         clear = (Button) findViewById(R.id.clear);
         remember_pwd = (CheckBox) findViewById(R.id.remember_pwd);
-//        automatic_login = (CheckBox) findViewById(R.id.automatic_login);
         dialog = new LoadingDialog(this, R.style.CustomDialog);
         pref = getSharedPreferences("login", MODE_PRIVATE);
         editor = pref.edit();
@@ -104,24 +99,16 @@ public class LoginActivity extends BaseActivity implements IUserLoginView {
         editor.putString("superior", user.getSuperior());
         editor.putInt("status", user.getStatus());
         editor.putString("subordinate", user.getSubordinate());
+        editor.putString("flagValue", user.getFlagValue());
         if (remember_pwd.isChecked()) {
             editor.putBoolean("remember_pwd", true);
         } else {
             editor.putBoolean("remember_pwd", false);
         }
-//        if (automatic_login.isChecked()) {
-//            editor.putBoolean("automatic_login", true);
-//        } else {
-//            editor.putBoolean("automatic_login", false);
-//        }
         editor.commit();
         Toast.makeText(LoginActivity.this, user.getUserName() + "登陆成功！", Toast.LENGTH_SHORT).show();
-        initData();
-//        if(pref.getString("menuNode","").indexOf("300011")>=0){
-//            Toast.makeText(LoginActivity.this, "存在", Toast.LENGTH_SHORT).show();
-//        }else {
-//            Toast.makeText(LoginActivity.this, "不存在", Toast.LENGTH_SHORT).show();
-//        }
+        initMenuNode();
+        //initData();
         Intent intent = new Intent(this, MajorActivity.class);
         startActivity(intent);
         finish();
@@ -142,7 +129,7 @@ public class LoginActivity extends BaseActivity implements IUserLoginView {
         dialog.dismiss();
     }
 
-    private void initData() {
+    private void initMenuNode() {
         Map<String, String> params = new HashMap<>();
         params.put("authorizationCode", API.authorizationCode);
         Call<UserRoles> call = RetrofitUtil.getInstance(API.URL).getRoles(params);
@@ -154,22 +141,24 @@ public class LoginActivity extends BaseActivity implements IUserLoginView {
                     if (("10200").equals(info.getStatus())) {
                         for (int i = 0; i < info.getData().size(); i++) {
                             if (pref.getInt("flag", 0) == info.getData().get(i).getFlag()) {
-                                editor.putString("menuNode",info.getData().get(i).getMenuNode());
+                                editor.putString("menuNode", info.getData().get(i).getMenuNode());
                                 editor.commit();
                             }
                         }
                     } else {
-                        Toast.makeText(LoginActivity.this, "获取失败1！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "获取权限失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(LoginActivity.this, "获取失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "获取权限失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<UserRoles> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "获取失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "获取权限失败3！", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+
 }

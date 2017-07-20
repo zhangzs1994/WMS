@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.ycsx.www.wms.R;
 import com.ycsx.www.wms.base.BaseActivity;
-import com.ycsx.www.wms.fragment.CensusFragment;
 import com.ycsx.www.wms.fragment.HomePageFragment;
 import com.ycsx.www.wms.fragment.MineFragment;
 
@@ -88,7 +87,8 @@ public class MajorActivity extends BaseActivity implements View.OnClickListener 
                 setBackground();
                 censusImage.setBackgroundResource(R.drawable.major_census_red);
                 censusText.setTextColor(getResources().getColor(R.color.colorRed));
-                fragmentTransaction.replace(R.id.fl_container, new CensusFragment(), "").commit();
+                //fragmentTransaction.replace(R.id.fl_container, new CensusFragment(), "").commit();
+                Toast.makeText(MajorActivity.this, "该功能暂未开放，敬请期待！", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.bottomLayout3:
                 setBackground();

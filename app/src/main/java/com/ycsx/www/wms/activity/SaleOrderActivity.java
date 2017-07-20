@@ -22,6 +22,7 @@ import com.ycsx.www.wms.bean.CategoryInfo;
 import com.ycsx.www.wms.bean.Common;
 import com.ycsx.www.wms.bean.OrderShop;
 import com.ycsx.www.wms.common.API;
+import com.ycsx.www.wms.util.LoadingDialog;
 import com.ycsx.www.wms.util.RetrofitUtil;
 
 import java.text.DecimalFormat;
@@ -56,11 +57,13 @@ public class SaleOrderActivity extends BaseActivity implements View.OnClickListe
     private List<String> spinnerCode = new ArrayList<>();
     private String status = "1";//订单分类,1为销售订单;2为返厂订单;3销毁订单;内部领用
     private SharedPreferences pref;
+    private LoadingDialog dialog;
 
     @Override
     public void init() {
         super.init();
         setContentView(R.layout.activity_add_order);
+        dialog = new LoadingDialog(this, R.style.CustomDialog);
         initList();
         initView();
         builder = new GsonBuilder();
@@ -132,6 +135,7 @@ public class SaleOrderActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void initData() {
+        dialog.show();
         orderDetial = gson.toJson(order, AddOrderInfo.class);
         Log.e("orderDetial===", orderDetial);
         Map<String, String> params = new HashMap<>();
@@ -140,6 +144,7 @@ public class SaleOrderActivity extends BaseActivity implements View.OnClickListe
         call.enqueue(new Callback<Common>() {
             @Override
             public void onResponse(Call<Common> call, Response<Common> response) {
+                dialog.dismiss();
                 if (response.isSuccessful()) {
                     Common info = response.body();
                     if (("10200").equals(info.getStatus())) {
@@ -155,12 +160,14 @@ public class SaleOrderActivity extends BaseActivity implements View.OnClickListe
 
             @Override
             public void onFailure(Call<Common> call, Throwable t) {
+                dialog.dismiss();
                 Toast.makeText(SaleOrderActivity.this, "提交失败3！", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void initList() {
+        dialog.show();
         SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
         Map<String, String> params = new HashMap<>();
         params.put("uid", pref.getInt("id", 0) + "");
@@ -168,6 +175,7 @@ public class SaleOrderActivity extends BaseActivity implements View.OnClickListe
         call.enqueue(new Callback<OrderShop>() {
             @Override
             public void onResponse(Call<OrderShop> call, Response<OrderShop> response) {
+                dialog.dismiss();
                 if (response.isSuccessful()) {
                     OrderShop info = response.body();
                     if (("10200").equals(info.getStatus())) {
@@ -206,6 +214,7 @@ public class SaleOrderActivity extends BaseActivity implements View.OnClickListe
 
             @Override
             public void onFailure(Call<OrderShop> call, Throwable t) {
+                dialog.dismiss();
                 Log.e("getMessage", "===" + t.getMessage());
                 Toast.makeText(SaleOrderActivity.this, "查询失败3！", Toast.LENGTH_SHORT).show();
             }
@@ -229,7 +238,7 @@ public class SaleOrderActivity extends BaseActivity implements View.OnClickListe
             case R.id.submit:
                 SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
                 order.setId(pref.getInt("id", 0));
-                order.setName(pref.getString("name", ""));
+                order.setName(pref.getString("username", ""));
                 order.setDateTime(getTimeByMinute(0));
                 order.setOuaddress(ouaddress.getText().toString());
                 order.setReceiving(receiving.getText().toString());

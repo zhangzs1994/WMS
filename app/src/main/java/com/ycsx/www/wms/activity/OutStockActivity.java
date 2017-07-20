@@ -178,9 +178,9 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
         call.enqueue(new Callback<OutStockInfo>() {
             @Override
             public void onResponse(Call<OutStockInfo> call, Response<OutStockInfo> response) {
+                dialog.dismiss();
                 if (response.isSuccessful()) {
                     OutStockInfo info = response.body();
-                    dialog.dismiss();
                     if (("10200").equals(info.getStatus())) {
                         for (int i = 0; i < info.getData().size(); i++) {
                             Map<String, Object> map = new HashMap<String, Object>();
@@ -214,6 +214,7 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
 
             @Override
             public void onFailure(Call<OutStockInfo> call, Throwable t) {
+                dialog.dismiss();
                 Toast.makeText(OutStockActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
             }
         });

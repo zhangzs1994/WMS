@@ -250,8 +250,8 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
         all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + ""))
                 * Double.parseDouble(price.getText() + "")) + "");
         final EditText describe = (EditText) view.findViewById(R.id.describe);
-        TextView lessen = (TextView) view.findViewById(R.id.lessen);
-        TextView add = (TextView) view.findViewById(R.id.add);
+        LinearLayout lessen = (LinearLayout) view.findViewById(R.id.lessen);
+        LinearLayout add = (LinearLayout) view.findViewById(R.id.add);
         final Button cancel = (Button) view.findViewById(R.id.cancel);
         Button confirm = (Button) view.findViewById(R.id.confirm);
         popupWindow.setContentView(view);
@@ -303,15 +303,18 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
             public void onClick(View v) {
                 if (num.getText().toString().equals("")) {
                     num.setText("1");
+                    num.setSelection(num.length());
                     all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + ""))
                             * Double.parseDouble(price.getText() + "")) + "");
                 }
                 if (Integer.parseInt(num.getText() + "") > 1) {
                     num.setText((Integer.parseInt(num.getText() + "") - 1) + "");
+                    num.setSelection(num.length());
                     all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + ""))
                             * Double.parseDouble(price.getText() + "")) + "");
                 } else {
                     num.setText("1");
+                    num.setSelection(num.length());
                     all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + ""))
                             * Double.parseDouble(price.getText() + "")) + "");
                 }
@@ -322,15 +325,18 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
             public void onClick(View v) {
                 if (num.getText().toString().equals("")) {
                     num.setText("1");
+                    num.setSelection(num.length());
                     all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + ""))
                             * Double.parseDouble(price.getText() + "")) + "");
                 }
                 if (Integer.parseInt(num.getText() + "") < Integer.parseInt(stock.getText() + "")) {
                     num.setText((Integer.parseInt(num.getText() + "") + 1) + "");
+                    num.setSelection(num.length());
                     all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + ""))
                             * Double.parseDouble(price.getText() + "")) + "");
                 } else {
                     num.setText(Integer.parseInt(stock.getText() + "") + "");
+                    num.setSelection(num.length());
                     all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + ""))
                             * Double.parseDouble(price.getText() + "")) + "");
                 }
@@ -504,9 +510,9 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
         call.enqueue(new Callback<ShopInfo>() {
             @Override
             public void onResponse(Call<ShopInfo> call, Response<ShopInfo> response) {
+                dialog.dismiss();
                 if (response.isSuccessful()) {
                     ShopInfo user = response.body();
-                    dialog.dismiss();
                     if (("10200").equals(user.getStatus())) {
                         for (int i = 0; i < user.getData().size(); i++) {
                             Map<String, Object> map = new HashMap<String, Object>();
@@ -540,6 +546,7 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
 
             @Override
             public void onFailure(Call<ShopInfo> call, Throwable t) {
+                dialog.dismiss();
                 Toast.makeText(ShopAddActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
             }
         });

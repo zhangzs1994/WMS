@@ -23,7 +23,7 @@
                 android:gravity="center_vertical"
                 android:text="订单号"
                 android:textSize="20sp"
-                android:textColor="@color/colorWhite" />
+                android:textColor="@color/login_btn" />
         </LinearLayout>
 
         <LinearLayout

@@ -83,7 +83,6 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void LoginSuccess(UserInfo user) {
         userName.setText(user.getName());
-        Log.e("TAG", user.getSex() );
         userSex.setText(user.getSex());
         userAge.setText(user.getAge()+"");
         userPhone.setText(user.getPhone());

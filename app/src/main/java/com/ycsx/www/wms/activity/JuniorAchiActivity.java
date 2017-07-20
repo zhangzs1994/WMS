@@ -61,9 +61,9 @@ public class JuniorAchiActivity extends BaseActivity {
         call.enqueue(new Callback<SuperiorInfo>() {
             @Override
             public void onResponse(Call<SuperiorInfo> call, Response<SuperiorInfo> response) {
+                dialog.dismiss();
                 if (response.isSuccessful()) {
                     SuperiorInfo info = response.body();
-                    dialog.dismiss();
                     if (("10200").equals(info.getStatus())) {
                         for (int i = 0; i < info.getData().size(); i++) {
                             Map<String,String> map=new HashMap<String, String>();
@@ -86,6 +86,7 @@ public class JuniorAchiActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<SuperiorInfo> call, Throwable t) {
+                dialog.dismiss();
                 Toast.makeText(JuniorAchiActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
             }
         });
