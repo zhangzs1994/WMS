@@ -271,6 +271,7 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
                     } else {
                         Toast.makeText(ShopAddActivity.this, "输入数量大于库存数量，请重新输入！", Toast.LENGTH_SHORT).show();
                         num.setText(stock.getText() + "");
+                        num.setSelection(num.length());
                     }
                 }
             }

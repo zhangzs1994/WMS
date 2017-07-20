@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -90,8 +91,8 @@ public class MyOrderShopActivity extends BaseActivity {
                 * Double.parseDouble(price.getText() + "")) + "");
         final EditText describe = (EditText) view.findViewById(R.id.describe);
         describe.setText(list.get(position).get("describe") + "");
-        TextView lessen = (TextView) view.findViewById(R.id.lessen);
-        TextView add = (TextView) view.findViewById(R.id.add);
+        LinearLayout lessen = (LinearLayout) view.findViewById(R.id.lessen);
+        LinearLayout add = (LinearLayout) view.findViewById(R.id.add);
         final Button cancel = (Button) view.findViewById(R.id.cancel);
         Button confirm = (Button) view.findViewById(R.id.confirm);
         popupWindow.setContentView(view);
@@ -111,6 +112,7 @@ public class MyOrderShopActivity extends BaseActivity {
                     } else {
                         Toast.makeText(MyOrderShopActivity.this, "输入数量大于库存数量，请重新输入！", Toast.LENGTH_SHORT).show();
                         num.setText(stock.getText() + "");
+                        num.setSelection(num.length());
                     }
                 }
             }
@@ -143,15 +145,18 @@ public class MyOrderShopActivity extends BaseActivity {
             public void onClick(View v) {
                 if (num.getText().toString().equals("")) {
                     num.setText("1");
+                    num.setSelection(num.length());
                     all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + ""))
                             * Double.parseDouble(price.getText() + "")) + "");
                 }
                 if (Integer.parseInt(num.getText() + "") > 1) {
                     num.setText((Integer.parseInt(num.getText() + "") - 1) + "");
+                    num.setSelection(num.length());
                     all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + ""))
                             * Double.parseDouble(price.getText() + "")) + "");
                 } else {
                     num.setText("1");
+                    num.setSelection(num.length());
                     all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + ""))
                             * Double.parseDouble(price.getText() + "")) + "");
                 }
@@ -162,15 +167,18 @@ public class MyOrderShopActivity extends BaseActivity {
             public void onClick(View v) {
                 if (num.getText().toString().equals("")) {
                     num.setText("1");
+                    num.setSelection(num.length());
                     all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + ""))
                             * Double.parseDouble(price.getText() + "")) + "");
                 }
                 if (Integer.parseInt(num.getText() + "") < Integer.parseInt(stock.getText() + "")) {
                     num.setText((Integer.parseInt(num.getText() + "") + 1) + "");
+                    num.setSelection(num.length());
                     all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + ""))
                             * Double.parseDouble(price.getText() + "")) + "");
                 } else {
                     num.setText(Integer.parseInt(stock.getText() + "") + "");
+                    num.setSelection(num.length());
                     all_price.setText(new DecimalFormat("######0.00").format((Integer.parseInt(num.getText() + ""))
                             * Double.parseDouble(price.getText() + "")) + "");
                 }
