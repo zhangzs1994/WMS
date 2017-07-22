@@ -98,7 +98,7 @@ public class OpLogActivity extends BaseActivity implements PullBaseView.OnHeader
         adapter = new LogRecyclerAdapter(this, list);
         recyclerView.setAdapter(adapter);
         pref = getSharedPreferences("login", MODE_PRIVATE);
-        if(pref.getString("menuNode","").indexOf("802")>=0){
+        if(pref.getString("menuNode","").indexOf("602")>=0){
             layout_pop.setVisibility(View.VISIBLE);
         }else {
             layout_pop.setVisibility(View.GONE);

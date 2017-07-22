@@ -28,17 +28,17 @@ public class StockMangerActivity extends BaseActivity implements View.OnClickLis
         in_stock.setOnClickListener(this);
         out_stock.setOnClickListener(this);
         pref = getSharedPreferences("login", MODE_PRIVATE);
-        if(pref.getString("menuNode","").indexOf("30001")>=0){
+        if(pref.getString("menuNode","").indexOf("30304")>=0){
             shop_query.setVisibility(View.VISIBLE);
         }else {
             shop_query.setVisibility(View.GONE);
         }
-        if(pref.getString("menuNode","").indexOf("10002")>=0){
+        if(pref.getString("menuNode","").indexOf("30102")>=0){
             in_stock.setVisibility(View.VISIBLE);
         }else {
             in_stock.setVisibility(View.GONE);
         }
-        if(pref.getString("menuNode","").indexOf("20002")>=0){
+        if(pref.getString("menuNode","").indexOf("30202")>=0){
             out_stock.setVisibility(View.VISIBLE);
         }else {
             out_stock.setVisibility(View.GONE);

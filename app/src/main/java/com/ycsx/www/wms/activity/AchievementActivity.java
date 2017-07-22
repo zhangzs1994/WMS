@@ -40,12 +40,22 @@ public class AchievementActivity extends BaseActivity implements View.OnClickLis
         }else{
             junior_query.setVisibility(View.GONE);
         }
-        if (pref.getString("menuNode", "").indexOf("501") >= 0) {
+        if (pref.getString("menuNode", "").indexOf("50201") >= 0) {
+            mine_query.setVisibility(View.VISIBLE);
+        } else {
+            mine_query.setVisibility(View.GONE);
+        }
+        if (pref.getString("menuNode", "").indexOf("50202") >= 0) {
+            junior_query.setVisibility(View.VISIBLE);
+        } else {
+            junior_query.setVisibility(View.GONE);
+        }
+        if (pref.getString("menuNode", "").indexOf("50101") >= 0) {
             order_submit.setVisibility(View.VISIBLE);
         } else {
             order_submit.setVisibility(View.GONE);
         }
-        if (pref.getString("menuNode", "").indexOf("502") >= 0) {
+        if (pref.getString("menuNode", "").indexOf("50102") >= 0) {
             submit_query.setVisibility(View.VISIBLE);
         } else {
             submit_query.setVisibility(View.GONE);

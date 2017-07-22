@@ -18,6 +18,7 @@ public class UserInfo {
     private String superior; //上级
     private String subordinate; //是否有下属员工，1：有；2：没有
     private int id;  //用户表ID
+    private String menuNode;  //权限
 
     public UserInfo() {
     }
@@ -161,5 +162,13 @@ public class UserInfo {
 
     public void setSexValue(String sexValue) {
         this.sexValue = sexValue;
+    }
+
+    public String getMenuNode() {
+        return menuNode;
+    }
+
+    public void setMenuNode(String menuNode) {
+        this.menuNode = menuNode;
     }
 }

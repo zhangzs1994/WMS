@@ -87,47 +87,63 @@ public class HomePageFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        pref = getActivity().getSharedPreferences("login", getActivity().MODE_PRIVATE);
         switch (v.getId()) {
             case R.id.layout_order:
-                intent = new Intent(getActivity(), OrderMangerActivity.class);
-                startActivity(intent);
+                if (pref.getString("menuNode", "").indexOf("401") < 0 &&
+                        pref.getString("menuNode", "").indexOf("402") < 0 &&
+                        pref.getString("menuNode", "").indexOf("403") < 0) {
+                    Toast.makeText(getActivity(), "您的权限不足，如有疑问，请联系管理员！", Toast.LENGTH_SHORT).show();
+                } else {
+                    intent = new Intent(getActivity(), OrderMangerActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.layout_achievement:
-                intent = new Intent(getActivity(), AchievementActivity.class);
-                startActivity(intent);
+                if (pref.getString("menuNode", "").indexOf("501") < 0 &&
+                        pref.getString("menuNode", "").indexOf("502") < 0 &&
+                        pref.getString("menuNode", "").indexOf("503") < 0) {
+                    Toast.makeText(getActivity(), "您的权限不足，如有疑问，请联系管理员！", Toast.LENGTH_SHORT).show();
+                } else {
+                    intent = new Intent(getActivity(), AchievementActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.layout_stock:
-                pref = getActivity().getSharedPreferences("login", getActivity().MODE_PRIVATE);
-                if (pref.getString("menuNode", "").indexOf("30001") >= 0 &&
-                        pref.getString("menuNode", "").indexOf("10002") >= 0 &&
-                        pref.getString("menuNode", "").indexOf("20002") >= 0) {
+                if (pref.getString("menuNode", "").indexOf("301") < 0 &&
+                        pref.getString("menuNode", "").indexOf("302") < 0 &&
+                        pref.getString("menuNode", "").indexOf("303") < 0) {
+                    Toast.makeText(getActivity(), "您的权限不足，如有疑问，请联系管理员！", Toast.LENGTH_SHORT).show();
+                } else {
                     intent = new Intent(getActivity(), StockMangerActivity.class);
                     startActivity(intent);
-                } else {
-                    Toast.makeText(getActivity(), "您的权限不足，如有疑问，请联系管理员！", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.layout_classify:
-                pref = getActivity().getSharedPreferences("login", getActivity().MODE_PRIVATE);
-                if (pref.getString("menuNode", "").indexOf("401") >= 0) {
+                if (pref.getString("menuNode", "").indexOf("201") < 0 &&
+                        pref.getString("menuNode", "").indexOf("202") < 0) {
+                    Toast.makeText(getActivity(), "您的权限不足，如有疑问，请联系管理员！", Toast.LENGTH_SHORT).show();
+                } else {
                     intent = new Intent(getActivity(), ClassifyMangerActivity.class);
                     startActivity(intent);
-                } else {
-                    Toast.makeText(getActivity(), "您的权限不足，如有疑问，请联系管理员！", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.layout_subTreasury:
-//                intent = new Intent(getActivity(), SubTreasuryActivity.class);
-//                startActivity(intent);
-                Toast.makeText(getActivity(), "该功能暂未开放，敬请期待！", Toast.LENGTH_SHORT).show();
+                if (pref.getString("menuNode", "").indexOf("701") < 0) {
+                    Toast.makeText(getActivity(), "您的权限不足，如有疑问，请联系管理员！", Toast.LENGTH_SHORT).show();
+                } else {
+//                  intent = new Intent(getActivity(), SubTreasuryActivity.class);
+//                  startActivity(intent);
+                    Toast.makeText(getActivity(), "该功能暂未开放，敬请期待！", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.layout_opLog:
-                pref = getActivity().getSharedPreferences("login", getActivity().MODE_PRIVATE);
-                if (pref.getString("menuNode", "").indexOf("801") >= 0 && pref.getString("menuNode", "").indexOf("802") >= 0) {
+                if (pref.getString("menuNode", "").indexOf("601") < 0 &&
+                        pref.getString("menuNode", "").indexOf("602") < 0) {
+                    Toast.makeText(getActivity(), "您的权限不足，如有疑问，请联系管理员！", Toast.LENGTH_SHORT).show();
+                } else {
                     intent = new Intent(getActivity(), OpLogActivity.class);
                     startActivity(intent);
-                } else {
-                    Toast.makeText(getActivity(), "您的权限不足，如有疑问，请联系管理员！", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }

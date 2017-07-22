@@ -32,12 +32,17 @@ public class OrderMangerActivity extends BaseActivity implements View.OnClickLis
         order_audit.setOnClickListener(this);
         order_delivery.setOnClickListener(this);
         pref = getSharedPreferences("login", MODE_PRIVATE);
-        if (pref.getString("menuNode", "").indexOf("301") >= 0) {
+        if (pref.getString("menuNode", "").indexOf("40301") >= 0) {
+            order_query.setVisibility(View.VISIBLE);
+        } else {
+            order_query.setVisibility(View.GONE);
+        }
+        if (pref.getString("menuNode", "").indexOf("401") >= 0) {
             order_audit.setVisibility(View.VISIBLE);
         } else {
             order_audit.setVisibility(View.GONE);
         }
-        if (pref.getString("menuNode", "").indexOf("303") >= 0) {
+        if (pref.getString("menuNode", "").indexOf("402") >= 0) {
             order_delivery.setVisibility(View.VISIBLE);
         } else {
             order_delivery.setVisibility(View.GONE);

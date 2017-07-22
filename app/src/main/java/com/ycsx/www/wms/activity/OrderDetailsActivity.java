@@ -132,6 +132,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
         Map<String, String> params = new HashMap<>();
         params.put("oid", getIntent().getStringExtra("order_id"));
         params.put("usid",pref.getInt("id",0)+"");
+        params.put("operator",pref.getString("username",""));
         params.put("ostatus", i+"");
         params.put("datechanged", getTimeByMinute(0));
         params.put("criteria", audit_explain.getText()+"");
@@ -168,6 +169,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
         Map<String, String> params = new HashMap<>();
         params.put("oid", getIntent().getStringExtra("order_id"));
         params.put("uid", getIntent().getStringExtra("uid"));
+        params.put("operator",pref.getString("username",""));
         params.put("classify", getIntent().getStringExtra("classify"));
         params.put("shipper",pref.getInt("id",0)+"");
         params.put("inventime", getTimeByMinute(0));

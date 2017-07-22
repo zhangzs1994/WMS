@@ -1,6 +1,7 @@
 package com.ycsx.www.wms.activity;
 
 import android.Manifest;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentManager;
@@ -26,6 +27,7 @@ public class MajorActivity extends BaseActivity implements View.OnClickListener 
     private FragmentManager fragmentManager;
     private String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
     private FragmentTransaction fragmentTransaction;
+    private SharedPreferences pref;
     // 定义一个变量，来标识是否退出
     private static boolean isExit = false;
     Handler mHandler = new Handler() {
@@ -76,6 +78,7 @@ public class MajorActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         fragmentTransaction = fragmentManager.beginTransaction();
+        pref = getSharedPreferences("login", MODE_PRIVATE);
         switch (v.getId()) {
             case R.id.bottomLayout1:
                 setBackground();
@@ -87,8 +90,12 @@ public class MajorActivity extends BaseActivity implements View.OnClickListener 
                 setBackground();
                 censusImage.setBackgroundResource(R.drawable.major_census_red);
                 censusText.setTextColor(getResources().getColor(R.color.colorRed));
-                //fragmentTransaction.replace(R.id.fl_container, new CensusFragment(), "").commit();
-                Toast.makeText(MajorActivity.this, "该功能暂未开放，敬请期待！", Toast.LENGTH_SHORT).show();
+                if (pref.getString("menuNode", "").indexOf("801") < 0) {
+                    Toast.makeText(this, "您的权限不足，如有疑问，请联系管理员！", Toast.LENGTH_SHORT).show();
+                } else {
+//                  fragmentTransaction.replace(R.id.fl_container, new CensusFragment(), "").commit();
+                    Toast.makeText(MajorActivity.this, "该功能暂未开放，敬请期待！", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.bottomLayout3:
                 setBackground();

@@ -53,6 +53,7 @@ public class UserLogin implements IUserLogin{
                         user.setPhone(login.getData().get(0).getPhone());
                         user.setEmail(login.getData().get(0).getMail());
                         user.setSubordinate(login.getData().get(0).getSubordinate());
+                        user.setMenuNode(login.getData().get(0).getMenuNode());
                         loginListener.loginSuccess(user);
                     } else {
                         if (!userInfo.getUserName().equals("") && !userInfo.getUserPassword().equals("")) {

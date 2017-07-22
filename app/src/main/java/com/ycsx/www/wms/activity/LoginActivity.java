@@ -11,19 +11,9 @@ import android.widget.Toast;
 import com.ycsx.www.wms.R;
 import com.ycsx.www.wms.base.BaseActivity;
 import com.ycsx.www.wms.bean.UserInfo;
-import com.ycsx.www.wms.bean.UserRoles;
-import com.ycsx.www.wms.common.API;
 import com.ycsx.www.wms.presenter.UserLoginPresenter;
 import com.ycsx.www.wms.util.LoadingDialog;
-import com.ycsx.www.wms.util.RetrofitUtil;
 import com.ycsx.www.wms.view.IUserLoginView;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class LoginActivity extends BaseActivity implements IUserLoginView {
     private EditText userName, userPassword;
@@ -100,6 +90,7 @@ public class LoginActivity extends BaseActivity implements IUserLoginView {
         editor.putInt("status", user.getStatus());
         editor.putString("subordinate", user.getSubordinate());
         editor.putString("flagValue", user.getFlagValue());
+        editor.putString("menuNode", user.getMenuNode());
         if (remember_pwd.isChecked()) {
             editor.putBoolean("remember_pwd", true);
         } else {
@@ -107,8 +98,6 @@ public class LoginActivity extends BaseActivity implements IUserLoginView {
         }
         editor.commit();
         Toast.makeText(LoginActivity.this, user.getUserName() + "登陆成功！", Toast.LENGTH_SHORT).show();
-        initMenuNode();
-        //initData();
         Intent intent = new Intent(this, MajorActivity.class);
         startActivity(intent);
         finish();
@@ -128,37 +117,5 @@ public class LoginActivity extends BaseActivity implements IUserLoginView {
     public void dismissDialog() {
         dialog.dismiss();
     }
-
-    private void initMenuNode() {
-        Map<String, String> params = new HashMap<>();
-        params.put("authorizationCode", API.authorizationCode);
-        Call<UserRoles> call = RetrofitUtil.getInstance(API.URL).getRoles(params);
-        call.enqueue(new Callback<UserRoles>() {
-            @Override
-            public void onResponse(Call<UserRoles> call, Response<UserRoles> response) {
-                if (response.isSuccessful()) {
-                    UserRoles info = response.body();
-                    if (("10200").equals(info.getStatus())) {
-                        for (int i = 0; i < info.getData().size(); i++) {
-                            if (pref.getInt("flag", 0) == info.getData().get(i).getFlag()) {
-                                editor.putString("menuNode", info.getData().get(i).getMenuNode());
-                                editor.commit();
-                            }
-                        }
-                    } else {
-                        Toast.makeText(LoginActivity.this, "获取权限失败1！", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(LoginActivity.this, "获取权限失败2！", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<UserRoles> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "获取权限失败3！", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
 
 }

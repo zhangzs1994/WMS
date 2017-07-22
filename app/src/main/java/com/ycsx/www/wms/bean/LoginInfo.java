@@ -69,6 +69,7 @@ public class LoginInfo {
          * age :
          * username : abc
          * status : 1
+         * menuNode : 1
          */
 
         private String sexValue;
@@ -86,6 +87,7 @@ public class LoginInfo {
         private int id;
         private String age;
         private String username;
+        private String menuNode;
         private int status;
 
         public String getSexValue() {
@@ -214,6 +216,14 @@ public class LoginInfo {
 
         public void setStatus(int status) {
             this.status = status;
+        }
+
+        public String getMenuNode() {
+            return menuNode;
+        }
+
+        public void setMenuNode(String menuNode) {
+            this.menuNode = menuNode;
         }
     }
 }
