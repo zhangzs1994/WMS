@@ -115,7 +115,7 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
                         e.printStackTrace();
                     }
                 } else {
-                    dialog.getDatePicker().setMaxDate((new Date()).getTime());
+                    //dialog.getDatePicker().setMaxDate((new Date()).getTime());
                 }
                 dialog.show();
             }
@@ -135,12 +135,12 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
                     try {
                         Date date = sdf.parse(startData.getText().toString());
                         dialog.getDatePicker().setMinDate(date.getTime());
-                        dialog.getDatePicker().setMaxDate((new Date()).getTime());
+                        //dialog.getDatePicker().setMaxDate((new Date()).getTime());
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                 } else {
-                    dialog.getDatePicker().setMaxDate((new Date()).getTime());
+                    //dialog.getDatePicker().setMaxDate((new Date()).getTime());
                 }
                 dialog.show();
             }

@@ -216,7 +216,7 @@ public class OrderQueryActivity extends BaseActivity {
                         e.printStackTrace();
                     }
                 } else {
-                    dialog.getDatePicker().setMaxDate((new Date()).getTime());
+                    //dialog.getDatePicker().setMaxDate((new Date()).getTime());
                 }
                 dialog.show();
             }
@@ -236,12 +236,12 @@ public class OrderQueryActivity extends BaseActivity {
                     try {
                         Date date = sdf.parse(start_dataTime.getText().toString());
                         dialog.getDatePicker().setMinDate(date.getTime());
-                        dialog.getDatePicker().setMaxDate((new Date()).getTime());
+                        //dialog.getDatePicker().setMaxDate((new Date()).getTime());
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                 } else {
-                    dialog.getDatePicker().setMaxDate((new Date()).getTime());
+                    //dialog.getDatePicker().setMaxDate((new Date()).getTime());
                 }
                 dialog.show();
             }

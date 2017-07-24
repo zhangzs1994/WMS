@@ -12,6 +12,7 @@ public class AddOrderInfo {
     private String receiving;
     private String ouaddress;
     private String classify;
+    private String remarke;
     private String dateTime;
     private double ocost;
     private List<DataBean> data;
@@ -135,5 +136,13 @@ public class AddOrderInfo {
 
     public void setData(List<DataBean> data) {
         this.data = data;
+    }
+
+    public String getRemarke() {
+        return remarke;
+    }
+
+    public void setRemarke(String remarke) {
+        this.remarke = remarke;
     }
 }

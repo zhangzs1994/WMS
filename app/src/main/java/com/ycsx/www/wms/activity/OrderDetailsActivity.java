@@ -108,6 +108,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
                             map.put("describee", info.getData().get(i).getDescribee() + "");//商品备注
                             map.put("expressnumber", info.getData().get(i).getExpressnumber() + "");//快递单号
                             map.put("criteria", info.getData().get(i).getCriteria() + "");//审核说明
+                            map.put("remarke", info.getData().get(i).getRemarke() + "");//审核说明
                             list.add(map);
                         }
                         adapter.notifyDataSetChanged();

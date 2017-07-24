@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -50,7 +51,8 @@ public class SaleOrderActivity extends BaseActivity implements View.OnClickListe
     private ListView listView;
     private AddOrderListAdapter adapter;
     private Double price = 0.00;
-    private TextView ocost, receiving, contact, ouaddress;
+    private TextView ocost;
+    private EditText receiving, contact, ouaddress,remarke;
     private Spinner spinner;
     private ArrayAdapter<String> arrayAdapter;
     private List<String> spinnerValue = new ArrayList<>();
@@ -125,9 +127,10 @@ public class SaleOrderActivity extends BaseActivity implements View.OnClickListe
         submit = (Button) findViewById(R.id.submit);
         listView = (ListView) findViewById(R.id.listView);
         ocost = (TextView) findViewById(R.id.ocost);
-        receiving = (TextView) findViewById(R.id.receiving);
-        contact = (TextView) findViewById(R.id.contact);
-        ouaddress = (TextView) findViewById(R.id.ouaddress);
+        receiving = (EditText) findViewById(R.id.receiving);
+        contact = (EditText) findViewById(R.id.contact);
+        ouaddress = (EditText) findViewById(R.id.ouaddress);
+        remarke = (EditText) findViewById(R.id.remarke);
         submit.setOnClickListener(this);
         add_shop.setOnClickListener(this);
         adapter = new AddOrderListAdapter(list, this);
@@ -243,6 +246,8 @@ public class SaleOrderActivity extends BaseActivity implements View.OnClickListe
                 order.setOuaddress(ouaddress.getText().toString());
                 order.setReceiving(receiving.getText().toString());
                 order.setContact(contact.getText().toString());
+                order.setContact(contact.getText().toString());
+                order.setRemarke(remarke.getText()+"");
                 order.setClassify(status);
                 if (ocost.getText().toString().equals("")) {
                     order.setOcost(0.00);

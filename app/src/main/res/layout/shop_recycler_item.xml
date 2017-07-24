@@ -43,7 +43,7 @@
                 android:maxLines="2"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorGray"
                 android:text="商品描述"/>
         </LinearLayout>
 

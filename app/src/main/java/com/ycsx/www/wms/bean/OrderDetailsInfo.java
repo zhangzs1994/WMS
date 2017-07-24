@@ -72,6 +72,7 @@ public class OrderDetailsInfo {
          * dvalue : 待审核
          * describee :
          * goodsNum : 1232312
+         * remarke : 1232312
          */
 
         private int ostatus;
@@ -96,6 +97,7 @@ public class OrderDetailsInfo {
         private String uname;
         private String expressnumber;
         private String criteria;
+        private String remarke;
 
         public int getOstatus() {
             return ostatus;
@@ -271,6 +273,14 @@ public class OrderDetailsInfo {
 
         public void setCriteria(String criteria) {
             this.criteria = criteria;
+        }
+
+        public String getRemarke() {
+            return remarke;
+        }
+
+        public void setRemarke(String remarke) {
+            this.remarke = remarke;
         }
     }
 }

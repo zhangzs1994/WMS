@@ -66,6 +66,7 @@ public class OrderDetailsAdapter extends BaseAdapter {
             holder.order_creater = (TextView) viewHead.findViewById(R.id.order_creater);
             holder.audit_explain = (TextView) viewHead.findViewById(R.id.audit_explain);
             holder.order_express = (TextView) viewHead.findViewById(R.id.order_express);
+            holder.remarke = (TextView) viewHead.findViewById(R.id.remarke);
             holder.layout_audit_explain = (LinearLayout) viewHead.findViewById(R.id.layout_audit_explain);
             holder.layout_order_express = (LinearLayout) viewHead.findViewById(R.id.layout_order_express);
             view.setTag(holder);
@@ -82,6 +83,7 @@ public class OrderDetailsAdapter extends BaseAdapter {
         holder.order_creater.setText(list.get(position).get("uname")+"");
         holder.audit_explain.setText(list.get(position).get("criteria")+"");
         holder.order_express.setText(list.get(position).get("expressnumber")+"");
+        holder.remarke.setText(list.get(position).get("remarke")+"");
         holder.shop_name.setText(list.get(position).get("name").toString());
         holder.shop_price.setText("单价："+new DecimalFormat("######0.00").format(list.get(position).get("price")));
         holder.shop_num.setText("数量："+list.get(position).get("freightamount").toString());
@@ -115,7 +117,7 @@ public class OrderDetailsAdapter extends BaseAdapter {
     class MyHolder {
         TextView shop_name, shop_price, shop_num, shop_totalPrice, order_id,
                 order_price, order_status, order_time, order_address,order_receiving,
-                order_contact,order_creater,audit_explain,order_express;
+                order_contact,order_creater,audit_explain,order_express,remarke;
         ImageView shop_image;
         LinearLayout layout_audit_explain,layout_order_express;
     }
