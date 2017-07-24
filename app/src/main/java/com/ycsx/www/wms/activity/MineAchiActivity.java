@@ -80,17 +80,17 @@ public class MineAchiActivity extends BaseActivity implements View.OnClickListen
                             order_price.setText(new DecimalFormat("######0.00").format(info.getData().get(i).getSum()));
                         }
                     }else {
-                        Toast.makeText(MineAchiActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MineAchiActivity.this, "获取业绩信息失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(MineAchiActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MineAchiActivity.this, "获取业绩信息失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<AchiInfo> call, Throwable t) {
                 dialog.dismiss();
-                Toast.makeText(MineAchiActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MineAchiActivity.this, "获取业绩信息失败3！", Toast.LENGTH_SHORT).show();
             }
         });
     }

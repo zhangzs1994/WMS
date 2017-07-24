@@ -48,7 +48,7 @@ public class UpdatePwd implements IUpdatePwd {
 
                 @Override
                 public void onFailure(Call<Common> call, Throwable t) {
-                    submitListener.submitFailed("无法提交！");
+                    submitListener.submitFailed("提交失败！");
                 }
             });
         }

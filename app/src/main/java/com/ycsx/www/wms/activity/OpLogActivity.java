@@ -126,16 +126,16 @@ public class OpLogActivity extends BaseActivity implements PullBaseView.OnHeader
                     } else if (("10365").equals(user.getStatus())) {
                         Toast.makeText(OpLogActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(OpLogActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OpLogActivity.this, "获取日志信息失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(OpLogActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OpLogActivity.this, "获取日志信息失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<LoginInfo> call, Throwable t) {
-                Toast.makeText(OpLogActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OpLogActivity.this, "获取日志信息失败3！", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -171,22 +171,18 @@ public class OpLogActivity extends BaseActivity implements PullBaseView.OnHeader
                     } else if (("10365").equals(user.getStatus())) {
                         Toast.makeText(OpLogActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
                     } else {
-                        Log.e("getStatus==", user.getStatus());
-                        Log.e("getMessage==", user.getMessage());
-                        Toast.makeText(OpLogActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OpLogActivity.this, "获取日志信息失败1！", Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
-                    Log.e("code", "==" + response.code());
-                    Toast.makeText(OpLogActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OpLogActivity.this, "获取日志信息失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<LogInfo> call, Throwable t) {
                 dialog.dismiss();
-                Log.e("getMessage", "==" + t.getMessage());
-                Toast.makeText(OpLogActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OpLogActivity.this, "获取日志信息失败3！", Toast.LENGTH_SHORT).show();
             }
         });
     }

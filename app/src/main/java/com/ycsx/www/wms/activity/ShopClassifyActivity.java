@@ -45,6 +45,7 @@ public class ShopClassifyActivity extends BaseActivity {
     private TextView cnki_info;
     private EditText name;
     private Button cnki, cancel, confirm;
+    private SharedPreferences pref;
 
     @Override
     public void init() {
@@ -131,17 +132,16 @@ public class ShopClassifyActivity extends BaseActivity {
                         }
                         adapter.notifyDataSetChanged();
                     } else {
-                        Log.e("getStatus==", info.getStatus());
-                        Toast.makeText(ShopClassifyActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ShopClassifyActivity.this, "获取商品类别失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(ShopClassifyActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ShopClassifyActivity.this, "获取商品类别失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<CategoryInfo> call, Throwable t) {
-                Toast.makeText(ShopClassifyActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ShopClassifyActivity.this, "获取商品类别失败3！", Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -165,17 +165,16 @@ public class ShopClassifyActivity extends BaseActivity {
                         } else if (("10366").equals(info.getStatus())) {
                             cnki_info.setText(info.getMessage());
                         } else {
-                            Log.e("getStatus==", info.getStatus());
-                            Toast.makeText(ShopClassifyActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ShopClassifyActivity.this, "检查失败1！", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(ShopClassifyActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ShopClassifyActivity.this, "检查失败2！", Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<Common> call, Throwable t) {
-                    Toast.makeText(ShopClassifyActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ShopClassifyActivity.this, "检查失败3！", Toast.LENGTH_SHORT).show();
                 }
 
             });
@@ -223,7 +222,13 @@ public class ShopClassifyActivity extends BaseActivity {
     }
 
     private void initView() {
+        pref=getSharedPreferences("login",MODE_PRIVATE);
         listView = (ListView) findViewById(R.id.listView);
         classify_add = (LinearLayout) findViewById(R.id.classify_add);
+        if (pref.getString("menuNode", "").indexOf("20101") < 0) {
+            classify_add.setVisibility(View.INVISIBLE);
+        } else {
+            classify_add.setVisibility(View.VISIBLE);
+        }
     }
 }

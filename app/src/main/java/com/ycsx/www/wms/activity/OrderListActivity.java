@@ -2,7 +2,6 @@ package com.ycsx.www.wms.activity;
 
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -117,19 +116,17 @@ public class OrderListActivity extends BaseActivity implements PullBaseView.OnHe
                     }else if(("10365").equals(info.getStatus())){
                         Toast.makeText(OrderListActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
                     }else {
-                        Toast.makeText(OrderListActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OrderListActivity.this, "获取订单信息失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Log.e("返回码===", response.code() + "");
-                    Toast.makeText(OrderListActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderListActivity.this, "获取订单信息失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<OrderInfo> call, Throwable t) {
                 dialog.dismiss();
-                Log.e("返回===", t.getMessage() + "");
-                Toast.makeText(OrderListActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrderListActivity.this, "获取订单信息失败3！", Toast.LENGTH_SHORT).show();
             }
         });
     }

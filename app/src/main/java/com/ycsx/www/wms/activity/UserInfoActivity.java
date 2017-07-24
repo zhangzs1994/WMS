@@ -2,7 +2,6 @@ package com.ycsx.www.wms.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -92,7 +91,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void LoginFailed(String errorMsg) {
-        Toast.makeText(UserInfoActivity.this, "访问失败！", Toast.LENGTH_SHORT).show();
+        Toast.makeText(UserInfoActivity.this, "登录失败！", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -205,17 +205,17 @@ public class OutStockActivity extends BaseActivity implements PullBaseView.OnHea
                     } else if (("10365").equals(info.getStatus())) {
                         Toast.makeText(OutStockActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(OutStockActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OutStockActivity.this, "获取出库信息失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(OutStockActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OutStockActivity.this, "获取出库信息失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<OutStockInfo> call, Throwable t) {
                 dialog.dismiss();
-                Toast.makeText(OutStockActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OutStockActivity.this, "获取出库信息失败3！", Toast.LENGTH_SHORT).show();
             }
         });
     }

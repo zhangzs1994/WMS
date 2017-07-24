@@ -113,6 +113,10 @@ public interface IRetrofit {
     Call<OrderInfo> selectOrderh1(@FieldMap Map<String, String> params);//获取订单信息
 
     @FormUrlEncoded
+    @POST("wms/getUserDetial")
+    Call<OrderInfo> getUserDetial(@FieldMap Map<String, String> params);//获取用户订单信息
+
+    @FormUrlEncoded
     @POST("wms/getOrderinven")
     Call<OrderDetailsInfo> getOrderinven(@FieldMap Map<String, String> params);//获取订单详细信息
 

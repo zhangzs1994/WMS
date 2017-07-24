@@ -69,10 +69,9 @@ public class SaleInfoActivity extends BaseActivity implements PullBaseView.OnHea
         dialog.show();
         Map<String, String> params = new HashMap<>();
         params.put("uid",getIntent().getStringExtra("uid"));
-        params.put("ostatus", "1");
         params.put("startRecord", startRecord + "");
         params.put("pageRecords", pageRecords + "");
-        Call<OrderInfo> call = RetrofitUtil.getInstance(API.URL).selectOrderh1(params);
+        Call<OrderInfo> call = RetrofitUtil.getInstance(API.URL).getUserDetial(params);
         call.enqueue(new Callback<OrderInfo>() {
             @Override
             public void onResponse(Call<OrderInfo> call, Response<OrderInfo> response) {
@@ -103,17 +102,17 @@ public class SaleInfoActivity extends BaseActivity implements PullBaseView.OnHea
                     }else if(("10365").equals(info.getStatus())){
                         Toast.makeText(SaleInfoActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
                     }else {
-                        Toast.makeText(SaleInfoActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SaleInfoActivity.this, "获取订单信息失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(SaleInfoActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SaleInfoActivity.this, "获取订单信息失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<OrderInfo> call, Throwable t) {
                 dialog.dismiss();
-                Toast.makeText(SaleInfoActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SaleInfoActivity.this, "获取订单信息失败3！", Toast.LENGTH_SHORT).show();
             }
         });
     }

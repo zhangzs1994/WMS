@@ -77,17 +77,17 @@ public class JuniorAchiActivity extends BaseActivity {
                         Toast.makeText(JuniorAchiActivity.this, "无下属信息！", Toast.LENGTH_SHORT).show();
                     }else {
                         Log.e("code", "=="+info.getStatus());
-                        Toast.makeText(JuniorAchiActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(JuniorAchiActivity.this, "获取下属信息失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(JuniorAchiActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(JuniorAchiActivity.this, "获取下属信息失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<SuperiorInfo> call, Throwable t) {
                 dialog.dismiss();
-                Toast.makeText(JuniorAchiActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(JuniorAchiActivity.this, "获取下属信息失败3！", Toast.LENGTH_SHORT).show();
             }
         });
     }

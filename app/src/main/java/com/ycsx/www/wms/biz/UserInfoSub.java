@@ -5,6 +5,7 @@ import android.util.Log;
 import com.ycsx.www.wms.bean.Common;
 import com.ycsx.www.wms.common.API;
 import com.ycsx.www.wms.util.RetrofitUtil;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,7 +43,6 @@ public class UserInfoSub implements IUserInfoSub {
                 //返回成功
                 if (response.isSuccessful()) {
                     Common data = response.body();
-                    Log.e("TAG===", data.getStatus() );
                     if (("10200").equals(data.getStatus())) {
                         //个人信息设置功能实现
                         submitListener.submitSuccess("提交成功");

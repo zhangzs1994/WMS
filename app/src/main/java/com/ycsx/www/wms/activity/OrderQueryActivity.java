@@ -134,16 +134,16 @@ public class OrderQueryActivity extends BaseActivity {
                         arrayAdapter1.setDropDownViewResource(R.layout.dropdown_stytle);
                         spinner1.setAdapter(arrayAdapter1);
                     } else {
-                        Toast.makeText(OrderQueryActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OrderQueryActivity.this, "获取订单类型失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(OrderQueryActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderQueryActivity.this, "获取订单类型失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<CategoryInfo> call, Throwable t) {
-                Toast.makeText(OrderQueryActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrderQueryActivity.this, "获取订单类型失败3！", Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -168,16 +168,16 @@ public class OrderQueryActivity extends BaseActivity {
                         arrayAdapter2.setDropDownViewResource(R.layout.dropdown_stytle);
                         spinner2.setAdapter(arrayAdapter2);
                     } else {
-                        Toast.makeText(OrderQueryActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OrderQueryActivity.this, "获取订单状态失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(OrderQueryActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderQueryActivity.this, "获取订单状态失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<CategoryInfo> call, Throwable t) {
-                Toast.makeText(OrderQueryActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrderQueryActivity.this, "获取订单状态失败3！", Toast.LENGTH_SHORT).show();
             }
 
         });

@@ -36,26 +36,25 @@ public class AchievementActivity extends BaseActivity implements View.OnClickLis
         logistics_query.setOnClickListener(this);
         SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
         if(pref.getString("subordinate","0").equals("1")){
-            junior_query.setVisibility(View.VISIBLE);
+            if (pref.getString("menuNode", "").indexOf("50302") >= 0) {
+                junior_query.setVisibility(View.VISIBLE);
+            } else {
+                junior_query.setVisibility(View.GONE);
+            }
         }else{
             junior_query.setVisibility(View.GONE);
         }
-        if (pref.getString("menuNode", "").indexOf("50201") >= 0) {
+        if (pref.getString("menuNode", "").indexOf("50301") >= 0) {
             mine_query.setVisibility(View.VISIBLE);
         } else {
             mine_query.setVisibility(View.GONE);
-        }
-        if (pref.getString("menuNode", "").indexOf("50202") >= 0) {
-            junior_query.setVisibility(View.VISIBLE);
-        } else {
-            junior_query.setVisibility(View.GONE);
         }
         if (pref.getString("menuNode", "").indexOf("50101") >= 0) {
             order_submit.setVisibility(View.VISIBLE);
         } else {
             order_submit.setVisibility(View.GONE);
         }
-        if (pref.getString("menuNode", "").indexOf("50102") >= 0) {
+        if (pref.getString("menuNode", "").indexOf("50201") >= 0) {
             submit_query.setVisibility(View.VISIBLE);
         } else {
             submit_query.setVisibility(View.GONE);

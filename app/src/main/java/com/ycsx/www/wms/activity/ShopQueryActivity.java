@@ -121,17 +121,16 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
                         arrayAdapter.setDropDownViewResource(R.layout.dropdown_stytle);
                         spinner.setAdapter(arrayAdapter);
                     } else {
-                        Log.e("getStatus==", info.getStatus());
-                        Toast.makeText(ShopQueryActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ShopQueryActivity.this, "获取商品类别失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(ShopQueryActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ShopQueryActivity.this, "获取商品类别失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<CategoryInfo> call, Throwable t) {
-                Toast.makeText(ShopQueryActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ShopQueryActivity.this, "获取商品类别失败3！", Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -219,7 +218,6 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
         params.put("startRecord", startRecord + "");
         params.put("pageRecords", pageRecords + "");
         if (i == 1) {
-            Log.e("category==", category);
             params.put("category", category);
             call = RetrofitUtil.getInstance(API.URL).getGoodsByCategory(params);
         } else if (i == 2) {
@@ -260,11 +258,11 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
                     } else {
                         Log.e("getStatus==", user.getStatus());
                         Log.e("getMessage==", user.getMessage());
-                        Toast.makeText(ShopQueryActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ShopQueryActivity.this, "获取商品列表失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Log.e("code", "==" + response.code());
-                    Toast.makeText(ShopQueryActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ShopQueryActivity.this, "获取商品列表失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -272,7 +270,7 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
             public void onFailure(Call<ShopInfo> call, Throwable t) {
                 dialog.dismiss();
                 Log.e("getMessage", "==" + t.getMessage());
-                Toast.makeText(ShopQueryActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ShopQueryActivity.this, "获取商品列表失败3！", Toast.LENGTH_SHORT).show();
             }
         });
     }

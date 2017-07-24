@@ -29,10 +29,11 @@ import retrofit2.Response;
  * Created by ZZS_PC on 2017/6/22.
  */
 public class ShopClassifyAdapter extends BaseAdapter {
-    private List<Map<String,Object>> list;
+    private List<Map<String, Object>> list;
     private Context context;
+    private SharedPreferences pref;
 
-    public ShopClassifyAdapter(List<Map<String,Object>> list, Context context) {
+    public ShopClassifyAdapter(List<Map<String, Object>> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -58,27 +59,33 @@ public class ShopClassifyAdapter extends BaseAdapter {
         if (view == null) {
             holder = new MyHolder();
             view = View.inflate(context, R.layout.classify_item, null);
-            holder.classify_name= (TextView) view.findViewById(R.id.classify_name);
-            holder.classify_delete= (Button) view.findViewById(R.id.classify_delete);
+            holder.classify_name = (TextView) view.findViewById(R.id.classify_name);
+            holder.classify_delete = (Button) view.findViewById(R.id.classify_delete);
+            pref = context.getSharedPreferences("login", context.MODE_PRIVATE);
+            if (pref.getString("menuNode", "").indexOf("20102") < 0) {
+                holder.classify_delete.setVisibility(View.GONE);
+            } else {
+                holder.classify_delete.setVisibility(View.VISIBLE);
+            }
             view.setTag(holder);
-        }else {
-            holder= (MyHolder) view.getTag();
+        } else {
+            holder = (MyHolder) view.getTag();
         }
-        holder.classify_name.setText(list.get(position).get("value")+"");
+        holder.classify_name.setText(list.get(position).get("value") + "");
         holder.classify_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder .setMessage("确认删除该分类？")    //对话框显示内容
+                builder.setMessage("确认删除该分类？")    //对话框显示内容
                         //设置按钮
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(final DialogInterface dialog, int which) {
                                 Map<String, String> params = new HashMap<>();
                                 params.put("colName", "goodsCategory");
-                                params.put("code", list.get(position).get("code")+"");
-                                SharedPreferences pref=context.getSharedPreferences("login",context.MODE_PRIVATE);
-                                params.put("operator", pref.getString("username",""));
+                                params.put("code", list.get(position).get("code") + "");
+                                SharedPreferences pref = context.getSharedPreferences("login", context.MODE_PRIVATE);
+                                params.put("operator", pref.getString("username", ""));
                                 Call<Common> call = RetrofitUtil.getInstance(API.URL).deleteDropdown(params);
                                 call.enqueue(new Callback<Common>() {
                                     @Override
@@ -90,7 +97,7 @@ public class ShopClassifyAdapter extends BaseAdapter {
                                                 dialog.dismiss();
                                                 list.remove(position);
                                                 notifyDataSetChanged();
-                                            }else {
+                                            } else {
                                                 Log.e("getStatus==", info.getStatus());
                                                 Toast.makeText(context, "删除失败1！", Toast.LENGTH_SHORT).show();
                                             }
@@ -122,6 +129,6 @@ public class ShopClassifyAdapter extends BaseAdapter {
 
     class MyHolder {
         TextView classify_name;
-        Button classify_update,classify_delete;
+        Button classify_update, classify_delete;
     }
 }

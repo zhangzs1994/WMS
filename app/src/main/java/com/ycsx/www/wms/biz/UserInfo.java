@@ -1,7 +1,5 @@
 package com.ycsx.www.wms.biz;
 
-import android.util.Log;
-
 import com.ycsx.www.wms.bean.LoginInfo;
 import com.ycsx.www.wms.common.API;
 import com.ycsx.www.wms.util.RetrofitUtil;
@@ -36,11 +34,7 @@ public class UserInfo implements IUserInfo {
                         user.setUserName(userInfo.getUserName());
                         user.setUserPassword(userInfo.getUserPassword());
                         user.setName(login.getData().get(0).getName());
-                        if(login.getData().get(0).getSex().equals("1")){
-                            user.setSex("男");
-                        }else{
-                            user.setSex("女");
-                        }
+                        user.setSex(login.getData().get(0).getSexValue());
                         user.setAge(login.getData().get(0).getAge().toString());
                         user.setPhone(login.getData().get(0).getPhone());
                         user.setEmail(login.getData().get(0).getMail());
@@ -58,7 +52,6 @@ public class UserInfo implements IUserInfo {
 
             @Override
             public void onFailure(Call<LoginInfo> call, Throwable t) {
-                Log.e("访问失败信息：", t.getMessage());
                 loginListener.loginFailed("无法访问！");
             }
         });

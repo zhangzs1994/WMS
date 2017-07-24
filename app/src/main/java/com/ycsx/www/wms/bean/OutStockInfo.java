@@ -79,7 +79,7 @@ public class OutStockInfo {
         private String qualityTime;
         private String spec;
         private String transactor;
-        private String describ;
+        private String describe1;
         private String manufactureTime;
         private String price;
         private String inventime;
@@ -153,11 +153,11 @@ public class OutStockInfo {
         }
 
         public String getDescrib() {
-            return describ;
+            return describe1;
         }
 
-        public void setDescrib(String describ) {
-            this.describ = describ;
+        public void setDescrib(String describe1) {
+            this.describe1 = describe1;
         }
 
         public String getManufactureTime() {

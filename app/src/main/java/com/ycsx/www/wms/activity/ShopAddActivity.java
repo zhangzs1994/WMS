@@ -538,17 +538,17 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
                     } else if (("10365").equals(user.getStatus())) {
                         Toast.makeText(ShopAddActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(ShopAddActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ShopAddActivity.this, "获取商品信息失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(ShopAddActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ShopAddActivity.this, "获取商品信息失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ShopInfo> call, Throwable t) {
                 dialog.dismiss();
-                Toast.makeText(ShopAddActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ShopAddActivity.this, "获取商品信息失败3！", Toast.LENGTH_SHORT).show();
             }
         });
     }

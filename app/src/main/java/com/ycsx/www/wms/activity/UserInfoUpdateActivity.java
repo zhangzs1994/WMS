@@ -75,16 +75,10 @@ public class UserInfoUpdateActivity extends BaseActivity implements IPsersonInfo
     @Override
     public UserInfo getUserInfo() {
         SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
-        String status = pref.getInt("status", 0)+"";
-        if (status.equals("在职")) {
-            status = "1";
-        } else {
-            status = "2";
-        }
         return new UserInfo(pref.getString("username", ""), pref.getString("userpwd", ""),
                 pref.getInt("flag", 0), userName.getText().toString(), userAge.getText().toString(),
                 userPhone.getText().toString(), userEmail.getText().toString(), getUserSex(),
-                Integer.parseInt(status), pref.getInt("id", 0), pref.getString("superior", ""),
+                pref.getInt("status", 0), pref.getInt("id", 0), pref.getString("superior", ""),
                 pref.getString("subordinate",""),pref.getString("flagValue",""));
     }
 

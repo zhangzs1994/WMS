@@ -76,16 +76,16 @@ public class AchiInfoActivity extends BaseActivity implements View.OnClickListen
                             order_price.setText(new DecimalFormat("######0.00").format(info.getData().get(i).getSum()));
                         }
                     }else {
-                        Toast.makeText(AchiInfoActivity.this, "访问失败1！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AchiInfoActivity.this, "获取业绩信息失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(AchiInfoActivity.this, "访问失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AchiInfoActivity.this, "获取业绩信息失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<AchiInfo> call, Throwable t) {
-                Toast.makeText(AchiInfoActivity.this, "访问失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AchiInfoActivity.this, "获取业绩信息失败3！", Toast.LENGTH_SHORT).show();
             }
         });
     }

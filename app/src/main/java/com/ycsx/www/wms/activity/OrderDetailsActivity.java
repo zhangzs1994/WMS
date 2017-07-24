@@ -46,6 +46,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
     private ArrayAdapter<String> arrayAdapter;
     private EditText audit_explain,express_id;
     private LoadingDialog dialog;
+    private SharedPreferences pref;
 
     @Override
     public void init() {
@@ -147,7 +148,6 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
                         Toast.makeText(OrderDetailsActivity.this, "审核成功", Toast.LENGTH_SHORT).show();
                         finish();
                     }else {
-                        Log.e("getStatus", "==="+info.getStatus());
                         Toast.makeText(OrderDetailsActivity.this, info.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -201,6 +201,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void initView() {
+        pref = getSharedPreferences("login", MODE_PRIVATE);
         view=View.inflate(this,R.layout.order_details_header,null);
         order_shopInfo= (MyListView) findViewById(R.id.order_shopInfo);
         layout_audit= (LinearLayout) findViewById(R.id.layout_audit);
@@ -219,12 +220,20 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
         dialog = new LoadingDialog(this, R.style.CustomDialog);
         if(getIntent().getStringExtra("title").equals("审核列表")){
             title.setText("订单审核");
-            layout_audit.setVisibility(View.VISIBLE);
+            if (pref.getString("menuNode", "").indexOf("40102") >= 0) {
+                layout_audit.setVisibility(View.VISIBLE);
+            } else {
+                layout_audit.setVisibility(View.GONE);
+            }
             express.setVisibility(View.GONE);
         }else if(getIntent().getStringExtra("title").equals("发货列表")){
             title.setText("订单发货");
             layout_audit.setVisibility(View.GONE);
-            express.setVisibility(View.VISIBLE);
+            if (pref.getString("menuNode", "").indexOf("40202") >= 0) {
+                express.setVisibility(View.VISIBLE);
+            } else {
+                express.setVisibility(View.GONE);
+            }
         }else if(getIntent().getStringExtra("title").equals("出库记录")){
             title.setText("出库详情");
             layout_audit.setVisibility(View.GONE);

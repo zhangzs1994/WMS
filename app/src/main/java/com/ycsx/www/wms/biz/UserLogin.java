@@ -1,7 +1,5 @@
 package com.ycsx.www.wms.biz;
 
-import android.util.Log;
-
 import com.ycsx.www.wms.bean.LoginInfo;
 import com.ycsx.www.wms.bean.UserInfo;
 import com.ycsx.www.wms.common.API;
@@ -44,11 +42,7 @@ public class UserLogin implements IUserLogin{
                         user.setId(login.getData().get(0).getId());
                         user.setStatus(login.getData().get(0).getStatus());
                         user.setSuperior(login.getData().get(0).getSuperior());
-                        if(login.getData().get(0).getSex().equals("1")){
-                            user.setSex("男");
-                        }else{
-                            user.setSex("女");
-                        }
+                        user.setSex(login.getData().get(0).getSexValue());
                         user.setAge(login.getData().get(0).getAge());
                         user.setPhone(login.getData().get(0).getPhone());
                         user.setEmail(login.getData().get(0).getMail());
@@ -61,14 +55,12 @@ public class UserLogin implements IUserLogin{
                         }
                     }
                 } else {
-                    Log.e("访问失败信息：", response.code()+"");
                     loginListener.loginFailed("登陆失败！");
                 }
             }
 
             @Override
             public void onFailure(Call<LoginInfo> call, Throwable t) {
-                Log.e("访问失败信息：", t.getMessage()+"");
                 loginListener.loginFailed("无法访问！");
             }
         });

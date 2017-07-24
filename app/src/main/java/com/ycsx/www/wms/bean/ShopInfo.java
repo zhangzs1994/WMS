@@ -92,7 +92,7 @@ public class ShopInfo {
         private String spec;
         private String transactor;
         private String instockTime;
-        private String describ;
+        private String describe1;
         private String inventoryMaxnum;
         private String price;
         private String acceptedNum;
@@ -173,11 +173,11 @@ public class ShopInfo {
         }
 
         public String getDescrib() {
-            return describ;
+            return describe1;
         }
 
-        public void setDescrib(String describ) {
-            this.describ = describ;
+        public void setDescrib(String describe1) {
+            this.describe1 = describe1;
         }
 
         public String getInventoryMaxnum() {
