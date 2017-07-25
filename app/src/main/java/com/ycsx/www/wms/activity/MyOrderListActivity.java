@@ -51,7 +51,6 @@ public class MyOrderListActivity extends BaseActivity implements PullBaseView.On
         super.init();
         setContentView(R.layout.activity_submit_list);
         dialog = new LoadingDialog(this, R.style.CustomDialog);
-        initData(i);
         initView();
         queryDropdown();
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.readystatesoftware.viewbadger.BadgeView;
 import com.ycsx.www.wms.R;
 import com.ycsx.www.wms.activity.LoginActivity;
-import com.ycsx.www.wms.activity.RolesActivity;
 import com.ycsx.www.wms.activity.UpdatePwdActivity;
 import com.ycsx.www.wms.activity.UserInfoActivity;
 import com.ycsx.www.wms.base.BaseActivity;
@@ -28,7 +27,7 @@ import com.ycsx.www.wms.util.UpdateAppUtils;
  * Created by ZZS_PC on 2017/6/6.
  */
 public class MineFragment extends Fragment implements View.OnClickListener {
-    private LinearLayout layout_update, userInfo, updatePwd, authority, checkUpdate, quit, quit_user, quit_all;
+    private LinearLayout layout_update, userInfo, updatePwd, checkUpdate, quit, quit_user, quit_all;
     private BadgeView badgeView;
     private int Forced = 0;// 1：强制更新   0：不是
     private String url = "https://qd.myapp.com/myapp/qqteam/AndroidQQ/mobileqq_android.apk";//APK地址
@@ -63,7 +62,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         pref = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
         userInfo = (LinearLayout) view.findViewById(R.id.userInfo);
         updatePwd = (LinearLayout) view.findViewById(R.id.updatePwd);
-        authority = (LinearLayout) view.findViewById(R.id.authority);
         checkUpdate = (LinearLayout) view.findViewById(R.id.checkUpdate);
         userName = (TextView) view.findViewById(R.id.userName);
         userLevel = (TextView) view.findViewById(R.id.userLevel);
@@ -72,7 +70,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         quit = (LinearLayout) view.findViewById(R.id.quit);
         userInfo.setOnClickListener(this);
         updatePwd.setOnClickListener(this);
-        authority.setOnClickListener(this);
         checkUpdate.setOnClickListener(this);
         quit.setOnClickListener(this);
     }
@@ -98,10 +95,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.updatePwd:
                 intent = new Intent(getActivity(), UpdatePwdActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.authority:
-                intent = new Intent(getActivity(), RolesActivity.class);
                 startActivity(intent);
                 break;
             case R.id.checkUpdate:

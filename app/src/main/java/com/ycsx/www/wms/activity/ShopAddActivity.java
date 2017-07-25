@@ -84,7 +84,6 @@ public class ShopAddActivity extends BaseActivity implements PullBaseView.OnHead
         super.init();
         setContentView(R.layout.activity_shop_add);
         dialog = new LoadingDialog(this, R.style.CustomDialog);
-        initData(i);
         initView();
         queryDropdown();
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
