@@ -19,14 +19,5 @@
             android:textSize="20sp"
             android:textColor="@color/colorWhite"
             android:text="XXX的业绩"/>
-
-        <Button
-            android:id="@+id/classify_delete"
-            android:layout_width="0px"
-            android:layout_weight="0.3"
-            android:layout_height="80px"
-            android:background="@color/login_btn"
-            android:textColor="@color/colorWhite"
-            android:text="删除"/>
     </LinearLayout>
 </LinearLayout>

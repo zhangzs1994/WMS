@@ -1,8 +1,10 @@
 package com.ycsx.www.wms.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -10,6 +12,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -112,6 +115,62 @@ public class ShopClassifyActivity extends BaseActivity {
                 });
             }
         });
+        pref = getSharedPreferences("login", MODE_PRIVATE);
+        if (pref.getString("menuNode", "").indexOf("20102") >= 0) {
+            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(ShopClassifyActivity.this);
+                    builder.setMessage("确认删除该分类？")    //对话框显示内容
+                            //设置按钮
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(final DialogInterface dialog, int which) {
+                                    Map<String, String> params = new HashMap<>();
+                                    params.put("colName", "goodsCategory");
+                                    params.put("code", list.get(position).get("code") + "");
+                                    SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
+                                    params.put("operator", pref.getString("username", ""));
+                                    Call<Common> call = RetrofitUtil.getInstance(API.URL).deleteDropdown(params);
+                                    call.enqueue(new Callback<Common>() {
+                                        @Override
+                                        public void onResponse(Call<Common> call, Response<Common> response) {
+                                            if (response.isSuccessful()) {
+                                                Common info = response.body();
+                                                if (("10200").equals(info.getStatus())) {
+                                                    Toast.makeText(ShopClassifyActivity.this, "删除成功！", Toast.LENGTH_SHORT).show();
+                                                    dialog.dismiss();
+                                                    list.remove(position);
+                                                    adapter.notifyDataSetChanged();
+                                                } else {
+                                                    Log.e("getStatus==", info.getStatus());
+                                                    Toast.makeText(ShopClassifyActivity.this, "删除失败1！", Toast.LENGTH_SHORT).show();
+                                                }
+                                            } else {
+                                                Toast.makeText(ShopClassifyActivity.this, "删除失败2！", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<Common> call, Throwable t) {
+                                            Toast.makeText(ShopClassifyActivity.this, "删除失败3！", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                    });
+                                }
+                            })
+                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .create()
+                            .show();
+                    return false;
+                }
+            });
+        }
     }
 
     private void queryDropdown() {

@@ -179,4 +179,8 @@ public interface IRetrofit {
     @FormUrlEncoded
     @POST("wms/selectOneMyorde")
     Call<OrderShop> selectOneMyorde(@FieldMap Map<String, String> params);//获取我的商品信息
+
+    @FormUrlEncoded
+    @POST("wms/deleteUserOrder")
+    Call<Common> deleteUserOrder(@FieldMap Map<String, String> params);//删除订单
 }

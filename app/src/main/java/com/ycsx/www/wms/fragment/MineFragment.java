@@ -30,7 +30,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     private LinearLayout layout_update, userInfo, updatePwd, checkUpdate, quit, quit_user, quit_all;
     private BadgeView badgeView;
     private int Forced = 0;// 1：强制更新   0：不是
-    private String url = "https://qd.myapp.com/myapp/qqteam/AndroidQQ/mobileqq_android.apk";//APK地址
     private String Version_name = "仓管1.1";//版本名称
     private String info = "仓管系统版本更新！";  //更新说明
     private boolean state = false;//更新状态
@@ -104,7 +103,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     state = false;
                 }
                 UpdateAppUtils.UpdateApp(getActivity(), API.Version_no, Version_name, info,
-                        url, Forced == 1 ? true : false, true);
+                        API.downLoadUrl, Forced == 1 ? true : false, true);
                 break;
             case R.id.quit:
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

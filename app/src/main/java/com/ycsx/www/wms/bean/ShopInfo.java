@@ -83,6 +83,7 @@ public class ShopInfo {
          * category : 未分类
          * retailPrice : 2.50
          * tradePrice : 2.50
+         * brand :
          */
 
         private String totalPrice;
@@ -115,6 +116,7 @@ public class ShopInfo {
         private String category;
         private String retailPrice;
         private String tradePrice;
+        private String brand;
 
         public String getTotalPrice() {
             return totalPrice;
@@ -354,6 +356,22 @@ public class ShopInfo {
 
         public void setTradePrice(String tradePrice) {
             this.tradePrice = tradePrice;
+        }
+
+        public String getDescribe1() {
+            return describe1;
+        }
+
+        public void setDescribe1(String describe1) {
+            this.describe1 = describe1;
+        }
+
+        public String getBrand() {
+            return brand;
+        }
+
+        public void setBrand(String brand) {
+            this.brand = brand;
         }
     }
 }

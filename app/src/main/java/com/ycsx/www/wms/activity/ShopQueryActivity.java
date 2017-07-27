@@ -179,10 +179,10 @@ public class ShopQueryActivity extends BaseActivity implements PullBaseView.OnHe
                 recyclerView.setAdapter(adapter);
             }
         });
+        checkPermissions(permissions);
         zxing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkPermissions(permissions);
                 Intent intent = new Intent(ShopQueryActivity.this, CaptureActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivityForResult(intent, SCANNING_REQUEST_CODE);

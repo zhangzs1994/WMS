@@ -1,8 +1,12 @@
 package com.ycsx.www.wms.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +14,21 @@ import android.widget.Toast;
 
 import com.ycsx.www.wms.R;
 import com.ycsx.www.wms.activity.OrderDetailsActivity;
+import com.ycsx.www.wms.bean.Common;
+import com.ycsx.www.wms.common.API;
 import com.ycsx.www.wms.holder.BottomViewHolder;
 import com.ycsx.www.wms.holder.HeaderViewHolder;
 import com.ycsx.www.wms.holder.SubmitRecyclerHolder;
+import com.ycsx.www.wms.util.RetrofitUtil;
 
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by ZZS_PC on 2017/5/11.
@@ -109,6 +121,60 @@ public class MyOrderRecyclerAdapter extends RecyclerView.Adapter{
                     intent.putExtra("title",list.get(position).get("title").toString());
                     intent.putExtra("classify",list.get(position).get("classify").toString());
                     context.startActivity(intent);
+                }
+            });
+            ((SubmitRecyclerHolder)holder).itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if(list.get(position).get("dvalue").toString().equals("已失效")){
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setMessage("确认删除该订单？")    //对话框显示内容
+                                //设置按钮
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(final DialogInterface dialog, int which) {
+                                        Map<String, String> params = new HashMap<>();
+                                        params.put("oid", list.get(position).get("oid").toString());
+                                        SharedPreferences pref = context.getSharedPreferences("login", context.MODE_PRIVATE);
+                                        params.put("operator", pref.getString("username", ""));
+                                        Call<Common> call = RetrofitUtil.getInstance(API.URL).deleteUserOrder(params);
+                                        call.enqueue(new Callback<Common>() {
+                                            @Override
+                                            public void onResponse(Call<Common> call, Response<Common> response) {
+                                                if (response.isSuccessful()) {
+                                                    Common info = response.body();
+                                                    if (("10200").equals(info.getStatus())) {
+                                                        Toast.makeText(context, "删除成功！", Toast.LENGTH_SHORT).show();
+                                                        dialog.dismiss();
+                                                        list.remove(position);
+                                                        notifyDataSetChanged();
+                                                    } else {
+                                                        Log.e("getStatus==", info.getStatus());
+                                                        Toast.makeText(context, "删除失败1！", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                } else {
+                                                    Toast.makeText(context, "删除失败2！", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<Common> call, Throwable t) {
+                                                Toast.makeText(context, "删除失败3！", Toast.LENGTH_SHORT).show();
+                                            }
+
+                                        });
+                                    }
+                                })
+                                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .create()
+                                .show();
+                    }
+                    return true;
                 }
             });
         } else if (holder instanceof BottomViewHolder) {

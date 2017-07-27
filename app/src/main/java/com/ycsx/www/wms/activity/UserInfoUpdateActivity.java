@@ -49,6 +49,7 @@ public class UserInfoUpdateActivity extends BaseActivity implements IPsersonInfo
         sexBoy = (RadioButton) findViewById(R.id.sexBoy);
         sexGirl = (RadioButton) findViewById(R.id.sexGirl);
         userName.setText(getIntent().getStringExtra("userName"));
+        userName.setSelection(userName.length());
         userAge.setText(getIntent().getStringExtra("userAge"));
         userPhone.setText(getIntent().getStringExtra("userPhone"));
         userEmail.setText(getIntent().getStringExtra("userEmail"));

@@ -30,7 +30,7 @@ import retrofit2.Response;
 public class ShopDetailsActivity extends BaseActivity {
     private TextView shop_name, shop_goodsNum, shop_barCode, shop_category, shop_instockTime,
             shop_stock, shop_price, shop_tradePrice, shop_measurementUnit, shop_spec, shop_manufactureTime,
-            shop_qualityTime, shop_describ, shop_thePool;
+            shop_qualityTime, shop_describ, shop_thePool,shop_brand;
     private ViewPager mViewPager;
     private LinearLayout mLinearLayout;
     private View mView;
@@ -72,6 +72,7 @@ public class ShopDetailsActivity extends BaseActivity {
         shop_qualityTime = (TextView) findViewById(R.id.shop_qualityTime);
         shop_describ = (TextView) findViewById(R.id.shop_describ);
         shop_thePool = (TextView) findViewById(R.id.shop_thePool);
+        shop_brand = (TextView) findViewById(R.id.shop_brand);
         dialog = new LoadingDialog(this, R.style.CustomDialog);
     }
 
@@ -148,6 +149,7 @@ public class ShopDetailsActivity extends BaseActivity {
                             shop_qualityTime.setText(user.getData().get(i).getQualityTime() + "");//保质期
                             shop_describ.setText(user.getData().get(i).getDescrib() + "");//商品描述
                             shop_thePool.setText(user.getData().get(i).getThePool() + "");//所属分库
+                            shop_brand.setText(user.getData().get(i).getBrand() + "");//商品
                             shop_pictureUrl = user.getData().get(i).getPictureUrl() + "";
                         }
                         image = convertStrToArray(shop_pictureUrl);

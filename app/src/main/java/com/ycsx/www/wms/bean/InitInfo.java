@@ -64,6 +64,7 @@ public class InitInfo {
         private int id;
         private String imgUplodUrl;
         private String AppAdvert;
+        private String downLoadUrl;
         private int version;
 
         public String getServerIP() {
@@ -104,6 +105,14 @@ public class InitInfo {
 
         public void setVersion(int version) {
             this.version = version;
+        }
+
+        public String getDownLoadUrl() {
+            return downLoadUrl;
+        }
+
+        public void setDownLoadUrl(String downLoadUrl) {
+            this.downLoadUrl = downLoadUrl;
         }
     }
 }

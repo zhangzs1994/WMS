@@ -39,8 +39,8 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
     private List<Map<String,Object>> list=new ArrayList<>();
     private View view;
     private TextView title;
-    private LinearLayout layout_audit,layout_express,express;
-    private Button audit_yes,audit_no,btn_express;
+    private LinearLayout layout_audit,layout_express,express,layout_cancel;
+    private Button audit_yes,audit_no,btn_express,order_cancel;
     private Spinner spinner;
     private String[] spinnerChild = {"一般发货", "快递发货"};
     private ArrayAdapter<String> arrayAdapter;
@@ -128,7 +128,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
         });
     }
 
-    private void updateOrder(int i) {
+    private void updateOrder(int i, final String message, final String error) {
         dialog.show();
         SharedPreferences pref = getSharedPreferences("login",MODE_PRIVATE);
         Map<String, String> params = new HashMap<>();
@@ -146,20 +146,20 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
                 if (response.isSuccessful()) {
                     Common info = response.body();
                     if (("10200").equals(info.getStatus())) {
-                        Toast.makeText(OrderDetailsActivity.this, "审核成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OrderDetailsActivity.this, message, Toast.LENGTH_SHORT).show();
                         finish();
                     }else {
                         Toast.makeText(OrderDetailsActivity.this, info.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(OrderDetailsActivity.this, "审核失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderDetailsActivity.this, error, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Common> call, Throwable t) {
                 dialog.dismiss();
-                Toast.makeText(OrderDetailsActivity.this, "审核失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrderDetailsActivity.this, error, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -206,13 +206,16 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
         view=View.inflate(this,R.layout.order_details_header,null);
         order_shopInfo= (MyListView) findViewById(R.id.order_shopInfo);
         layout_audit= (LinearLayout) findViewById(R.id.layout_audit);
+        layout_cancel= (LinearLayout) findViewById(R.id.layout_cancel);
         title= (TextView) findViewById(R.id.title);
         audit_yes= (Button) findViewById(R.id.audit_yes);
         audit_no= (Button) findViewById(R.id.audit_no);
         btn_express = (Button) findViewById(R.id.btn_express);
+        order_cancel = (Button) findViewById(R.id.order_cancel);
         audit_yes.setOnClickListener(this);
         audit_no.setOnClickListener(this);
         btn_express.setOnClickListener(this);
+        order_cancel.setOnClickListener(this);
         spinner = (Spinner) findViewById(R.id.spinner);
         express_id = (EditText) findViewById(R.id.express_id);
         audit_explain = (EditText) findViewById(R.id.audit_explain);
@@ -239,6 +242,15 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
             title.setText("出库详情");
             layout_audit.setVisibility(View.GONE);
             express.setVisibility(View.GONE);
+        }else if(getIntent().getStringExtra("title").equals("我的订单")){
+            title.setText("订单详情");
+            layout_audit.setVisibility(View.GONE);
+            express.setVisibility(View.GONE);
+            if(getIntent().getStringExtra("dvalue").equals("待审核")){
+                layout_cancel.setVisibility(View.VISIBLE);
+            }else{
+                layout_cancel.setVisibility(View.GONE);
+            }
         }else{
             title.setText("订单详情");
             layout_audit.setVisibility(View.GONE);
@@ -254,13 +266,16 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.audit_yes:
-                updateOrder(1);
+                updateOrder(1,"审核成功！","审核失败！");
                 break;
             case R.id.audit_no:
-                updateOrder(2);
+                updateOrder(2,"审核成功！","审核失败！");
                 break;
             case R.id.btn_express:
                 deliverGoods();
+                break;
+            case R.id.order_cancel:
+                updateOrder(5,"取消成功！","取消失败！");
                 break;
         }
     }

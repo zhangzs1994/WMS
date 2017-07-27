@@ -1,7 +1,6 @@
 package com.ycsx.www.wms.application;
 
 import android.app.Application;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.ycsx.www.wms.bean.InitInfo;
@@ -48,8 +47,8 @@ public class App extends Application{
                                 API.images.add("暂无图片！");
                             }
                             API.Version_no = info.getData().get(i).getVersion();
+                            API.downLoadUrl = info.getData().get(i).getDownLoadUrl();
                         }
-                        Log.e("images", "==="+API.images.size());
                     } else {
                         Toast.makeText(App.this, "获取初始化信息失败1！", Toast.LENGTH_SHORT).show();
                     }
