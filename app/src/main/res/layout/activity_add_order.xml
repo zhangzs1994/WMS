@@ -170,7 +170,7 @@
 
             <LinearLayout
                 android:layout_width="600px"
-                android:layout_height="80px"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="30px"
                 android:background="@drawable/update_frame"
                 android:gravity="center_vertical"
@@ -180,6 +180,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20px"
+                    android:layout_marginTop="15px"
+                    android:layout_marginBottom="15px"
                     android:gravity="center"
                     android:text="收货地址："
                     android:textColor="@color/colorWhite"
@@ -189,11 +191,12 @@
                     android:id="@+id/ouaddress"
                     android:layout_width="match_parent"
                     android:gravity="center_vertical"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15px"
+                    android:layout_marginBottom="15px"
                     android:background="@null"
                     android:textSize="20sp"
                     android:maxLength="128"
-                    android:singleLine="true"
                     android:textColor="@color/colorWhite" />
             </LinearLayout>
 

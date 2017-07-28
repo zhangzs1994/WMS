@@ -91,7 +91,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void LoginFailed(String errorMsg) {
-        Toast.makeText(UserInfoActivity.this, "登录失败！", Toast.LENGTH_SHORT).show();
+        Toast.makeText(UserInfoActivity.this, "获取个人信息失败！", Toast.LENGTH_SHORT).show();
     }
 
     @Override

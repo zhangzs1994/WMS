@@ -1,6 +1,8 @@
 package com.ycsx.www.wms.activity;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,18 +35,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderDetailsActivity extends BaseActivity implements View.OnClickListener{
+public class OrderDetailsActivity extends BaseActivity implements View.OnClickListener {
     private MyListView order_shopInfo;
     private OrderDetailsAdapter adapter;
-    private List<Map<String,Object>> list=new ArrayList<>();
+    private List<Map<String, Object>> list = new ArrayList<>();
     private View view;
     private TextView title;
-    private LinearLayout layout_audit,layout_express,express,layout_cancel;
-    private Button audit_yes,audit_no,btn_express,order_cancel;
+    private LinearLayout layout_audit, layout_express, express, layout_cancel;
+    private Button audit_yes, audit_no, btn_express, order_cancel;
     private Spinner spinner;
     private String[] spinnerChild = {"一般发货", "快递发货"};
     private ArrayAdapter<String> arrayAdapter;
-    private EditText audit_explain,express_id;
+    private EditText audit_explain, express_id;
     private LoadingDialog dialog;
     private SharedPreferences pref;
 
@@ -54,7 +56,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.activity_order_details);
         initView();
         initData();
-        adapter=new OrderDetailsAdapter(view,list,this);
+        adapter = new OrderDetailsAdapter(view, list, this);
         order_shopInfo.addHeaderView(view);
         order_shopInfo.setAdapter(adapter);
         arrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, spinnerChild);
@@ -63,12 +65,13 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position==0) {
+                if (position == 0) {
                     layout_express.setVisibility(View.GONE);
                 } else {
                     layout_express.setVisibility(View.VISIBLE);
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -112,7 +115,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
                             list.add(map);
                         }
                         adapter.notifyDataSetChanged();
-                    }else {
+                    } else {
                         Toast.makeText(OrderDetailsActivity.this, "获取订单详情失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -130,14 +133,14 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
 
     private void updateOrder(int i, final String message, final String error) {
         dialog.show();
-        SharedPreferences pref = getSharedPreferences("login",MODE_PRIVATE);
+        SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
         Map<String, String> params = new HashMap<>();
         params.put("oid", getIntent().getStringExtra("order_id"));
-        params.put("usid",pref.getInt("id",0)+"");
-        params.put("operator",pref.getString("username",""));
-        params.put("ostatus", i+"");
+        params.put("usid", pref.getInt("id", 0) + "");
+        params.put("operator", pref.getString("username", ""));
+        params.put("ostatus", i + "");
         params.put("datechanged", getTimeByMinute(0));
-        params.put("criteria", audit_explain.getText()+"");
+        params.put("criteria", audit_explain.getText() + "");
         Call<Common> call = RetrofitUtil.getInstance(API.URL).updateOrder(params);
         call.enqueue(new Callback<Common>() {
             @Override
@@ -148,7 +151,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
                     if (("10200").equals(info.getStatus())) {
                         Toast.makeText(OrderDetailsActivity.this, message, Toast.LENGTH_SHORT).show();
                         finish();
-                    }else {
+                    } else {
                         Toast.makeText(OrderDetailsActivity.this, info.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -166,15 +169,15 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
 
     private void deliverGoods() {
         dialog.show();
-        SharedPreferences pref = getSharedPreferences("login",MODE_PRIVATE);
+        SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
         Map<String, String> params = new HashMap<>();
         params.put("oid", getIntent().getStringExtra("order_id"));
         params.put("uid", getIntent().getStringExtra("uid"));
-        params.put("operator",pref.getString("username",""));
+        params.put("operator", pref.getString("username", ""));
         params.put("classify", getIntent().getStringExtra("classify"));
-        params.put("shipper",pref.getInt("id",0)+"");
+        params.put("shipper", pref.getInt("id", 0) + "");
         params.put("inventime", getTimeByMinute(0));
-        params.put("expressnumber", express_id.getText()+"");
+        params.put("expressnumber", express_id.getText() + "");
         Call<Common> call = RetrofitUtil.getInstance(API.URL).deliverGoods(params);
         call.enqueue(new Callback<Common>() {
             @Override
@@ -185,7 +188,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
                     if (("10200").equals(info.getStatus())) {
                         Toast.makeText(OrderDetailsActivity.this, "发货成功", Toast.LENGTH_SHORT).show();
                         finish();
-                    }else {
+                    } else {
                         Toast.makeText(OrderDetailsActivity.this, "发货失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -203,13 +206,13 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
 
     private void initView() {
         pref = getSharedPreferences("login", MODE_PRIVATE);
-        view=View.inflate(this,R.layout.order_details_header,null);
-        order_shopInfo= (MyListView) findViewById(R.id.order_shopInfo);
-        layout_audit= (LinearLayout) findViewById(R.id.layout_audit);
-        layout_cancel= (LinearLayout) findViewById(R.id.layout_cancel);
-        title= (TextView) findViewById(R.id.title);
-        audit_yes= (Button) findViewById(R.id.audit_yes);
-        audit_no= (Button) findViewById(R.id.audit_no);
+        view = View.inflate(this, R.layout.order_details_header, null);
+        order_shopInfo = (MyListView) findViewById(R.id.order_shopInfo);
+        layout_audit = (LinearLayout) findViewById(R.id.layout_audit);
+        layout_cancel = (LinearLayout) findViewById(R.id.layout_cancel);
+        title = (TextView) findViewById(R.id.title);
+        audit_yes = (Button) findViewById(R.id.audit_yes);
+        audit_no = (Button) findViewById(R.id.audit_no);
         btn_express = (Button) findViewById(R.id.btn_express);
         order_cancel = (Button) findViewById(R.id.order_cancel);
         audit_yes.setOnClickListener(this);
@@ -222,7 +225,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
         layout_express = (LinearLayout) findViewById(R.id.layout_express);
         express = (LinearLayout) findViewById(R.id.express);
         dialog = new LoadingDialog(this, R.style.CustomDialog);
-        if(getIntent().getStringExtra("title").equals("审核列表")){
+        if (getIntent().getStringExtra("title").equals("审核列表")) {
             title.setText("订单审核");
             if (pref.getString("menuNode", "").indexOf("40102") >= 0) {
                 layout_audit.setVisibility(View.VISIBLE);
@@ -230,7 +233,7 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
                 layout_audit.setVisibility(View.GONE);
             }
             express.setVisibility(View.GONE);
-        }else if(getIntent().getStringExtra("title").equals("发货列表")){
+        } else if (getIntent().getStringExtra("title").equals("发货列表")) {
             title.setText("订单发货");
             layout_audit.setVisibility(View.GONE);
             if (pref.getString("menuNode", "").indexOf("40202") >= 0) {
@@ -238,44 +241,64 @@ public class OrderDetailsActivity extends BaseActivity implements View.OnClickLi
             } else {
                 express.setVisibility(View.GONE);
             }
-        }else if(getIntent().getStringExtra("title").equals("出库记录")){
+        } else if (getIntent().getStringExtra("title").equals("出库记录")) {
             title.setText("出库详情");
             layout_audit.setVisibility(View.GONE);
             express.setVisibility(View.GONE);
-        }else if(getIntent().getStringExtra("title").equals("我的订单")){
+        } else if (getIntent().getStringExtra("title").equals("我的订单")) {
             title.setText("订单详情");
             layout_audit.setVisibility(View.GONE);
             express.setVisibility(View.GONE);
-            if(getIntent().getStringExtra("dvalue").equals("待审核")){
+            if (getIntent().getStringExtra("dvalue").equals("待审核")) {
                 layout_cancel.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 layout_cancel.setVisibility(View.GONE);
             }
-        }else{
+        } else {
             title.setText("订单详情");
             layout_audit.setVisibility(View.GONE);
             express.setVisibility(View.GONE);
         }
     }
 
-    public void back(View view){
+    public void back(View view) {
         finish();
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.audit_yes:
-                updateOrder(1,"审核成功！","审核失败！");
+                updateOrder(1, "审核成功！", "审核失败！");
                 break;
             case R.id.audit_no:
-                updateOrder(2,"审核成功！","审核失败！");
+                updateOrder(2, "审核成功！", "审核失败！");
                 break;
             case R.id.btn_express:
-                deliverGoods();
+                if ((express_id.getText() + "").equals("") && layout_express.getVisibility() == View.VISIBLE) {
+                    Toast.makeText(OrderDetailsActivity.this, "快递单号不能为空！", Toast.LENGTH_SHORT).show();
+                } else {
+                    deliverGoods();
+                }
                 break;
             case R.id.order_cancel:
-                updateOrder(5,"取消成功！","取消失败！");
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("确认取消该订单？")    //对话框显示内容
+                        //设置按钮
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(final DialogInterface dialog, int which) {
+                                updateOrder(5, "取消成功！", "取消失败！");
+                            }
+                        })
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .create()
+                        .show();
                 break;
         }
     }
