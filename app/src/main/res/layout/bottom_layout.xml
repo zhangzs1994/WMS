@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="120px"
-    android:background="@color/bottomColor"
     android:orientation="horizontal" >
 	<LinearLayout  
 	    android:id="@+id/bottomLayout1"
@@ -22,7 +21,6 @@
             android:layout_width="wrap_content"  
             android:layout_height="wrap_content"
             android:text="首页"
-            android:textColor="@color/colorWhite"
             android:textSize="10sp" />
      </LinearLayout>
     <LinearLayout
@@ -43,7 +41,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="统计"
-            android:textColor="@color/colorWhite"
             android:textSize="10sp" />
     </LinearLayout>
 
@@ -65,7 +62,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我的"
-            android:textColor="@color/colorWhite"
             android:textSize="10sp" />
     </LinearLayout>
 </LinearLayout>

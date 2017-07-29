@@ -47,8 +47,8 @@ public class MajorActivity extends BaseActivity implements View.OnClickListener 
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fl_container, new HomePageFragment(), "").commit();
         setBackground();
-        homeImage.setBackgroundResource(R.drawable.major_home_red);
-        homeText.setTextColor(getResources().getColor(R.color.colorRed));
+        homeImage.setBackgroundResource(R.drawable.major_home_blue);
+        homeText.setTextColor(getResources().getColor(R.color.colorBlue));
     }
 
     private void initView() {
@@ -70,9 +70,9 @@ public class MajorActivity extends BaseActivity implements View.OnClickListener 
         homeImage.setBackgroundResource(R.drawable.major_home);
         censusImage.setBackgroundResource(R.drawable.major_census);
         mineImage.setBackgroundResource(R.drawable.major_mine);
-        homeText.setTextColor(getResources().getColor(R.color.colorWhite));
-        censusText.setTextColor(getResources().getColor(R.color.colorWhite));
-        mineText.setTextColor(getResources().getColor(R.color.colorWhite));
+        homeText.setTextColor(getResources().getColor(R.color.fontColor));
+        censusText.setTextColor(getResources().getColor(R.color.fontColor));
+        mineText.setTextColor(getResources().getColor(R.color.fontColor));
     }
 
     @Override
@@ -82,14 +82,14 @@ public class MajorActivity extends BaseActivity implements View.OnClickListener 
         switch (v.getId()) {
             case R.id.bottomLayout1:
                 setBackground();
-                homeImage.setBackgroundResource(R.drawable.major_home_red);
-                homeText.setTextColor(getResources().getColor(R.color.colorRed));
+                homeImage.setBackgroundResource(R.drawable.major_home_blue);
+                homeText.setTextColor(getResources().getColor(R.color.colorBlue));
                 fragmentTransaction.replace(R.id.fl_container, new HomePageFragment(), "").commit();
                 break;
             case R.id.bottomLayout2:
                 setBackground();
-                censusImage.setBackgroundResource(R.drawable.major_census_red);
-                censusText.setTextColor(getResources().getColor(R.color.colorRed));
+                censusImage.setBackgroundResource(R.drawable.major_census_blue);
+                censusText.setTextColor(getResources().getColor(R.color.colorBlue));
                 if (pref.getString("menuNode", "").indexOf("801") < 0) {
                     Toast.makeText(this, "您的权限不足，如有疑问，请联系管理员！", Toast.LENGTH_SHORT).show();
                 } else {
@@ -101,8 +101,8 @@ public class MajorActivity extends BaseActivity implements View.OnClickListener 
                 setBackground();
                 //检查权限
                 checkPermissions(permissions);
-                mineImage.setBackgroundResource(R.drawable.major_mine_red);
-                mineText.setTextColor(getResources().getColor(R.color.colorRed));
+                mineImage.setBackgroundResource(R.drawable.major_mine_blue);
+                mineText.setTextColor(getResources().getColor(R.color.colorBlue));
                 fragmentTransaction.replace(R.id.fl_container, new MineFragment(), "").commit();
                 break;
         }

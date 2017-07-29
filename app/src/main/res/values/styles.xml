@@ -14,6 +14,7 @@
         <!--设置进度颜色 <item name="colorAccent">#ffE91E63</item>-->
     </style>
 
+    <!-- CustomCheckBox theme -->
     <style name="CustomCheckBoxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/checkbox_style</item>
     </style>

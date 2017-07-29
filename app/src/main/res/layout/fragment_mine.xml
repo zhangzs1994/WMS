@@ -9,190 +9,195 @@
         android:id="@+id/update_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="30px"
-        android:background="@drawable/bg_frame"
+        android:background="@color/lineGray"
         android:gravity="center_horizontal"
         android:orientation="vertical">
-        
+
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="150px"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="80px"
-            android:layout_height="80px"
-            android:layout_marginLeft="50px"
-            android:background="@drawable/mine_user"/>
+            android:layout_width="match_parent"
+            android:layout_height="150px"
+            android:layout_marginTop="20px"
+            android:layout_marginBottom="20px"
+            android:background="@color/colorWhite"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:layout_marginLeft="50px"
+                android:background="@drawable/user_portrait" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="30px"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/userName"
                     android:layout_width="wrap_content"
                     android:layout_height="0px"
                     android:layout_weight="1"
-                    android:text="账号"
-                    android:textSize="18sp"
                     android:gravity="bottom"
-                    android:textColor="@color/colorWhite"/>
+                    android:text="账号:"
+                    android:textSize="18sp" />
+
                 <TextView
                     android:id="@+id/userLevel"
                     android:layout_width="wrap_content"
                     android:layout_height="0px"
                     android:layout_weight="1"
-                    android:text="级别"
-                    android:textSize="15sp"
                     android:gravity="center_vertical"
-                    android:textColor="@color/colorWhite"/>
+                    android:text="级别:"
+                    android:textSize="18sp" />
             </LinearLayout>
 
-    </LinearLayout>
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/colorWhite"/>
+            android:background="@color/colorWhite" />
 
         <LinearLayout
             android:id="@+id/userInfo"
             android:layout_width="match_parent"
             android:layout_height="120px"
+            android:background="@color/colorWhite"
             android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="60px"
                 android:layout_height="60px"
                 android:layout_marginLeft="50px"
-                android:background="@drawable/mine_info"/>
+                android:background="@drawable/my_info" />
 
             <TextView
-                android:layout_width="200px"
+                android:layout_width="580px"
                 android:layout_height="match_parent"
-                android:text="个人信息"
-                android:textSize="18sp"
-                android:gravity="center_vertical"
                 android:layout_marginLeft="30px"
-                android:textColor="@color/colorWhite"/>
+                android:gravity="center_vertical"
+                android:text="个人信息"
+                android:textSize="18sp" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="200px"
-                android:background="@drawable/mine_arrow"/>
+                android:layout_width="15px"
+                android:layout_height="30px"
+                android:background="@drawable/arrow" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/colorWhite"/>
+            android:layout_height="20px"
+            android:background="@color/lineGray" />
 
         <LinearLayout
             android:id="@+id/updatePwd"
             android:layout_width="match_parent"
             android:layout_height="120px"
+            android:background="@color/colorWhite"
             android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="60px"
                 android:layout_height="60px"
                 android:layout_marginLeft="50px"
-                android:background="@drawable/mine_updatepwd"/>
+                android:background="@drawable/update_pwd" />
 
             <TextView
-                android:layout_width="200px"
+                android:layout_width="580px"
                 android:layout_height="match_parent"
-                android:text="修改密码"
-                android:textSize="18sp"
-                android:gravity="center_vertical"
                 android:layout_marginLeft="30px"
-                android:textColor="@color/colorWhite"/>
+                android:gravity="center_vertical"
+                android:text="修改密码"
+                android:textSize="18sp" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="200px"
-                android:background="@drawable/mine_arrow"/>
+                android:layout_width="15px"
+                android:layout_height="30px"
+                android:background="@drawable/arrow" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/colorWhite"/>
+            android:layout_height="20px"
+            android:background="@color/lineGray" />
 
         <LinearLayout
             android:id="@+id/checkUpdate"
             android:layout_width="match_parent"
             android:layout_height="120px"
+            android:background="@color/colorWhite"
             android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="60px"
                 android:layout_height="60px"
                 android:layout_marginLeft="50px"
-                android:background="@drawable/mine_update"/>
+                android:background="@drawable/check_update" />
 
             <LinearLayout
                 android:id="@+id/layout_update"
                 android:layout_width="180px"
+                android:layout_height="80px"
                 android:layout_marginLeft="30px"
-                android:gravity="center_vertical"
-                android:layout_height="80px">
+                android:gravity="center_vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="检查更新"
-                    android:textSize="18sp"
                     android:gravity="center_vertical"
-                    android:textColor="@color/colorWhite"/>
+                    android:text="检查更新"
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="220px"
-                android:background="@drawable/mine_arrow"/>
+                android:layout_width="15px"
+                android:layout_height="30px"
+                android:layout_marginLeft="400px"
+                android:background="@drawable/arrow" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/colorWhite"/>
+            android:layout_height="20px"
+            android:background="@color/lineGray" />
 
         <LinearLayout
             android:id="@+id/quit"
             android:layout_width="match_parent"
             android:layout_height="120px"
+            android:background="@color/colorWhite"
             android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="60px"
                 android:layout_height="60px"
                 android:layout_marginLeft="50px"
-                android:background="@drawable/mine_quit"/>
+                android:background="@drawable/quit" />
 
             <TextView
-                android:layout_width="100px"
+                android:layout_width="580px"
                 android:layout_height="match_parent"
-                android:text="退出"
-                android:textSize="18sp"
-                android:gravity="center_vertical"
                 android:layout_marginLeft="30px"
-                android:textColor="@color/colorWhite"/>
+                android:gravity="center_vertical"
+                android:text="退出"
+                android:textSize="18sp" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="300px"
-                android:background="@drawable/mine_arrow"/>
+                android:layout_width="15px"
+                android:layout_height="30px"
+                android:background="@drawable/arrow" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/colorWhite"/>
+            android:layout_height="20px"
+            android:background="@color/lineGray" />
     </LinearLayout>
 </LinearLayout>

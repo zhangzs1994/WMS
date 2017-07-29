@@ -3,13 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_bg"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="120px"
-        android:background="@drawable/top_bg"
+        android:background="@color/colorBlue"
         android:gravity="center">
 
         <ImageView
@@ -25,7 +24,6 @@
             android:layout_weight="4"
             android:gravity="center"
             android:text="库存管理"
-            android:textColor="@color/colorWhite"
             android:textSize="25sp" />
 
         <LinearLayout
@@ -37,24 +35,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="30px"
-        android:background="#35000000"
         android:gravity="center_horizontal"
+        android:background="@color/lineGray"
         android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/shop_query"
-            android:layout_width="650px"
+            android:layout_width="match_parent"
             android:layout_height="100px"
-            android:layout_marginTop="60px"
-            android:background="@drawable/card_bg"
+            android:layout_marginTop="20px"
+            android:background="@color/colorWhite"
             android:gravity="center_vertical"
             android:orientation="horizontal">
             <ImageView
                 android:layout_width="0px"
-                android:layout_weight="0.6"
-                android:layout_height="wrap_content"
+                android:layout_height="70px"
                 android:layout_margin="15px"
+                android:layout_weight="0.5"
                 android:background="@drawable/shop_query"/>
 
             <TextView
@@ -64,30 +61,33 @@
                 android:gravity="center_vertical"
                 android:text="商品查询"
                 android:textSize="20sp"
-                android:layout_marginLeft="20px"
-                android:textColor="@color/colorWhite"/>
+                android:layout_marginLeft="20px" />
 
             <ImageView
                 android:layout_width="0px"
-                android:layout_weight="0.3"
-                android:layout_height="50px"
-                android:layout_margin="20px"
-                android:background="@drawable/mine_arrow"/>
+                android:layout_height="30px"
+                android:layout_margin="30px"
+                android:layout_weight="0.1"
+                android:background="@drawable/arrow" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="@color/lineGray"/>
 
         <LinearLayout
             android:id="@+id/in_stock"
-            android:layout_width="650px"
+            android:layout_width="match_parent"
             android:layout_height="100px"
-            android:layout_marginTop="30px"
-            android:background="@drawable/card_bg"
+            android:background="@color/colorWhite"
             android:gravity="center_vertical"
             android:orientation="horizontal">
             <ImageView
                 android:layout_width="0px"
-                android:layout_weight="0.6"
-                android:layout_height="wrap_content"
+                android:layout_height="70px"
                 android:layout_margin="15px"
+                android:layout_weight="0.5"
                 android:background="@drawable/in_stock"/>
 
             <TextView
@@ -97,30 +97,33 @@
                 android:gravity="center_vertical"
                 android:text="入库记录查询"
                 android:textSize="20sp"
-                android:layout_marginLeft="20px"
-                android:textColor="@color/colorWhite"/>
+                android:layout_marginLeft="20px" />
 
             <ImageView
                 android:layout_width="0px"
-                android:layout_weight="0.3"
-                android:layout_height="50px"
-                android:layout_margin="20px"
-                android:background="@drawable/mine_arrow"/>
+                android:layout_height="30px"
+                android:layout_margin="30px"
+                android:layout_weight="0.1"
+                android:background="@drawable/arrow" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="@color/lineGray"/>
 
         <LinearLayout
             android:id="@+id/out_stock"
-            android:layout_width="650px"
+            android:layout_width="match_parent"
             android:layout_height="100px"
-            android:layout_marginTop="30px"
-            android:background="@drawable/card_bg"
+            android:background="@color/colorWhite"
             android:gravity="center_vertical"
             android:orientation="horizontal">
             <ImageView
                 android:layout_width="0px"
-                android:layout_weight="0.6"
-                android:layout_height="wrap_content"
+                android:layout_height="70px"
                 android:layout_margin="15px"
+                android:layout_weight="0.5"
                 android:background="@drawable/out_stock"/>
 
             <TextView
@@ -130,16 +133,20 @@
                 android:gravity="center_vertical"
                 android:text="出库记录查询"
                 android:textSize="20sp"
-                android:layout_marginLeft="20px"
-                android:textColor="@color/colorWhite"/>
+                android:layout_marginLeft="20px" />
 
             <ImageView
                 android:layout_width="0px"
-                android:layout_weight="0.3"
-                android:layout_height="50px"
-                android:layout_margin="20px"
-                android:background="@drawable/mine_arrow"/>
+                android:layout_height="30px"
+                android:layout_margin="30px"
+                android:layout_weight="0.1"
+                android:background="@drawable/arrow" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="@color/lineGray"/>
 
     </LinearLayout>
 </LinearLayout>

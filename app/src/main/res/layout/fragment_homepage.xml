@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/major_bg"
+    android:background="@color/lineGray"
+    android:layout_marginBottom="20px"
     android:orientation="vertical">
 
     <ScrollView
@@ -19,13 +20,13 @@
                 android:id="@+id/banner"
                 android:layout_width="match_parent"
                 android:layout_height="350px"
-                android:layout_marginTop="20px"
-                android:layout_marginLeft="20px"
-                android:layout_marginRight="20px"/>
+                android:layout_marginTop="10px"
+                android:layout_marginBottom="20px"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/colorWhite"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -56,19 +57,18 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="15px"
                                 android:text="订单管理"
-                                android:textColor="@color/colorWhite"
                                 android:textSize="18sp" />
                         </LinearLayout>
 
                     </LinearLayout>
 
                     <View
-                        android:layout_width="1px"
+                        android:layout_width="2px"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_marginTop="50px"
-                        android:background="@color/colorWhite"></View>
+                        android:background="@color/lineGray"></View>
 
                     <LinearLayout
                         android:layout_width="0px"
@@ -93,8 +93,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="15px"
                                 android:text="库存管理"
-                                android:textColor="@color/colorWhite"
                                 android:textSize="18sp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -102,11 +102,9 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1px"
+                    android:layout_height="2px"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="50px"
-                    android:layout_marginRight="50px"
-                    android:background="@color/colorWhite"></View>
+                    android:background="@color/lineGray"></View>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -137,17 +135,17 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="员工操作"
-                                android:textColor="@color/colorWhite"
+                                android:layout_marginTop="15px"
                                 android:textSize="18sp" />
                         </LinearLayout>
 
                     </LinearLayout>
 
                     <View
-                        android:layout_width="1px"
+                        android:layout_width="2px"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:background="@color/colorWhite"></View>
+                        android:background="@color/lineGray"></View>
 
                     <LinearLayout
                         android:layout_width="0px"
@@ -167,13 +165,13 @@
                             <ImageView
                                 android:layout_width="120px"
                                 android:layout_height="120px"
-                                android:background="@drawable/subtreasury" />
+                                android:background="@drawable/major_subtreasury" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="分库管理"
-                                android:textColor="@color/colorWhite"
+                                android:layout_marginTop="15px"
                                 android:textSize="18sp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -181,11 +179,9 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1px"
+                    android:layout_height="2px"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="50px"
-                    android:layout_marginRight="50px"
-                    android:background="@color/colorWhite"></View>
+                    android:background="@color/lineGray"></View>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -210,24 +206,23 @@
                             <ImageView
                                 android:layout_width="120px"
                                 android:layout_height="120px"
-                                android:background="@drawable/fenlei_mgr" />
+                                android:background="@drawable/major_means" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="资料管理"
-                                android:textColor="@color/colorWhite"
+                                android:layout_marginTop="15px"
                                 android:textSize="18sp" />
                         </LinearLayout>
 
                     </LinearLayout>
 
                     <View
-                        android:layout_width="1px"
+                        android:layout_width="2px"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="50px"
-                        android:background="@color/colorWhite"></View>
+                        android:background="@color/lineGray"></View>
 
                     <LinearLayout
                         android:layout_width="0px"
@@ -247,13 +242,13 @@
                             <ImageView
                                 android:layout_width="120px"
                                 android:layout_height="120px"
-                                android:background="@drawable/log" />
+                                android:background="@drawable/major_log" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="操作日志"
-                                android:textColor="@color/colorWhite"
+                                android:layout_marginTop="15px"
                                 android:textSize="18sp" />
                         </LinearLayout>
 
