@@ -64,6 +64,7 @@
                 android:textColorHint="@color/colorGray"/>
 
             <ImageView
+                android:id="@+id/query"
                 android:layout_width="40px"
                 android:layout_height="50px"
                 android:layout_gravity="center"

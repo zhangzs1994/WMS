@@ -52,12 +52,15 @@ public class SaleOrderActivity extends BaseActivity implements View.OnClickListe
     private AddOrderListAdapter adapter;
     private Double price = 0.00;
     private TextView ocost;
-    private EditText receiving, contact, ouaddress,remarke;
-    private Spinner spinner;
+    private EditText receiving, contact, ouaddress,remarke,actualcost;
+    private Spinner spinner,paymentway;
     private ArrayAdapter<String> arrayAdapter;
     private List<String> spinnerValue = new ArrayList<>();
     private List<String> spinnerCode = new ArrayList<>();
+    private List<String> spinnerValue1 = new ArrayList<>();
+    private List<Integer> spinnerCode1 = new ArrayList<>();
     private String status = "1";//订单分类,1为销售订单;2为返厂订单;3销毁订单;内部领用
+    private int status1 = 0;//付款方式,0为已付款;1为货到付款
     private SharedPreferences pref;
     private LoadingDialog dialog;
 
@@ -84,6 +87,22 @@ public class SaleOrderActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 status = "1";
+            }
+        });
+        queryDropdown1();
+        paymentway.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                for (int i = 0; i < spinnerValue1.size(); i++) {
+                    if (spinnerValue1.get(i).toString().equals(spinnerValue1.get(position).toString())) {
+                        status1 = spinnerCode1.get(i);
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                status1 = 0;
             }
         });
     }
@@ -121,8 +140,42 @@ public class SaleOrderActivity extends BaseActivity implements View.OnClickListe
         });
     }
 
+    private void queryDropdown1() {
+        Map<String, String> params = new HashMap<>();
+        params.put("colName", "order3");
+        Call<CategoryInfo> call = RetrofitUtil.getInstance(API.URL).queryDropdown(params);
+        call.enqueue(new Callback<CategoryInfo>() {
+            @Override
+            public void onResponse(Call<CategoryInfo> call, Response<CategoryInfo> response) {
+                if (response.isSuccessful()) {
+                    CategoryInfo info = response.body();
+                    if (("10200").equals(info.getStatus())) {
+                        for (int i = 0; i < info.getData().size(); i++) {
+                            spinnerValue1.add(info.getData().get(i).getValue() + "");
+                            spinnerCode1.add(info.getData().get(i).getCode());
+                        }
+                        arrayAdapter = new ArrayAdapter<String>(SaleOrderActivity.this, R.layout.spinner_item, spinnerValue1);
+                        arrayAdapter.setDropDownViewResource(R.layout.dropdown_stytle);
+                        paymentway.setAdapter(arrayAdapter);
+                    } else {
+                        Toast.makeText(SaleOrderActivity.this, "获取类别失败1！", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(SaleOrderActivity.this, "获取类别失败2！", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CategoryInfo> call, Throwable t) {
+                Toast.makeText(SaleOrderActivity.this, "获取类别失败3！", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+    }
+
     private void initView() {
         spinner = (Spinner) findViewById(R.id.spinner);
+        paymentway = (Spinner) findViewById(R.id.paymentway);
         add_shop = (Button) findViewById(R.id.add_shop);
         submit = (Button) findViewById(R.id.submit);
         listView = (ListView) findViewById(R.id.listView);
@@ -131,6 +184,7 @@ public class SaleOrderActivity extends BaseActivity implements View.OnClickListe
         contact = (EditText) findViewById(R.id.contact);
         ouaddress = (EditText) findViewById(R.id.ouaddress);
         remarke = (EditText) findViewById(R.id.remarke);
+        actualcost = (EditText) findViewById(R.id.actualcost);
         submit.setOnClickListener(this);
         add_shop.setOnClickListener(this);
         adapter = new AddOrderListAdapter(list, this);
@@ -203,6 +257,8 @@ public class SaleOrderActivity extends BaseActivity implements View.OnClickListe
                             price = price + Double.parseDouble(info.getData().get(i).getPrice() + "") * Double.parseDouble(info.getData().get(i).getNum() + "");
                         }
                         ocost.setText(new DecimalFormat("######0.00").format(price));
+                        actualcost.setText(new DecimalFormat("######0.00").format(price));
+                        actualcost.setSelection(actualcost.length());
                         adapter.notifyDataSetChanged();
                     } else if (("10365").equals(info.getStatus())) {
                         AddOrderInfo.DataBean data = new AddOrderInfo.DataBean();
@@ -248,7 +304,9 @@ public class SaleOrderActivity extends BaseActivity implements View.OnClickListe
                 order.setContact(contact.getText().toString());
                 order.setContact(contact.getText().toString());
                 order.setRemarke(remarke.getText()+"");
+                order.setActualcost(actualcost.getText()+"");
                 order.setClassify(status);
+                order.setPaymentway(status1);
                 if (ocost.getText().toString().equals("")) {
                     order.setOcost(0.00);
                 } else {

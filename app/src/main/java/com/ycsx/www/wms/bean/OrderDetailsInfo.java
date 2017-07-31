@@ -73,6 +73,9 @@ public class OrderDetailsInfo {
          * describee :
          * goodsNum : 1232312
          * remarke : 1232312
+         * logistics : 1232312
+         * actualcost : 1232312
+         * paymentway : 1232312
          */
 
         private int ostatus;
@@ -98,6 +101,9 @@ public class OrderDetailsInfo {
         private String expressnumber;
         private String criteria;
         private String remarke;
+        private String logistics;
+        private int actualcost;
+        private String paymentway;
 
         public int getOstatus() {
             return ostatus;
@@ -281,6 +287,30 @@ public class OrderDetailsInfo {
 
         public void setRemarke(String remarke) {
             this.remarke = remarke;
+        }
+
+        public String getLogistics() {
+            return logistics;
+        }
+
+        public void setLogistics(String logistics) {
+            this.logistics = logistics;
+        }
+
+        public int getActualcost() {
+            return actualcost;
+        }
+
+        public void setActualcost(int actualcost) {
+            this.actualcost = actualcost;
+        }
+
+        public String getPaymentway() {
+            return paymentway;
+        }
+
+        public void setPaymentway(String paymentway) {
+            this.paymentway = paymentway;
         }
     }
 }

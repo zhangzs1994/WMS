@@ -15,4 +15,7 @@ public class API {
     public static String[] image = null;   //首页广告地址
     public static List images = null;   //首页广告地址
     public static int Version_no;//新版本号
+    public static String versionName = null;//版本名称
+    public static String versionInfo = null;//版本信息
+    public static int forced;//是否强制更新，0：不强制；1：强制
 }

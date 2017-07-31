@@ -8,16 +8,16 @@
     android:gravity="center">
 
     <LinearLayout
-        android:layout_width="300px"
-        android:layout_height="300px"
-        android:layout_marginBottom="40px"
+        android:layout_width="240px"
+        android:layout_height="240px"
+        android:layout_marginBottom="100px"
+        android:background="@drawable/login_image"
         android:gravity="center">
 
         <ImageView
             android:layout_width="220px"
             android:layout_height="220px"
-            android:layout_marginBottom="20px"
-            android:background="@drawable/login_image"/>
+            android:background="@drawable/user_portrait"/>
 
     </LinearLayout>
 

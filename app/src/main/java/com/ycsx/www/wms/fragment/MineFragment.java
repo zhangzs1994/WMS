@@ -29,9 +29,6 @@ import com.ycsx.www.wms.util.UpdateAppUtils;
 public class MineFragment extends Fragment implements View.OnClickListener {
     private LinearLayout layout_update, userInfo, updatePwd, checkUpdate, quit, quit_user, quit_all;
     private BadgeView badgeView;
-    private int Forced = 0;// 1：强制更新   0：不是
-    private String Version_name = "仓管1.1";//版本名称
-    private String info = "仓管系统版本更新！";  //更新说明
     private boolean state = false;//更新状态
     private View view;
     private Intent intent;
@@ -102,8 +99,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     badgeView.hide();
                     state = false;
                 }
-                UpdateAppUtils.UpdateApp(getActivity(), API.Version_no, Version_name, info,
-                        API.downLoadUrl, Forced == 1 ? true : false, true);
+                UpdateAppUtils.UpdateApp(getActivity(), API.Version_no, API.versionName, API.versionInfo,
+                        API.downLoadUrl, API.forced == 1 ? true : false, true);
                 break;
             case R.id.quit:
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -128,7 +125,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     public void onClick(View v) {
                         alertDialog.dismiss();
                         new BaseActivity().removeAllActivity();
-                        android.os.Process.killProcess(android.os.Process.myPid());
+                        //android.os.Process.killProcess(android.os.Process.myPid());
                     }
                 });
                 break;

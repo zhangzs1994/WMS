@@ -125,8 +125,8 @@ public class MajorActivity extends BaseActivity implements View.OnClickListener 
             mHandler.sendEmptyMessageDelayed(0, 2000);
         } else {
             finish();
-            android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(0);
+//            android.os.Process.killProcess(android.os.Process.myPid());
+//            System.exit(0);
         }
     }
 }

@@ -66,9 +66,13 @@ public class OrderDetailsAdapter extends BaseAdapter {
             holder.order_creater = (TextView) viewHead.findViewById(R.id.order_creater);
             holder.audit_explain = (TextView) viewHead.findViewById(R.id.audit_explain);
             holder.order_express = (TextView) viewHead.findViewById(R.id.order_express);
+            holder.order_logistics = (TextView) viewHead.findViewById(R.id.order_logistics);
+            holder.actualcost = (TextView) viewHead.findViewById(R.id.actualcost);
+            holder.paymentway = (TextView) viewHead.findViewById(R.id.paymentway);
             holder.remarke = (TextView) viewHead.findViewById(R.id.remarke);
             holder.layout_audit_explain = (LinearLayout) viewHead.findViewById(R.id.layout_audit_explain);
             holder.layout_order_express = (LinearLayout) viewHead.findViewById(R.id.layout_order_express);
+            holder.layout_order_logistics = (LinearLayout) viewHead.findViewById(R.id.layout_order_logistics);
             view.setTag(holder);
         } else {
             holder = (MyHolder) view.getTag();
@@ -82,7 +86,9 @@ public class OrderDetailsAdapter extends BaseAdapter {
         holder.order_receiving.setText(list.get(position).get("receiving")+"");
         holder.order_creater.setText(list.get(position).get("uname")+"");
         holder.audit_explain.setText(list.get(position).get("criteria")+"");
-        holder.order_express.setText(list.get(position).get("expressnumber")+"");
+        holder.order_logistics.setText(list.get(position).get("logistics")+"");
+        holder.actualcost.setText(new DecimalFormat("######0.00").format(list.get(position).get("actualcost")));
+        holder.paymentway.setText(list.get(position).get("paymentway")+"");
         holder.remarke.setText(list.get(position).get("remarke")+"");
         holder.shop_name.setText(list.get(position).get("name").toString());
         holder.shop_price.setText("单价："+new DecimalFormat("######0.00").format(list.get(position).get("price")));
@@ -93,12 +99,15 @@ public class OrderDetailsAdapter extends BaseAdapter {
         if(Integer.parseInt(list.get(position).get("ostatus")+"")==0){
             holder.layout_audit_explain.setVisibility(View.GONE);
             holder.layout_order_express.setVisibility(View.GONE);
+            holder.layout_order_logistics.setVisibility(View.GONE);
         }else if(Integer.parseInt(list.get(position).get("ostatus")+"")==3){
             holder.layout_audit_explain.setVisibility(View.VISIBLE);
             holder.layout_order_express.setVisibility(View.VISIBLE);
+            holder.layout_order_logistics.setVisibility(View.VISIBLE);
         }else{
             holder.layout_audit_explain.setVisibility(View.VISIBLE);
             holder.layout_order_express.setVisibility(View.GONE);
+            holder.layout_order_logistics.setVisibility(View.GONE);
         }
         return view;
     }
@@ -117,8 +126,9 @@ public class OrderDetailsAdapter extends BaseAdapter {
     class MyHolder {
         TextView shop_name, shop_price, shop_num, shop_totalPrice, order_id,
                 order_price, order_status, order_time, order_address,order_receiving,
-                order_contact,order_creater,audit_explain,order_express,remarke;
+                order_contact,order_creater,audit_explain,order_express,order_logistics,
+                remarke,actualcost,paymentway;
         ImageView shop_image;
-        LinearLayout layout_audit_explain,layout_order_express;
+        LinearLayout layout_audit_explain,layout_order_express,layout_order_logistics;
     }
 }

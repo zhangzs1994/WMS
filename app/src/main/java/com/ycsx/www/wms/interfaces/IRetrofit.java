@@ -126,7 +126,7 @@ public interface IRetrofit {
 
     @FormUrlEncoded
     @POST("wms/deliverGoods")
-    Call<Common> deliverGoods(@FieldMap Map<String, String> params);//订单发货
+    Call<Common> deliverGoods(@FieldMap Map<String, Object> params);//订单发货
 
     @FormUrlEncoded
     @POST("wms/getDetial")

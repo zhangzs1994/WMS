@@ -3,10 +3,10 @@ package com.ycsx.www.wms.activity;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +48,7 @@ public class OpLogActivity extends BaseActivity implements PullBaseView.OnHeader
     private String username;
     private SharedPreferences pref;
     private LoadingDialog dialog;
+    private ImageView query;
 
     @Override
     public void init() {
@@ -85,6 +86,7 @@ public class OpLogActivity extends BaseActivity implements PullBaseView.OnHeader
         layout_query = (LinearLayout) findViewById(R.id.layout_query);
         layout_pop = (LinearLayout) findViewById(R.id.layout_pop);
         user_name = (AutoCompleteTextView) findViewById(R.id.user_name);
+        query = (ImageView) findViewById(R.id.query);
         recyclerView = (PullRecyclerView) findViewById(R.id.pullRecyclerView);
         //设置水平布局
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -126,16 +128,16 @@ public class OpLogActivity extends BaseActivity implements PullBaseView.OnHeader
                     } else if (("10365").equals(user.getStatus())) {
                         Toast.makeText(OpLogActivity.this, "已经没有更多了！", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(OpLogActivity.this, "获取日志信息失败1！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OpLogActivity.this, "用户模糊查询失败1！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(OpLogActivity.this, "获取日志信息失败2！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OpLogActivity.this, "用户模糊查询失败2！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<LoginInfo> call, Throwable t) {
-                Toast.makeText(OpLogActivity.this, "获取日志信息失败3！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OpLogActivity.this, "用户模糊查询失败3！", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -145,11 +147,8 @@ public class OpLogActivity extends BaseActivity implements PullBaseView.OnHeader
         Map<String, Object> params = new HashMap<>();
         params.put("authorizationCode", API.authorizationCode);
         params.put("username", username);
-        Log.e("username", "=== " + username);
         params.put("currentPage", Integer.parseInt(startRecord + ""));
-        Log.e("startRecord", "=== " + startRecord);
         params.put("pageRecords", Integer.parseInt(pageRecords + ""));
-        Log.e("pageRecords", "=== " + pageRecords);
         Call<LogInfo> call = RetrofitUtil.getInstance(API.URL).queryLogByName(params);
         call.enqueue(new Callback<LogInfo>() {
             @Override

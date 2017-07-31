@@ -7,6 +7,7 @@ import java.util.List;
  */
 public class AddOrderInfo {
     private int id;
+    private int paymentway;
     private String name;
     private String contact;
     private String receiving;
@@ -14,6 +15,7 @@ public class AddOrderInfo {
     private String classify;
     private String remarke;
     private String dateTime;
+    private String actualcost;
     private double ocost;
     private List<DataBean> data;
 
@@ -144,5 +146,21 @@ public class AddOrderInfo {
 
     public void setRemarke(String remarke) {
         this.remarke = remarke;
+    }
+
+    public int getPaymentway() {
+        return paymentway;
+    }
+
+    public void setPaymentway(int paymentway) {
+        this.paymentway = paymentway;
+    }
+
+    public String getActualcost() {
+        return actualcost;
+    }
+
+    public void setActualcost(String actualcost) {
+        this.actualcost = actualcost;
     }
 }

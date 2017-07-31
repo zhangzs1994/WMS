@@ -111,6 +111,35 @@
                     android:textColor="@color/colorWhite" />
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="600px"
+                android:layout_height="80px"
+                android:layout_marginTop="30px"
+                android:background="@drawable/update_frame"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20px"
+                    android:gravity="center"
+                    android:text="实收金额："
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/actualcost"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorWhite" />
+
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="600px"
                 android:layout_height="80px"
@@ -251,6 +280,30 @@
 
                 <Spinner
                     android:id="@+id/spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/colorWhite"></Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="600px"
+                android:layout_height="80px"
+                android:layout_marginTop="30px"
+                android:background="@drawable/update_frame"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20px"
+                    android:gravity="center"
+                    android:text="付款方式："
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:id="@+id/paymentway"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:backgroundTint="@color/colorWhite"></Spinner>
